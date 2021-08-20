@@ -1,277 +1,273 @@
-\chapter{The evolution  \statusgreen}\label{chap:vision}
+\chapter{进化\statusgreen}\label{chap:vision}
 
 
 
-This chapter gives background information about the motivation for and evolution of Swarm and its vision today. \ref{sec:historical_context} lays out a historical analysis of the World Wide Web, focusing on how it became the place it is today.
-\ref{sec:fair-data} introduces the concept, and explains the importance of data sovereignty, collective information and a \gloss{fair data economy}. It discusses the infrastructure a self-sovereign society will need in order to be capable of collectively hosting, moving and processing data.
-Finally, \ref{sec:vision} recaps the values behind the vision, spells out the requirements of the technology and lays down the design principles that guide us in manifesting Swarm.
+本章给出了关于Swarm的动机和进化的背景信息以及它的愿景。\ref{sec:historical_context}对万维网进行了历史分析，重点分析了万维网是如何成为今天这个样子的。
+\ref{sec:fair-data}介绍了这一概念，并解释了数据主权、集合信息和\gloss{fair data economy}的重要性。它讨论了一个自治社会需要的基础设施，以便能够集体托管、移动和处理数据。
+最后，\ref{sec:vision}概述了愿景背后的价值，阐述了技术的要求，并制定了指导我们展现Swarm的设计原则。
 
-\section{Historical context  \statusgreen}\label{sec:historical_context}
+\section{历史背景\statusgreen}\label{sec:historical_context}
 \green{}
-While the Internet in general – and the \gloss{World Wide Web} (\gloss{WWW}) in particular – dramatically reduced the costs of disseminating information, putting a publisher's power at every user's fingertips, these costs are still not zero and their allocation heavily influences who gets to publish what content and who will consume it.
+虽然总体而言，互联网——尤其是联邦电子商务局(\gloss{WWW})——极大地降低了信息传播的成本，将出版商的权力放在每个用户的指尖，但这些成本仍然不是零，它们的分配严重影响着谁可以发布什么内容，谁将消费它。
 
-In order to appreciate the problems we are trying to solve, a little journey into the history of the evolution of the \gloss{World Wide Web} is useful.
+为了理解我们试图解决的问题，回顾一下联邦储备银行的发展历史是有用的。
 
 \subsection{Web 1.0 \statusgreen}\label{sec:web_1}
 
-In the times of \gloss{Web 1.0}, in order to have your content accessible to the whole world, you would typically fire up a web server or use some free or cheap web hosting space to upload your content that could then be navigated through a set of HTML pages. If your content was unpopular, you still had to either maintain the server or pay the hosting to keep it accessible, but true disaster struck when, for one reason or another, it became popular (e.g. you got "slashdotted"). At this point, your traffic bill skyrocketed just before either your server crashed under the load or your hosting provider throttled your bandwidth to the point of making your content essentially unavailable for the majority of your audience. If you wanted to stay popular you had to invest in high availability clusters connected with fat pipes; your costs grew together with your popularity, without any obvious way to cover them. There were very few practical ways to allow (let alone require) your audience to share the ensuing financial burden directly.
+在caced时代，为了让全世界都能访问你的内容，你通常会启动一个网络服务器，或者使用一些免费或便宜的网络主机空间来上传你的内容，然后通过一组HTML页面导航。如果你的内容不受欢迎，你仍然需要维护服务器或支付主机费用来保持它的可访问性，但真正的灾难发生时，由于这样或那样的原因，它变得流行(例如，你被“斜线”)。此时，您的流量账单在您的服务器在负载下崩溃之前暴涨，或者您的主机提供商将您的带宽限制到使您的内容对您的大多数听众基本上不可用的地步。如果你想要保持流行，你必须投资于高可用性集群与胖管道连接;你的成本随着你的受欢迎程度一起增长，却没有任何明显的方法来弥补它们。几乎没有什么可行的方法能够让你的观众直接分担随之而来的经济负担。
 
-The common wisdom at the time was that it would be the \gloss{ISP} that would come to the rescue since in the early days of the Web revolution, bargaining about peering arrangements between the ISP's involved arguments about where providers and consumers were located, and which ISP was making money from which other's network. Indeed, when there was a sharp imbalance between originators of TCP connection requests (aka SYN packets), it was customary for the originator ISP to pay the recipient ISP, which made the latter somewhat incentivised to help support those hosting popular content. In practice, however, this incentive structure usually resulted in putting a free \emph{pr0n} or \emph{warez} server in the server room to tilt back the scales of SYN packet counters. Blogs catering to a niche audience had no way of competing and were generally left out in the cold. Note, however, that back then, creator-publishers still typically owned their content.
+当时有一个共识:这将是拯救的\gloss{ISP}在早期的网络革命以来,讨价还价的凝视安排之间的ISP的提供者和使用者位置参与争论,而ISP从其他的网络赚钱。事实上，当TCP连接请求的发起者(也就是SYN包)之间出现严重的不平衡时，发起者ISP通常会向接收者ISP支付费用，这在一定程度上促使后者帮助支持那些托管流行内容的ISP。然而，在实践中，这种激励结构通常导致在服务器室内放置一个免费的\emph{pr0n}或\emph{盗版软件}服务器，以降低SYN包计数器的规模。迎合小众受众的博客没有竞争的余地，通常被冷落。然而，请注意，在那个时候，创作者-出版商通常仍然拥有他们的内容。
 
 \subsection{Web 2.0 \statusgreen}\label{sec:web_2}
 
-The transition to \gloss{Web 2.0} changed much of that. The migration from a personal home page running on one's own server using Tim Berners Lee's elegantly simplistic and accessible hypertext markup language toward server-side scripting using cgi-gateways, perl and the inexorable php had caused a divergence from the beautiful idea that anyone could write and run their own website using simple tools. This set the web on a path towards a prohibitively difficult and increasingly complex stack of scripting languages and databases. Suddenly the world wide web wasn't a beginner friendly place any more, and at the same time new technologies began to make it possible to create web applications which could provide simple user interfaces to enable unskilled publishers to simply POST their data to the server and divorce themselves of the responsibilities of actually delivering the bits to their end users. In this way, the Web 2.0 was born.
+向\gloss{Web 2.0}的转变很大程度上改变了这一点。迁移从个人主页运行在自己的服务器上使用提姆·伯纳斯李的优雅简单和容易向服务器端脚本使用cgi-gateways超文本标记语言,perl和php的必然导致不同的美丽的想法,任何人都可以使用简单的工具编写和运行他们自己的网站上。这使web走上了一条通往极其困难和日益复杂的脚本语言和数据库堆栈的道路。突然间，万维网不再是一个对初学者友好的地方，同时新技术开始可以创建web应用程序,可以提供简单的用户界面,使非技术出版商仅仅发布数据的服务器和自己离婚的责任交付最终用户的比特。就这样，Web 2.0诞生了。
 
-Capturing the initial maker spirit of the web, sites like MySpace and Geocities now ruled the waves. These sites offered users a piece of the internet to call their own complete with as many scrolling text marquees, flashing pink glitter Comic Sans banners and all the ingenious XSS attacks a script kiddie could dream of. It was a web within the web, an accessible and open environment for users to start publishing their own content increasingly without need to learn HTML, and without rules. Platforms abounded and suddenly there was a place for everyone, a phpBB forum for any niche interest imaginable. The web became full of life and the dotcom boom showered Silicon Valley in riches.
+像MySpace和Geocities这样的网站抓住了网络最初的创造者精神，现在占据了主导地位。这些网站为用户提供了互联网的一部分，他们称之为自己的完整，有许多滚动的文本框，闪烁的粉色闪光的Comic Sans横幅，以及所有脚本儿童都能想到的巧妙的跨站攻击。这是一个网中之网，一个可访问的开放环境，用户可以开始越来越多地发布他们自己的内容，而不需要学习HTML，也不需要规则。平台遍地都是，突然间就有了一个适合所有人的地方，一个phpBB论坛，可以满足所有人的兴趣。网络变得生机勃勃，互联网的繁荣使硅谷财富如雨。
 
-Of course, this youthful naivete, the fabulous rainbow coloured playground wouldn't last. The notoriously unreliable MySpace fell victim to its open policy of allowing scripting. Users' pages became unreliable and the platform became unusable. When Facebook arrived with a clean-looking interface that worked, MySpace's time was up and people migrated in droves. The popular internet acquired a more self-important undertone, and we filed into the stark white corporate office of Facebook. But there was trouble in store. While offering this service for 'free,' Mr. Zuckerberg and others had an agenda. In return for hosting our data, we (the dumb f*cks \cite{carlson2010ims}) would have to trust him with it. Obviously, we did. For the time being, there was ostensibly no business model, beyond luring in more venture finance, amassing huge user-bases and we'll deal with the problem later. But from the start, extensive and unreadable T\&C's gave all the rights to the content to the platforms. While in the Web 1.0 it was easy to keep a backup of your website and migrate to a new host, or simply host it from home yourself, now those with controversial views had a new verb to deal with: 'deplatformed'.
+当然，这种年轻的天真、令人难以置信的彩虹色游乐场不会持续太久。臭名昭著的不可靠的MySpace成了允许脚本的开放政策的牺牲品。用户的页面变得不可靠，平台也无法使用。当Facebook以一个整洁的界面出现时，MySpace的时代已经结束，人们开始成群结队地迁移。广受欢迎的互联网披上了一层更加自负的色彩，我们鱼贯进入了Facebook的纯白色公司办公室。但是，麻烦即将来临。在“免费”提供这项服务的同时，扎克伯格和其他人也有自己的计划。作为托管我们数据的回报，我们(愚蠢的\cite{carlson2010ims})必须信任他。显然,我们所做的。目前，除了吸引更多的风险投资，积累庞大的用户基础外，表面上还没有商业模式，我们稍后会处理这个问题。但从一开始，广泛而不可读的电信公司就将内容的所有权利赋予了这些平台。在Web 1.0时代，你可以很容易地备份你的网站，然后迁移到一个新的主机上，或者干脆自己在家托管它，现在那些有争议的观点有一个新的动词要处理:“deplatformed”。
 
-At the infrastructure level, this centralisation began to manifest itself in unthinkably huge data-centers. Jeff Bezos evolved his book-selling business to become the richest man on Earth by facilitating those unable to deal with the technical and financial hurdles of implementing increasingly complex and expensive infrastructure. At any rate, this new constellation was capable of dealing with those irregular traffic spikes that had crippled widely successful content in the past. When others followed, soon, enough huge amounts of the web began to be hosted by a handful huge companies. Corporate acquisitions and endless streams of VC money effected more and more concentration of power. A forgotten alliance of the open source programmers who created the royalty free Apache web server, and Google, who provided paradigm-shifting ways to organise and access the exponential proliferation of data helped dealing a crippling blow to Microsoft's attempt to force the web into a hellish, proprietary existence, forever imprisoned in Internet Explorer 6. But of course, Google eventually accepted 'parental oversight,' shelved its promise to 'do no evil' and succumbed to its very own form of megalomania and began to eat the competition. Steadily, email became Gmail, online ads became AdSense and Google crept into every facet of daily life in the web.
+在基础设施层面，这种集中化开始在难以想象的巨大数据中心中显现出来。杰夫·贝佐斯(Jeff Bezos)通过帮助那些无法解决实施日益复杂和昂贵的基础设施的技术和财务障碍的人，发展了他的图书销售业务，成为了地球上最富有的人。无论如何，这个新的“星座”能够应对那些不规则的流量峰值，这些流量峰值曾在过去严重削弱了广受欢迎的内容。当其他公司紧随其后，很快，大量的网络开始由少数大公司托管。企业收购和源源不断的风投资金使得权力越来越集中。被遗忘的开源程序员联盟，他们创建了免版权费的Apache网络服务器，谷歌提供了改变模式的方式来组织和访问指数级增长的数据，帮助应对微软试图迫使网络进入地狱般的专有存在的严重打击，永远被禁锢在ie6中。当然，谷歌最终接受了“父母的监督”，搁置了“不作恶”的承诺，屈服于自己的狂妄自大，开始吞噬竞争对手。渐渐地，电子邮件变成了Gmail，在线广告变成了AdSense，谷歌渗入了网络日常生活的方方面面。
 
-On the surface, everything was rosy. Technological utopia hyper-connected the world in a way no-one could have imagined. No longer was the web just for academics and the super 1337, it made the sum of human knowledge available to anyone, and now that smartphones became ubiquitous, it could be accessed anywhere. Wikipedia, gave everyone superhuman knowledge, Google allowed us to find and access it in a moment and Facebook gave us the ability to communicate with everyone we had ever known, for free. However, underneath all this, there was one problem buried just below the glittering facade. Google knew what they were doing. So were Amazon, Facebook and Microsoft. So did some punks, since 1984.
+表面上，一切都是美好的。技术乌托邦以一种没有人能想象到的方式将世界高度连接起来。网络不再仅仅是学术界和超级1337的专利，它让所有人都可以获得人类的知识，现在智能手机变得无处不在，它可以在任何地方访问。维基百科给了每个人超人的知识，谷歌让我们可以在瞬间找到并访问它，而Facebook让我们可以免费与我们认识的每个人交流。然而，在这一切的背后，隐藏着一个问题。谷歌知道他们在做什么。亚马逊、Facebook和微软也是如此。自1984年以来，一些朋克也是如此。
 
-The time came to cut a cheque to the investors, once the behemoth platforms had all the users. The time to work out a business model had come. To provide value back to the shareholders, the content providing platforms found advertising revenue as panacea. And little else. Google probably really tried but could not think of any alternative. Now the web started to get complicated, and distracting. Advertising appeared everywhere and the pink flashing glitter banners were back, this time pulling your attention from the content you came for to deliver you to the next user acquisition opportunity.
+一旦大型平台拥有了所有用户，就到了给投资者开支票的时候了。制定商业模式的时机已经到来。为了给股东提供价值，内容提供平台将广告收入视为万灵药。和小。谷歌可能真的尝试过，但想不出任何替代方案。现在，网络开始变得复杂，让人分心。广告出现在了所有地方，粉色闪烁的横幅又回来了，这一次你的注意力从你想要的内容上转移到了下一个用户获取机会上。
 
-And as if this weren't enough, there were more horrors to come. The Web lost the last shred of its innocence when the proliferation of data became unwieldy and algorithms were provided to 'help' to better provide us access to the content that we want. Now the platforms had all our data, they were able to analyse it to work out what we wanted to see, seemingly knowing us even better than we ever knew ourselves. Everyone would be fed their most favourite snack, along with the products they would most likely buy. There was a catch to these secret algorithms and all encompassing data-sets: they were for sale to the highest bidder. Deep-pocketed political organisations were able to target swing voters with unprecedented accuracy and efficacy. Cyberspace became a very real thing all of sudden, just as consensus as a normality became a thing of the past. News did not only become fake, but personally targeted manipulation, as often as not to nudge you to act against your best interest, without even realising it.
+似乎这还不够，还有更多的恐怖即将到来。当数据的激增变得难以处理时，互联网失去了它的最后一丝纯真，而算法被提供来“帮助”我们更好地访问我们想要的内容。现在这些平台拥有我们所有的数据，它们能够分析这些数据，得出我们想要看到的东西，似乎比我们了解自己还要了解我们。每个人都会吃到他们最喜欢的零食，以及他们最有可能购买的产品。这些秘密算法和所有相关数据集都有一个陷阱:它们将出售给出价最高的人。财力雄厚的政治组织能够以前所未有的准确性和有效性瞄准摇摆不定的选民。网络空间突然变成了一个非常现实的东西，就像共识和常态一样成为了过去。新闻不仅变成了假的，而且是针对个人的操纵，往往是在你甚至没有意识到的情况下，不推动你采取违背你的最佳利益的行动。
 
-The desire to save on hosting costs had turned everyone into a target to become a readily controllable puppet. Some deal.
+为了节省托管成本，每个人都成为了目标，成为了易于控制的傀儡。一些交易。
 
-At the same time, more terrifying revelations lay in wait. It turned out the egalitarian ideals that had driven the initial construction of a trustful internet were the most naive of all. In reality, the DoD had brought it to you, and now wanted it back. Edward Snowden walked out of the NSA with a virtual stack of documents no-one could have imagined. Instead of course, if you had taken the Bourne Conspiracy for being a documentary. It turned out that the protocols were broken, and all the warrant canaries long dead -- the world's governments had been running a surveillance dragnet on the entire world population -- incessantly storing, processing, cataloguing, indexing and providing access to the sum total of a persons online activity. It was all available at the touch of an XKeyStore button, an all seeing, unblinking Optical Nerve determined to 'collect it all' and 'know it all' no matter who or what the context. Big Brother turned out to look like Sauron.
-The gross erosion of privacy – preceded by many other, similar efforts by variously power-drunk or megalomaniac institutions and individuals across the world to track and block the packets of suppressed people, political adversaries or journalists, targeted by repressive regimes – had provided impetus for the Tor project. This unusual collaboration between the US Military, MIT and the EFF had responded by providing not only a way to obfuscate the origin of a request but also to serve up content in a protected, anonymous way. Wildly successful and a household name in some niches, it has not found much use outside them, due to a relatively high latency that results from its inherent inefficiencies.
+与此同时，还有更多可怕的事情在等着我们。事实证明，推动信任互联网最初建设的平等主义理想是最幼稚的。实际上，国防部已经把它给你了，现在想要回来。爱德华·斯诺登(Edward Snowden)带着一大堆谁也想不到的文件走出了美国国家安全局(NSA)。当然，如果你把《谍影重重》当成纪录片的话。结果是协议被破坏了，所有的逮捕令预警早就失效了——世界各国政府一直在对全世界的人口进行监视——不断地存储、处理、编目、索引并提供对一个人在线活动总数的访问。只要触碰XKeyStore按钮，就可以获得所有信息，这是一种视觉上的、不眨眼的视觉神经，它决心“收集所有信息”并“了解所有信息”，不管背景是谁或什么。老大哥看起来很像索伦。
+对隐私的严重侵犯——在此之前，世界各地各种权力醉鬼或狂妄自大的机构和个人采取了许多其他类似的行动，以追踪和封锁被压制的人、政治对手或记者的信息包，这些都是被压制政权锁定的目标——为Tor项目提供了动力。作为回应，美国军方、麻省理工学院和电子前沿基金会之间的这种不同寻常的合作，不仅提供了一种模糊请求来源的方法，而且还以一种受保护的匿名方式提供内容。它在一些利基领域非常成功，家喻户晓，但由于其固有的低效率导致了相对较高的延迟，在其他领域并没有多大用处。
 
-By the time of the revelations of Snowden, the web had become ubiquitous and completely integral to almost every facet of human life, but the vast majority of it was run by corporations. While reliability problems had become a thing of the past, there was a price to pay. Context-sensitive, targeted advertising models now extended their Faustian bargain to content producers, with a grin that knew there was no alternative. "We will give you scalable hosting that will cope with any traffic your audience throws at it", they sing, "but in return you must give us control over your content: we are going to track each member of your audience and collect (and own, *whistle*) as much of their personal data as we are able to. We will, of course, decide who can and who cannot see it, as is our right, no less. And we will proactively censor it, and  naturally share your data with authorities whenever prudent to protect our business.". As a consequence, millions of small content producers created immense value for a hand-full of mega corporations, getting peanuts in return. Typically, free hosting and advertisement. What a deal!
+到斯诺登泄密的时候，网络已经无处不在，几乎与人类生活的每个方面都密不可分，但其中绝大部分是由企业运营的。虽然可靠性问题已经成为过去，但这是要付出代价的。上下文敏感的、有针对性的广告模式现在把他们浮士德式的交易延伸到内容生产者身上，带着知道没有其他选择的微笑。“我们将给你可伸缩的举办,将应付任何交通听众抛出它”,他们唱”,但作为回报,你必须给我们控制内容:我们将跟踪每个成员的听众和收集(和自己的* *呢喃)的个人数据,我们能。当然，我们将决定谁能看到它，谁不能看到它，这也是我们的权利。我们会主动进行审查，并在谨慎保护我们业务的情况下与有关部门共享您的数据。”结果，数以百万计的小型内容生产者为一小撮大公司创造了巨大的价值，而得到的回报却微不足道。通常情况下，免费托管和广告。什么交易!
 
-Putting aside, for a moment, the resulting FUD of the Web 2.0 data and news apocalypse that we witness today, there are also a couple of technical problems with the architecture. The corporate approach has engendered a centralist maxim, so that all requests now must be routed through some backbone somewhere, to a monolith data-center, then passed around, processed, and finally returned back. Even if to simply send a message to someone in the next room. This is client-server architecture, which also – no afterthought – has at best flimsy security and was so often breached that it became the new normal, leaving the oil-slicks of unencrypted personal data and even plaintext passwords in its wake, spread all over the web. The last nail in the coffin is the sprawl of incoherent standards and interfaces this has facilitated. Today, spaghetti code implementations of growing complexity subdivide the web into multifarious micro-services. Even those with the deep pockets find it increasingly difficult to deal with the development bills, and it is common now that fledgling start-ups drown in a feature-factory sea of quickly fatal, spiralling technical debt. A modern web application's stack in all cases is a cobbled together Heath-Robinson machine comprising so many moving parts that it is almost impossible even for a supra-nation-state corporation to maintain and develop these implementations without numerous bugs and regular security flaws. Well, except Google and Amazon to be honest. At any rate. It is time for a reboot. In the end, it's the data describing our lives. They already try but yet they have no power to lock us into this mess.
+暂且不谈Web 2.0数据和我们今天看到的新闻启示所产生的FUD，这个体系结构还存在一些技术问题。公司的方法产生了一个集中式的准则，所以现在所有的请求都必须通过某个骨干路由到一个单一的数据中心，然后传递、处理，最后返回。即使只是给隔壁房间的人发个信息。这是一种客户端-服务器架构，它的安全性也很脆弱，而且经常被攻破，以至于它成为了一种新常态，未加密的个人数据甚至是明文密码的泄漏都在网络上传播开来。最后一根钉子钉在棺材是不连贯的标准和接口的蔓延所促进的。如今，越来越复杂的代码实现将web细分为五花八门的微服务。即使是那些财大气长的人也发现越来越难以处理开发费用，而且现在，羽翼未丰的初创企业被迅速致命的、螺旋上升的技术债务淹没在特色工厂的海洋中是很常见的。现代web应用程序的堆栈在所有情况下都是一个由如此多的活动部件组成的Heath-Robinson机器，即使是一个超国家的公司也几乎不可能在没有大量错误和常规安全缺陷的情况下维护和开发这些实现。嗯，除了谷歌和亚马逊。无论如何。现在是重启的时候了。最后，它是描述我们生活的数据。他们已经试过了，但他们没有能力把我们困在这个烂摊子里。
 
 
-\subsection{Peer-to-peer networks \statusgreen}\label{sec:peer_to_peer}
+\subsection{对等网络\statusgreen}\label{sec:peer_to_peer}
 
-As the centrist Web 2.0 took over the world, the \gloss{peer-to-peer} (\gloss{P2P}) revolution was also gathering pace, quietly evolving in parallel. Actually, P2P traffic had very soon taken over the majority of packets flowing through the pipes, quickly overtaking the above mentioned SYN-bait servers. If anything, it proved beyond doubt that end-users, by working together to use their hitherto massively underutilised \emph{upstream bandwidth}, could provide the same kind of availability and throughput for their content as previously only achievable with the help of big corporations and their  data centers attached as they are to the fattest pipes of the Internet's backbone. What's more, it could be realized at a fraction of the cost. Importantly, users retained a lot more control and freedom over their data. Eventually, this mode of data distribution proved to be remarkably resilient even in the face of powerful and well-funded entities exerting desperate means to shut it down.
+随着中间派Web 2.0风靡全球，addbe (\gloss{P2P})革命也在加快步伐，悄无声息地并行发展。实际上，P2P流量很快就占据了流经管道的大部分数据包，很快就超过了上面提到的SYN-bait服务器。如果有什么不同的话，那就是毫无疑问的是，最终用户通过合作使用他们迄今尚未充分利用的\emph{上游带宽}，可以为他们的内容提供同样的可用性和吞吐量，而以前只有在大公司和他们的数据中心的帮助下才能实现，因为他们是互联网主干网最强大的管道。更重要的是，它可以实现成本的一小部分。重要的是，用户对他们的数据保留了更多的控制和自由。最终，这种数据分布模式被证明是非常有弹性的，即使面对强大和资金充足的实体竭尽全力关闭它。
 
-However, even the most evolved mode of \gloss{P2P} file sharing, tracker-less \gloss{BitTorrent} \cite{pouwelse2005bittorrent}, was only that: file-level sharing. Which was not at all suitable for providing the kind of interactive, responsive experience that people were coming to expect from web applications on \gloss{Web 2.0}. In addition to this, while becoming extremely popular, BitTorrent was not conceived of with economics or game theory in mind, i.e.\ very much in the era before the world took note of the revolution it's namesake would precipitate: to say, before anyone understood blockchains and the power of cryptocurrency and incentivisation.
+然而，即使是\gloss{P2P}文件共享的最先进模式，无跟踪\gloss{BitTorrent} \cite{pouwelse2005bittorrent}，也只是文件级共享。这一点也不适合提供人们期望从\gloss{Web 2.0}上的web应用程序中获得的那种交互性、响应性体验。除此之外，当BitTorrent变得非常流行的时候，并没有考虑到经济学或博弈论，例如\ very much in the era before the world took note of the revolution it's namesake would precipitate: to say, before anyone understood blockchains and the power of cryptocurrency and incentivisation.\subsection{BitTorrent的经济和它的限制}
 
-\subsection{The economics of BitTorrent and its limits \statusgreen}
+bt的天才在于其聪明的资源优化\cite{cohen2003incentives}:如果很多客户想从您下载相同的内容,给他们的不同部分,在第二个阶段,让他们交换以牙还牙的方式彼此之间的部分,直到每个人都所有的部分。这样，无论有多少客户想同时下载内容，用户托管内容(BitTorrent术语为\gloss{seeder})的上游带宽使用基本上总是相同的。这解决了\gloss{HTTP}(支撑\gloss{World Wide Web}的协议)古老的、集中式的主从设计中最棘手的、根深蒂固的问题。
 
-The genius of BitTorrent lies in its clever resource optimisation \cite{cohen2003incentives}: if many clients want to download the same content from you, give them different parts of it and in a second phase, let them swap the parts between each another in a tit-for-tat fashion, until everyone has all the parts. This way, the upstream bandwidth use of a user hosting  content (the \gloss{seeder} in BitTorrent parlance) is roughly always the same, no matter how many clients want to download the content simultaneously. This solves the most problematic, ingrained issue of the ancient, centralised, master-and-slave design of \gloss{HTTP}, the protocol underpinning the \gloss{World Wide Web}.
+作弊(也就是\ feeding your peers with garbage) is discouraged by the use of hierarchical, piece-wise hashing, whereby a package offered for download is identified by a single short hash and any part of it can be cryptographically proven to be a specific part of the package without knowledge about any of the other parts, and at the cost of only a very small computational overhead. 
 
-Cheating (i.e.\ feeding your peers with garbage) is discouraged by the use of hierarchical, piece-wise hashing, whereby a package offered for download is identified by a single short hash and any part of it can be cryptographically proven to be a specific part of the package without knowledge about any of the other parts, and at the cost of only a very small computational overhead. 
-
-But this beautifully simple approach has five consequential shortcomings, \cite{locher2006free,piatek2007incentives}, all somewhat related.
+But this beautifully simple approach has five consequential shortcomings,\cite{locher2006free,piatek2007incentives}，都有点相关。
 
 \begin{itemize}
-\item \emph{lack of economic incentives} -- 
-There are no built-in incentives to seed downloaded content. In particular, one cannot exchange one's upstream bandwidth provided by seeding one's content, for downstream bandwidth required for downloading other content. Effectively, the upstream bandwidth provided by seeding content to users is not rewarded. Because as much upstream as possible can improve the experience with some online games, it can be a rational if selfish choice to switch seeding off. Add some laziness and it stays off forever.
+\item \emph{缺乏经济激励}——
+对于下载内容，没有内置的激励机制。特别是，一个人不能将自己的内容播种所提供的上游带宽与下载其他内容所需的下游带宽交换。实际上，由播种内容提供给用户的上游带宽并没有得到奖励。因为尽可能逆流而上能够提高某些网络游戏的体验，所以选择放弃游戏是一种理性的选择。再加上一些懒惰，它就永远不会出现了。
 
-\item \emph{initial latency} -- 
- Typically, downloads start slowly and with some delay. Clients that are further ahead in downloading have significantly more to offer to newcomers than they can offer in return. I.e. the newcomers have nothing to download (yet) for those further ahead. The result of this is that BitTorrent downloads start as a trickle before turning into a full-blown torrent of bits. This peculiarity has severely limited the use of BitTorrent for interactive applications that require both fast responses and high bandwidth. Even though it would otherwise constitute a brilliant solution for many games.
+\item \emph{初始延迟}——
+通常情况下，下载开始缓慢，有一些延迟。在下载方面走在前面的客户可以为新手提供比他们所能提供的更多的东西。也就是说，新玩家还没有什么东西可以下载。这样做的结果是，BitTorrent下载从涓涓细流开始，然后变成了全面的比特流。这种特性严重限制了对交互式应用程序的使用，这些应用程序需要快速响应和高带宽。尽管这对于许多游戏来说都是一个绝妙的解决方案。
  
-\item \emph{lack of fine-granular content addressing} -- Small \glossplural{chunk} of data can only be shared as parts of the larger file that they are part of. They can be pinpointed for targeted that leaves the rest of a file out to optimise access. But peers for the download can only be found by  querying the \gloss{distributed hash table} (\gloss{DHT}) for a desired \emph{file}. It is not possible to look for peers at the chunk-level, because the advertising of the available content happens exclusively at the level of files. This leads to inefficiencies as the same chunks of data can often appear verbatim in multiple files. So, while theoretically, all peers who have the chunk could provide it, there is no way to find those peers, because only its enveloping file has a name (or rather, an announced hash) and can be sought for.
+\item \emph{缺乏细粒度的内容寻址}——数据的小\glossplural{chunk}只能作为它们所在的大文件的一部分共享。它们可以被定位为目标，使文件的其余部分可以优化访问。但是下载的对等点只能通过查询\gloss{distributed hash table} (\gloss{DHT})来找到所需的\emph{文件}。在块级别上寻找对等点是不可能的，因为可用内容的广告只发生在文件级别上。这将导致效率低下，因为相同的数据块经常会出现在多个文件中。因此，虽然理论上所有拥有块的节点都可以提供它，但没有办法找到这些节点，因为只有它的封包文件有名称(或者更确切地说，是宣布的散列)，可以查找。
 
-\item \emph{no incentive to keep sharing} --
-Nodes are not rewarded for their sharing efforts (storage and bandwidth) once they have achieved their objective, i.e.\ retrieving all desired files from their peers.
-
-\item \emph{no privacy or ambiguity} --
-Nodes advertise exactly the content they are seeding. It is easy for attackers to discover the IP address of peers hosting content they would like to see removed, and then as a simple step for adversaries to DDOS them, or for corporations and nation states to petition the ISP for the physical location of the connection. This has led to a grey market of VPN providers helping users circumvent this. Although these services offer assurances of privacy, it is usually impossible to verify them as their systems  are usually closed source. 
+\item \emph{没有继续分享的动力}——
+一旦节点实现了它们的目标(即\ retrieving all desired files from their peers.)，它们的共享工作(存储和带宽)就不会得到奖励\item \emph{没有隐私或歧义}——
+节点准确地宣传它们正在播种的内容。攻击者很容易发现承载他们想要删除的内容的对等点的IP地址，然后作为DDOS攻击对手的一个简单步骤，他们或企业和国家向ISP请求连接的物理位置。这导致了一个灰色市场，VPN提供商帮助用户规避这一问题。尽管这些服务提供了隐私保证，但由于它们的系统通常是封闭的，因此通常不可能验证它们。 
 \end{itemize}
 
-To say, while spectacularly popular and very useful, BitTorrent is at the same time primitive, a genius first step. It is how far we can get simply by sharing our upstream bandwidth, hard-drive space, and a tiny amounts of computing power – without proper accounting and indexing. However – surprise! – if we add just a few more emergent technologies to the mix, most importantly of course, the \gloss{blockchain}, we get something that truly deserves the \gloss{Web 3.0} moniker: a decentralised, censorship-resistant device for sharing, and also for collectively creating content, all while retaining full control over it. What's more, the cost of this is almost entirely covered by using and sharing the resources supplied by the breathtakingly powerful, underutilized super-computer (by yesteryear's standards :-) ) that you already own.
+可以说，BitTorrent虽然非常流行，非常有用，但同时也是原始的，是天才的第一步。它是在没有适当的计算和索引的情况下，通过共享我们的上游带宽、硬盘空间和少量的计算能力，我们能走多远。然而,惊喜!-如果我们再加入一些新兴的技术，当然最重要的是\gloss{blockchain}，我们就得到了一个真正配得上\gloss{Web 3.0}这个名字的东西:一个去中心化的、抵制审查的共享设备，也可以用于集体创建内容，同时保持对内容的完全控制。更重要的是，这一成本几乎完全由使用和共享由您已经拥有的惊人强大的、未充分利用的超级计算机(根据过去的标准:-)提供的资源来支付。
 
-\subsection{Towards Web 3.0 \statusgreen}\label{sec:towards-web3}
+\subsection{面向Web 3.0 \statusgreen}\label{sec:towards-web3}
 
 % 0/ intro talk about the limitations and problems with web2 app architecture 
-% 1/ why the game has changed in a post-satoshi world
+为什么游戏在后中本聪时代改变了
 % As the blockchain has brought us the ability to 
-% 2/ why swarm represents a further iteration on this change and makes the whole thing usable, how it overcomes limitations of the blockchain, emphasis the VC problem, talk about making the web fun again
+为什么swarm代表了这一改变的进一步迭代，并使整个东西可用，它如何克服区块链的局限性，强调VC问题，谈论让web再次有趣
 % 3/ some short exploration of current attempts to provide this and their potential limitations, but keep this short, unemotional and unbiased
-% 4/ drum up to grand ending of how swarm will provide trustless computing save the world etc. etc.
+% 4/关于集群如何提供无信任的计算拯救世界等等。
 
 \begin{centerverbatim}
-The Times 03/
-Jan/2009 Chancel
-lor on brink of 
-second bailout f
-or banks
+《纽约时报》03 /
+2009年1月/高坛
+濒于
+第二轮援助f
+或银行
 \end{centerverbatim}
 
-On (or after) 6:15 Saturday the 3rd of January 2009, the world changed forever. A mysterious Cypherpunk created the first block of a chain that would come to encircle the entire world, and the genie was out of the bottle. This first step would put in motion a set of reactions that would result in an unprecedentedly humongous amount of money flowing from the traditional reservoirs of fiat and physical goods into a totally new vehicle to store and transmit value: cryptocurrency. 'Satoshi Nakamato' had managed to do something no-one else had been able to, he had, de facto, yet at small scale, disintermediated the banks, decentralised trustless value transfer, and since that moment, we are effectively back at gold standard: everyone can now own central bank money. Money that no-one can multiply or inflate out of your pocket. What's more: everyone can now print money themselves that comes with its own central bank and electronic tranmission system. It is still not well understood how much this will change our economies.
+2009年1月3日星期六6:15，世界永远地改变了。一个神秘的密码朋克创造了环绕整个世界的第一个链条，精灵就从瓶子里出来了。这第一步将引发一系列反应，导致前所未有的巨额资金从法币和实物商品的传统储物库流向一种全新的存储和传递价值的工具:加密货币。“中松聪”成功地做到了其他人无法做到的事情，事实上，他小规模地将银行的中介化，去中心化了不值得信任的价值转移，从那一刻起，我们实际上又回到了金本位:现在每个人都可以拥有央行的货币。没有人能从你的口袋里增加或膨胀的钱。更重要的是:现在每个人都可以自己印钞票，并配有自己的中央银行和电子传输系统。我们仍不清楚这将在多大程度上改变我们的经济。
 
-This first step was a huge one and a monumental turning point. Now we had authentication and value transfer baked into the system at its very core. But as much as it was conceptually brilliant, it had some minor and not so minor problems with utility. It allowed to transmit digital value, one could even 'colour' the coins or transmit short messages like the one above that marks the fateful date of the first block. But that's it. And, regarding scale ... every transaction must be stored on every node. Sharding was not built-in. Worse, the protection if the digital money made it necessary that every node processed exactly the same as every other node, all the time. This was the opposite of a parallelised computing cluster and millions of times slower.
+这第一步是巨大的，也是一个里程碑式的转折点。现在我们已经将身份验证和价值转移作为系统的核心。但尽管它在概念上很出色，但它在实用性上存在一些不那么小的问题。它可以传输数字价值，人们甚至可以给硬币“着色”，或者发送像上面这个标志着第一个区块的决定性日期的短信息。但就是这样。至于规模……每个事务必须存储在每个节点上。分片不是内置的。更糟糕的是，数字货币的保护要求每个节点的处理方式始终与其他节点完全相同。这与并行计算集群相反，速度要慢数百万倍。
 
-When Vitalik conceived of Ethereum, he accepted some of these limitations but the utility of the system took a massive leap. He added the facility for Turing-complete computation via the \gloss{Ethereum Virtual Machine} which enabled a cornucopia of applications that would run in this trustless setting. The concept was at once a dazzling paradigm shift, and a consistent evolution of Bitcoin, which itself was based on a tiny virtual machine, with every single transactions really being – unbeknownst to many – a mini program. But Ethereum went all the way and that again changed everything. The possibilities were numerous and alluring and \gloss{Web 3.0} was born.
+当Vitalik构思以太坊时，他接受了其中的一些限制，但该系统的实用性有了巨大的飞跃。他增加了通过\gloss{Ethereum Virtual Machine}进行图灵完整计算的功能，这使得大量的应用程序可以在这种不可信的设置中运行。这一概念是一次令人眼花缭乱的范式转变，也是比特币的持续进化，比特币本身是基于一个微型虚拟机，每一笔交易实际上都是一个小程序——很多人都不知道。但以太坊一路走下去，再次改变了一切。这种可能性是无数且诱人的，\gloss{Web 3.0}由此诞生。
 
-However, there was still a problem to overcome when transcending fully from the Web 2.0 world: storing data on the blockchain was prohibitively expensive for anything but a tiny amount. Both Bitcoin and Ethereum had taken the layout of BitTorrent and run with it, complementing the architecture with the capability to transact but leaving any consideration about storage of non-systemic data for later. Bitcoin had in fact added a second, much less secured circuit below the distribution of blocks: candidate transactions are shipped around without fanfare, as secondary citizens, literally without protocol. Ethereum went further, separated out the headers from the blocks, creating a third tier that ferried the actual block data around ad-hoc, as needed. Because both classes of data are essential to the operation of the system, these could be called critical design flaws. Bitcoin's maker probably didn't envision a reality where mining had become the exclusive domain of a highly specialized elite. Any transactor will have been thought to be able to basically mine their own transactions. Ethereum faced the even harder challenge of data availability and presumably because it was always obvious that the problem could be addressed separately later, just ignored it for the moment. 
+然而，在完全脱离Web 2.0世界时，仍然有一个问题需要克服:在区块链上存储数据的成本非常高，除了少量的数据之外。比特币和以太坊都采用了BitTorrent的布局并使用它运行，以交易的能力补充了体系结构，但将任何非系统数据的存储考虑留到以后。事实上，比特币在区块分布之下增加了第二条安全程度低得多的电路:候选交易以二等公民的身份在没有任何宣传的情况下进行，实际上没有任何协议。以太坊更进一步，将头从区块中分离出来，创建了第三层，根据需要临时运送实际的区块数据。因为这两类数据对系统的运行都是必不可少的，所以可以称之为关键的设计缺陷。比特币的创造者可能没有预见到，挖矿已经成为高度专业化精英的专属领域。任何交易者都被认为基本上能够挖掘他们自己的交易。以太坊面临着数据可用性的更大挑战，大概是因为这个问题显然可以稍后单独解决，所以暂时忽略它。 
 
-In other news, the straightforward approach for data dissemination of \gloss{BitTorrent} had successfully been implemented for web content distribution by \gloss{ZeroNet} \cite{zeronet}. However, because of the aforementioned issues with BitTorrent, ZeroNet turned out unable to support the responsiveness that users of web services have come to expect.
+另一方面，\gloss{ZeroNet}和\cite{zeronet}已经成功地将\gloss{BitTorrent}的直接数据传播方法应用于网络内容传播。然而，由于BitTorrent的上述问题，ZeroNet最终无法支持web服务用户所期望的响应性。
 
-In order to try to enable responsive, \glossplural{distributed web application} (or \glossplural{dapp}), the \gloss{InterPlanetary File System} (\gloss{IPFS}) \cite{ipfs2014}  introduced their own major improvements over BitTorrent. A stand-out feature being the highly web-compatible, URL-based retrieval scheme. In addition, the directory of the available data, the indexing, (like BitTorrent organized as a \gloss{DHT}) was vastly improved, making it possible to also search for a small part of any file, called a \gloss{chunk}.
+为了尝试启用响应，\glossplural{distributed web application}(或\glossplural{dapp})， \gloss{InterPlanetary File System} (\gloss{IPFS}) \cite{ipfs2014}介绍了他们自己对BitTorrent的主要改进。一个突出的特点是高度web兼容，基于url的检索方案。此外，可用数据的目录、索引(像BitTorrent组织为\gloss{DHT})也得到了极大的改进，使搜索任何文件的一小部分成为可能，称为\gloss{chunk}。
 
-There are numerous other efforts to fill the gap and provide a worthy Web 3.0 surrogate for the constellation of servers and services that have come to be expected by a Web 2.0 developer, to offer a path to emancipation from the existing dependency on the centralized architecture that enables the data reapers. These are not insignificant roles to supplant, even the most simple web app today subsumes an incredibly large array of concepts and paradigms which have to be remapped into the \gloss{trustless} setting of Web 3.0. In many ways, this problem is proving to be perhaps even more nuanced than implementing trustless computation in the blockchain. Swarm responds to this with an array of carefully designed data structures, which enable the application developer to recreate concepts we have grown used to in Web 2.0, in the new setting of Web 3.0. Swarm successfully reimagines the current offerings of the web, re-implemented on solid, cryptoeconomic foundations.
+有许多其他的努力来填补这一缺口,并提供一个有价值的Web 3.0星座的代理服务器和服务,将由一个Web 2.0开发人员,提供一个解放之路从现有依赖集中式架构,实现数据收割者。这些都不是无足轻重的角色，即使是今天最简单的web应用程序也包含了大量的概念和范例，必须重新映射到web 3.0的\gloss{trustless}设置中。在许多方面，这个问题可能比在区块链中实现不可信的计算更加微妙。Swarm用一系列精心设计的数据结构来回应这一问题，这些结构使应用程序开发人员能够在Web 3.0的新环境中重新创建我们在Web 2.0中已经习惯的概念。Swarm成功地重新构想了当前的网络产品，并在坚实的加密经济基础上重新实施。
 
-Imagine a sliding scale, starting on the left with: large file size, low frequency of retrieval and a more monolithic \gloss{API}; to the right: small data packets, high frequency of retrieval, and a nuanced API. On this spectrum, file storage and retrieval systems like a posix filesystem, S3, Storj and BitTorrent live on the left hand side. Key--value stores like LevelDB and databases like MongoDB or Postgres live on the right. To build a useful app, different modalities, littered all over the scale are needed, and furthermore there must be the ability to combine data where necessary, and to ensure only authorised parties have access to protected data. In a centrist model, it is easy to handle these problems initially, getting more difficult with growth, but every range of the scale has a solution from one piece of specialized software or another. However, in the decentralised model, all bets are off. Authorisation must be handled with cryptography and the combination of data is limited by this. As a result, in the nascent, evolving Web 3.0 stack of today, many solutions deal piecemeal with only part of this spectrum of requirements. In this book, you will learn how Swarm spans the entire spectrum, as well as providing high level tools for the new guard of Web 3.0 developers. The hope is that from an infrastructure perspective, working on Web 3.0 will feel like the halcyon days of Web 1.0, while delivering unprecedented levels of agency, availability, security and privacy.
+想象一个滑动的比例，从左边开始:较大的文件大小，较低的检索频率和更完整的\gloss{API};右边:小数据包、高检索频率和微妙的API。在这个范围内，文件存储和检索系统(如posix文件系统、S3、Storj和BitTorrent)位于左边。键值存储如LevelDB和数据库如MongoDB或Postgres位于右侧。为了构建一个有用的应用程序，需要在不同的范围内使用不同的模式，而且必须有能力在必要时合并数据，并确保只有授权方可以访问受保护的数据。在一个中间派模型中，一开始处理这些问题很容易，随着增长会变得更加困难，但规模的每个范围都有一个或另一个专门软件的解决方案。然而，在分散的模型中，所有的赌注都是不可能的。授权必须用密码学处理，数据的组合也因此受到限制。因此，在今天初生的、不断发展的Web 3.0堆栈中，许多解决方案只处理这一需求范围的一部分。在本书中，您将了解Swarm如何跨越整个领域，以及如何为Web 3.0开发人员的新卫士提供高级工具。希望从基础架构的角度来看，在Web 3.0上工作就像Web 1.0的宁静日子一样，同时提供前所未有的代理、可用性、安全性和隐私级别。
 
-To respond to the need for privacy to be baked in at the root level in file-sharing – as it is so effectively in Ethereum – Swarm enforces anonymity at an equally fundamental and absolute level. Lessons from Web 2.0 have taught us that trust should be given carefully and only to those that are deserving of it and will treat it with respect. Data is toxic \cite{schneier2019Jul}, and we must treat it carefully in order to be responsible to ourselves and those for whom we take responsibility. We will explain later, how Swarm provides complete and fundamental user privacy.
+为了响应文件共享的根级对隐私的需求——因为它在以太坊中非常有效——Swarm在同样基本和绝对的级别强制匿名。Web 2.0的教训告诉我们，信任应该谨慎地给予，并且只给予那些值得信任的人，并且会以尊重的态度对待信任。数据是有毒的abbeb，我们必须小心对待它，以便对我们自己和我们负责的人负责。稍后我们将解释Swarm如何提供完整和基本的用户隐私。
 
-And of course, to fully transition to a Web 3.0-decentralised world, we also deal with the dimensions of incentives and trust, which are traditionally 'solved' by handing over responsibility to the (often untrustworthy) centralised gatekeeper. As we have noted, this is one problem that BitTorrent also struggled to solve, and that it responded to with a plethora of seed ratios and private (i.e., centralised) trackers.
+当然，要完全过渡到Web 3.0去中心化的世界，我们还需要处理激励和信任的维度，传统上通过将责任移交给(通常不值得信任的)中央把关人来“解决”这些问题。正如我们所注意到的，这也是BitTorrent努力解决的一个问题，它用过多的种子比率和私人(即中央)跟踪来回应。
 
-The problem of lacking incentive to reliably host and store content is apparent in various projects such as ZeroNet or MaidSafe. Incentivisation for distributed document storage is still a relatively new research field, especially in the context of blockchain technology. The Tor network has seen suggestions \cite{jansen2014onions,ghoshetal2014tor} but these schemes are mainly academic, they are not built into the heart of the underlying system. Bitcoin has been repurposed to drive other systems like Permacoin \cite{miller2014permacoin}, some have created their own blockchain, such as Sia \cite{vorick2014sia} or Filecoin \cite{filecoin2014} for \gloss{IPFS}. BitTorrent is currently testing the waters of blockchain incentivisation with their own token \cite{tron2018,bittorrent2019}. However, even with all of these approaches combined, there would still be many hurdles to overcome to provide the specific requirements for a Web 3.0 dapp developer.
+在ZeroNet或MaidSafe等各种项目中，缺乏可靠的托管和存储内容的动机的问题很明显。分布式文档存储的激励仍然是一个比较新的研究领域，特别是在区块链技术的背景下。洋葱网络已经看到了\cite{jansen2014onions,ghoshetal2014tor}的建议，但这些方案主要是学术的，它们没有内置到底层系统的核心。比特币已经被重新用于驱动其他系统，如Permacoin \cite{miller2014permacoin}，一些已经创建了自己的区块链，如Sia \cite{vorick2014sia}或Filecoin \cite{filecoin2014}的\gloss{IPFS}。BitTorrent目前正在用他们自己的代币\cite{tron2018,bittorrent2019}测试区块链激励机制。然而，即使将所有这些方法结合在一起，仍有许多障碍需要克服，才能为Web 3.0 dapp开发人员提供特定的需求。
 
-We will see later how Swarm provides a full suite of incentivisation measures, as well as other checks and balances to ensure that nodes are working to benefit the whole of the ... swarm. This includes the option to rent out large amounts of disk space to those willing to pay for it – irrespective of the popularity of their content – while ensuring that there is also a way to deploy your interactive dynamic content to be stored in the cloud, a feature we call \gloss{upload and disappear}.
+稍后我们将看到Swarm如何提供一套完整的激励措施，以及其他制衡措施，以确保节点的工作有利于整个……群。这包括选择大量的磁盘空间出租给那些愿意付钱——不管其内容的流行,同时确保还有一个方式来部署您的交互式动态内容存储在云中,我们称之为\gloss{upload and disappear}一大特点。
 
-The objective of any incentive system for \gloss{peer-to-peer} content distribution is to encourage cooperative behavior and discourage \gloss{freeriding}: the uncompensated depletion of limited resources. The \gloss{incentive strategy} outlined here aspires to satisfy the following constraints:
+任何对\gloss{peer-to-peer}内容分配的激励制度的目标都是鼓励合作行为和阻止\gloss{freeriding}:有限资源的无补偿耗竭。这里概述的\gloss{incentive strategy}希望满足以下限制条件:
 
 \begin{itemize}
-    \item It is in the node's own interest, regardless of whether other nodes follow it.
-    \item It must be expensive to expend the resources of other nodes.
-    \item It does not impose unreasonable overhead.
-    \item It plays nice with "naive" nodes.
-    \item It rewards those that play nice, including those following this strategy.
+    \item 无论其他节点是否遵循它，这都符合节点自身的利益。
+    \item 花费其他节点的资源一定很昂贵。
+    \item 它不会强加不合理的开销。
+    \item 它可以很好地处理“幼稚的”节点。
+    \item 它奖励那些表现良好的人，包括那些遵循这一策略的人。
 \end{itemize}
 
-In the context of Swarm, storage and bandwidth are the two most important limited resources and this is reflected in our incentives scheme. The incentives for bandwidth use are designed to achieve speedy and reliable data provision, while the storage incentives are designed to ensure long term data preservation. In this way, we ensure that all requirements of web application development are provided for – and that incentives are aligned so that each individual node's actions benefit not only itself, but the whole of the network. 
+在Swarm环境下，存储和带宽是两个最重要的有限资源，这在我们的激励方案中得到了体现。带宽使用的激励措施旨在实现快速和可靠的数据供应，而存储激励措施旨在确保长期数据保存。通过这种方式，我们确保web应用程序开发的所有需求都得到满足，并且激励机制是一致的，这样每个单独的节点的行动不仅有利于它自己，而且有利于整个网络。 
 
-\section{Fair data economy  \statusgreen}\label{sec:fair-data}
+\section{公平的数据经济}\label{sec:fair-data}
 \green{}
 
-In the era of \gloss{Web 3.0}, the Internet is no longer just a niche where geeks play, but has become a fundamental conduit of value creation and a huge share of overall economic activity. Yet the data economy in it's current state is far from fair, the distribution of the spoils is under the control of those who control the data - mostly companies keeping the data to themselves in isolated \glossplural{data silo}. To achieve the goal of a \gloss{fair data economy} many social, legal and technological issues will have to be tackled. We will now describe some of the issues as they  currently present and how they will be addressed by Swarm. 
+在\gloss{Web 3.0}时代，互联网不再只是极客们玩的小众游戏，而是成为价值创造的基本渠道和整体经济活动的巨大份额。然而，目前的数据经济远非公平，利益的分配是在那些控制数据的人的控制下进行的——大多数公司将数据单独保存在\glossplural{data silo}中。为了实现\gloss{fair data economy}的目标，必须解决许多社会、法律和技术问题。现在我们将描述一些目前存在的问题，以及Swarm将如何解决这些问题。 
 
-\subsection{The current state of the data economy  \statusgreen} \label{sec:dataeconomy}
+\subsection{数据经济的当前状态\statusgreen} \label{sec:dataeconomy}
 
-Digital mirror worlds already exist, virtual expanses that contain shadows of physical things and consist of unimaginably large amounts of data \cite{MirrorWorlds2020Feb}. Yet more and more data will continue to be synced to these parallel worlds, requiring new infrastructure and markets, and creating new business opportunities. Only relatively crude measures exist for measuring the size of the data economy as a whole, but for the USA, one figure puts the financial value of data (with related software and intellectual property) at \$1.4trn-2trn in 2019 \cite{MirrorWorlds2020Feb}. The EU Commission projects the figures for the data economy in the EU27 for 2025 at €829bln (up from €301bln in 2018) \cite{EUDataStrategy2020Feb}. 
+数字镜像世界已经存在，虚拟空间包含物理物体的阴影，并由难以想象的大量数据\cite{MirrorWorlds2020Feb}组成。然而，越来越多的数据将继续同步到这些平行世界，这就需要新的基础设施和市场，并创造新的商业机会。目前只有相对粗糙的方法可以衡量整个数据经济的规模，但对于美国来说，有一个数字表明，2019年数据(包括相关软件和知识产权)的金融价值在1.4万亿美元到2万亿美元之间。欧盟委员会预计，欧盟27国2025年的数据经济将达到8290亿欧元(高于2018年的3010亿欧元)。
 
-Despite this huge amount of value, the asymmetric distribution of the wealth generated by the existing data economy has been put forward as a major humanitarian issue \cite{TheWinner2020Feb}. As efficiency and productivity continue to rise, as a results of better data, the profits that result from this will need to be distributed. Today, the spoils are distributed unequally: the larger the companies' data set, the more it can learn from the data, attract more users and hence even more data. Currently, this is most apparent with the dominating large tech companies such as \gloss{FAANG}, but it is predicted that this will also be increasingly important in non-tech sectors, even nation states. Hence, companies are racing to become dominant in a particular sector, and countries hosting these platforms will gain an advantage. As Africa and Latin America host so few of these, they risk becoming exporters of raw data and then paying other countries to import the intelligence provided, as has been warned by the United Nations Conference on Trade and Development \cite{TheWinner2020Feb}. Another problem is that if a large company monopolises a particular data market, it could also become the sole purchaser of data - maintaining a complete control of setting prices and affording the possibility that the "wages" for providing data could be manipulated to keep them artificially low. In many ways, we are already seeing evidence of this. 
+尽管存在如此巨大的价值，但现有数据经济所产生的财富分配的不对称已被作为一个重大的人道主义问题提出。由于数据的改善，效率和生产率不断提高，由此产生的利润将需要进行分配。如今，收益分配不均:公司的数据集越大，从中可以学到的东西就越多，从而吸引更多用户，从而获得更多数据。目前，这一点在\gloss{FAANG}等占主导地位的大型科技公司身上表现得最为明显，但据预测，这在非技术领域，甚至在民族国家，也将变得越来越重要。因此，企业正竞相在某个特定领域占据主导地位，而拥有这些平台的国家将获得优势。正如联合国贸易和发展会议(United Nations Conference on Trade and Development \cite{TheWinner2020Feb})所警告的那样，由于非洲和拉丁美洲的此类机构如此之少，它们有可能成为原始数据的出口国，然后付钱给其他国家进口所提供的情报。另一个问题是，如果一家大公司垄断了一个特定的数据市场，它也可能成为数据的唯一购买者——保持对定价的完全控制，并提供一种可能性，即提供数据的“工资”可能被人为压低。在许多方面，我们已经看到了这方面的证据。 
 
 % move this?
-% As a solution, citizens could organise into "data co-operatives", who would then act as trade unions do in conventional economy. 
+作为一种解决方案，公民可以组织成“数据合作社”，然后像传统经济中的工会那样发挥作用。 
 
-Flows of data are becoming increasingly blocked and filtered by governments, using the familiar reasoning based on the protection of citizens, sovereignty and national economy \cite{VirtualNationalism2020Feb}. Leaks by several security experts have shown that for governments to properly give consideration to national security,  data should be kept close to home and not left to reside in other countries. GDPR is one such instance of a "digital border" that has been erected -- data may leave the EU only if appropriate safeguards are in place. Other countries, such as India, Russia and China, have implemented their own geographic limitations on data. The EU Commission has pledged to closely monitor the policies of these countries and address any limits or restrictions to data flows in trade negotiations and through the actions in the World Trade Organization \cite{EUWhitePaperAI2020Feb}.
+数据流正越来越多地受到政府的屏蔽和过滤，这是基于对公民、主权和国家经济的保护的常见推理。几位安全专家泄露的信息表明，政府要适当地考虑国家安全，数据应该保存在家门口，而不是留在其他国家。GDPR就是已经建立的“数字边界”的一个例子——只有在适当的保护措施到位的情况下，数据才能离开欧盟。其他国家，如印度、俄罗斯和中国，在数据上也有自己的地理限制。欧盟委员会已承诺密切监测这些国家的政策，并通过世界贸易组织(\cite{EUWhitePaperAI2020Feb})的行动，解决贸易谈判中对数据流动的任何限制或限制。
 
-Despite this growing interest in the ebb and flow of data, the big tech corporations maintain a firm grip on much of it, and the devil is in the details. Swarm's privacy-first model requires that no personal data be divulged to any third parties, everything is end-to-end encrypted out of the box, ending the ability of service providers to aggregate and leverage giant datasets. The outcome of this is that instead of being concentrated at the service provider, control of the data remains decentralised and with the individual to which it pertains. And as a result, so does the power. Expect bad press.
+尽管人们对数据的潮起潮落越来越感兴趣，但大型科技公司仍牢牢掌握着大部分数据，而魔鬼就在细节中。Swarm的隐私第一模式要求个人数据不泄露给任何第三方，一切都是端到端加密的，终结了服务提供商聚集和利用庞大数据集的能力。这样做的结果是，数据的控制不是集中在服务提供商，而是分散的，并与相关的个人有关。其结果是，权力也是如此。预计负面新闻。
 
-\subsection{The current state and issues of data sovereignty \statusgreen }\label{sec:data-sovereignty}
+\subsection{数据主权的当前状态和问题\statusgreen }\label{sec:data-sovereignty}
 
-As a consequence of the Faustian bargain described above, the current model of the \gloss{World Wide Web} is flawed in many ways. As a largely unforeseen consequence of economies of scale in infrastructure provision, as well as network effects in social media, platforms became massive data silos where vast amounts of user data passes through, and is held on, servers that belong to single organisations. This 'side-effect' of the centralized data model has allowed large private corporations the opportunity to collect, aggregate and analyse user data, positioning their data siphons right at the central bottleneck: the cloud servers where everything meets. This is exactly what David Chaum predicted in 1984, kicking off the Cypherpunk movement that Swarm is inspired by.
+上述浮士德式交易的结果是，美联储现行的模式在许多方面都存在缺陷。作为基础设施供应中的规模经济以及社交媒体中的网络效应在很大程度上不可预见的后果，平台成为了巨大的数据竖井，在这里，大量用户数据通过并保存在属于单一组织的服务器上。集中式数据模型的“副作用”让大型私营企业有机会收集、聚合和分析用户数据，将他们的数据吸管正好放在中心瓶颈:云服务器。这正是David Chaum在1984年所预言的，并由此开启了《Swarm》灵感的Cypherpunk运动。
 
-The continued trend of replacing human-mediated interactions with computer-mediated interactions, combined with the rise of social media and the smartphone, has resulted in more and more information about our personal and social lives becoming readily accessible to the companies provisioning the data flow. These have unraveled lucrative data markets where user demographics are linked with underlying behavior, to understand you better than you understand yourself. A treasure trove for marketeers.
+以计算机为媒介的互动取代人类为媒介的互动的持续趋势，再加上社交媒体和智能手机的兴起，使得提供数据流的公司能够轻易获取越来越多关于我们个人和社会生活的信息。这些都揭示了有利可图的数据市场，用户统计数据与潜在行为联系在一起，从而更好地了解你，而不是你自己。这是市场营销人员的宝库。
 
-Data companies have meanwhile evolved their business models towards capitalising on the sale of the data, rather than the service they initially provided. Their primary source of revenue is now selling the results of user profiling to advertisers, marketeers and others who would seek to 'nudge' members of the public. The circle is closed by showing such advertisement to users on the same platforms, measuring their reaction, thus creating a feedback loop. A whole new industry has grown out of this torrent of information, and as a result, sophisticated systems emerged that predict, guide and influence ways for users to entice them to allocate their attention and their money, openly and knowingly exploiting human weaknesses in responding to stimuli, often resorting to highly developed and calculated psychological manipulation. The reality is, undisputedly, that of mass manipulation in the name of commerce, where not even the most aware can truly exercise their freedom of choice and preserve their intrinsic autonomy of preference regarding consumption of content or purchasing habits.
+与此同时，数据公司的商业模式也在朝着通过销售数据而不是最初提供的服务获利的方向发展。现在，他们的主要收入来源是向广告商、营销人员和其他寻求“推动”公众的人出售用户信息。通过在同一个平台上向用户展示这样的广告，衡量他们的反应，从而形成一个反馈循环，圈就被关闭了。一个全新的行业已经从这一信息洪流中成长起来，结果，复杂的系统出现了，这些系统可以预测、引导和影响用户如何分配他们的注意力和金钱，公开且知情地利用人类在对刺激做出反应时的弱点，经常诉诸于高度发达和精心策划的心理操纵。事实是，毫无疑问，这是一种以商业为名的大规模操纵，在这种情况下，即使是最清醒的人也无法真正行使他们的选择自由，并保持他们在内容消费或购买习惯方面的内在偏好自主权。
 
-The fact that business revenue is coming from the demand for micro-targeted users to present adverts to is also reflected in quality of service. The content users' needs – who used to be and should continue to be the 'end' user – became secondary to the needs of the "real" customers: the advertiser, often leading to ever poorer user experience and quality of service. This is especially painful in the case of social platforms when  inertia caused by a network effect essentially constitutes user lock-in. It is imperative to correct these misaligned incentives. In other words, provide the same services to users, but without such unfortunate incentives as they are resulting from the centralised data model.
+企业收入来自于向微目标用户展示广告的需求，这一事实也反映在服务质量上。内容用户的需求——过去是并且应该继续是“最终”用户——变得次要于“真正”用户的需求:广告商，这往往导致用户体验和服务质量越来越差。对于社交平台来说，这尤其令人痛苦，因为网络效应导致的惯性基本上构成了用户锁定。必须纠正这些错位的激励机制。换句话说，就是向用户提供相同的服务，但不像集中式数据模型那样产生令人遗憾的激励。
 
-The lack of control over one's data has serious consequences on the economic potential of the users. Some refer to this situation, somewhat hysterically, as \gloss{data slavery}. But they are technically correct: our digital twins are  captive to corporations, put to good use for them, without us having any agency, quite to the contrary, to manipulate us out of it and make us less well informed and free. 
+对个人数据缺乏控制会对用户的经济潜力造成严重后果。有些人有点歇斯底里地把这种情况称为\gloss{data slavery}。但从技术上讲，它们是正确的:我们的数字双胞胎被企业俘虏，被它们利用得很好，而我们没有任何代理，相反，操纵我们脱离它，让我们变得不那么灵通和自由。
 
-The current system then, of keeping data in disconnected datasets has various drawbacks: 
+那么，当前的系统，保持数据在断开的数据集有各种缺点: 
 
 \begin{itemize}
-    \item \emph{unequal opportunity} - Centralised entities increase inequality as their systems siphon away a disproportionate amount of profit from the actual creators of the value.
-    \item \emph{lack of fault tolerance} - They are a single point of failure in terms of technical infrastructure, notably security.
-    \item \emph{corruption} - The concentration of decision making power constitutes an easier target for social engineering, political pressure and institutionalised corruption.
-    \item \emph{single attack target} - The concentration of large amounts of data under the same security system attrackts attacks as it increases the potential reward for hackers. 
-    \item \emph{lack of service continuity guarantees} - Service continuity is in the hands of the organisation, and is only weakly incentivised by reputation. This introduces the risk of inadvertent termination of the service due to bankruptcy, or regulatory or legal action.
-    \item \emph{censorship} - Centralised control of data access allows for, and in most cases eventually leads to, decreased freedom of expression.
-    \item \emph{surveillance} - Data flowing through centrally owned infrastructure offers perfect access to traffic analysis and other methods of monitoring.
-    \item \emph{manipulation} - Monopolisation of the display layer allows the data harvesters to have the power to manipulate opinions by choosing which data is presented, in what order and when, calling into question the sovereignty of individual decision making.
+    \item 集中化的实体增加了不平等，因为他们的系统从价值的实际创造者那里吸走了不成比例的利润。
+    \item \emph{缺乏容错能力} -从技术基础设施，尤其是安全方面来说，它们是单点故障。
+    \item 决策权的集中更容易成为社会工程、政治压力和制度化腐败的目标。
+    \item \emph{单一的攻击目标}—在同一个安全系统下集中大量的数据会引起攻击，因为它增加了黑客的潜在回报。 
+    \item \emph{缺乏服务连续性保证} -服务连续性掌握在组织手中，仅靠声誉来激励。这就引入了由于破产、监管或法律行动而无意终止服务的风险。
+    \item 数据访问的集中控制会导致言论自由的减少，在大多数情况下最终会导致言论自由的减少。
+    \item 通过中央所有的基础设施流动的数据为流量分析和其他监控方法提供了完美的访问。
+    \item \emph{操纵} -显示层的垄断性使得数据收集者可以通过选择哪些数据以什么顺序和什么时候显示来操纵意见，从而质疑个人决策的主权。
 \end{itemize}
 
 
-\subsection{Towards self-sovereign data \statusgreen} \label{sec:selfsovereigndata}
+\subsection{走向自主数据\statusgreen} \label{sec:selfsovereigndata}
 
-We believe that decentralisation is a major game-changer, which by itself solves a lot of the problems listed above.
+我们相信去中心化是一个主要的游戏规则改变者，它本身就解决了上面列出的许多问题。
 
-We argue that blockchain technology is the final missing piece in the puzzle to realise the cypherpunk ideal of a truly self-sovereign Internet. As Eric Hughes argued in the \emph{Cypherpunk Manifesto} \cite{hughes1993} already in 1993, "We must come together and create systems which allow anonymous transactions." One of the goals of this book is to demonstrate how decentralised consensus and peer-to-peer network technologies can be combined to form a rock-solid base-layer infrastructure. This foundation is not only resilient, fault tolerant and scalable; but also egalitarian and economically sustainable, with a well designed system of incentives. Due to a low barrier of entry for participants, the adaptivity of these incentives ensures that prices automatically converge to the marginal cost. On top of this, add Swarm's strong value proposition in the domain of privacy and security.
+我们认为区块链技术是实现真正自主互联网的密码朋克理想的最后一块缺失的拼图。正如Eric Hughes在1993年的\emph{Cypherpunk宣言} \cite{hughes1993}中所说，“我们必须团结起来，创建允许匿名交易的系统。”本书的目标之一是演示如何将分散的共识和点对点网络技术结合起来，形成一个坚如磐石的底层基础设施。这个基础不仅具有弹性、容错和可扩展性;而且是平等的，经济上可持续的，有一个精心设计的激励系统。由于参与者的进入门槛较低，这些激励措施的适应性确保了价格自动收敛到边际成本。除此之外，还有Swarm在隐私和安全领域的强大价值主张。
 
-Swarm is a \gloss{Web 3.0} stack that is decentralised, incentivised, and secured. In particular, the platform offers participants solutions for data storage, transfer, access, and authentication. These data services are more and more essential for economic interactions. By providing universal access to all for these services, with strong privacy guarantees and without borders or external restrictions, Swarm fosters the spirit of global voluntarism and represents the \emph{infrastructure for a self-sovereign digital society}.
+Swarm是一个去中心化、激励和安全的\gloss{Web 3.0}堆栈。特别是，该平台为参与者提供了数据存储、传输、访问和身份验证的解决方案。这些数据服务在经济互动中越来越重要。通过向所有人提供这些服务，并提供强有力的隐私保障，没有国界或外部限制，Swarm培养了全球自愿精神，代表了\emph{一个自主的数字社会的基础设施}。
 
-\subsection{Artificial intelligence and self-sovereign data \statusgreen} \label{sec:AIdata}
+\subsection{人工智能和自主数据\statusgreen} \label{sec:AIdata}
 
-Artificial Intelligence (AI) is promising to bring about major changes to our society. On the one hand, it is envisioned to allow for a myriad of business opportunities, while on the other hand it is expected to displace many professions and jobs, where not merely augmenting them \cite{Lee2018Sep}.
+人工智能(AI)有望给我们的社会带来重大变化。一方面，它被设想为无数的商业机会，而另一方面，它被期望取代许多职业和工作，而不仅仅是增加他们\cite{Lee2018Sep}。
 
-The three "ingredients" needed for the prevalent type of AI today, machine learning (ML), are: computing power, models and data. Today, computing power is readily available and specialized hardware is being developed to further facilitate processing. An extensive headhunt for AI talent has been taking place for more than a decade and companies have  managed to monopolise workers in possession of the specialised talents needed to work on the task to provide the models and analysis. However, the dirty secret of today's AI, and deep learning, is that the algorithms, the 'intelligent math' is already commoditised. It is Open Source and not what Google or Palantir make their money with. The true 'magic trick' to unleash their superior powers is to get access to the largest possible sets of data.
+当今流行的人工智能(机器学习)所需要的三个“要素”是:计算能力、模型和数据。今天，计算能力是很容易得到的，专门的硬件正在开发，以进一步促进处理。一场大规模的人工智能人才猎头活动已经进行了十多年，企业成功地垄断了拥有提供模型和分析所需专业人才的员工。然而，今天的人工智能和深度学习的肮脏秘密是，算法，即“智能数学”已经商品化。它是开源的，而不是谷歌或Palantir用来赚钱的。释放他们超能力的真正“魔术”是获得尽可能多的数据集。
 
-Which happen to be the organizations that have been systematically gathering it in data silos, often by providing the user with an application with some utility such as search or social media, and then stockpiling the data for later use very different from that imagined by the 'users' without their express consent and not even knowledge. This monopoly on data has allowed multinational companies to make unprecedented profits, with only feeble motions to share the financial proceeds with the people whose data they have sold. Potentially much worse though, the data they hoard is prevented from fulfilling its potentially transformative value not only for individuals but for society as a whole.
+恰巧的组织系统地收集数据竖井,经常通过向用户提供应用程序等一些实用的搜索和社交媒体,然后储存数据供以后使用完全不同于“用户”没有他们想象的表达同意和不知识。这种对数据的垄断，让跨国公司获得了前所未有的利润，而与这些公司出售数据的人分享金融收益的动议却寥寥无几。但更糟糕的是，他们储存的数据无法实现其潜在的变革价值，不仅对个人，对整个社会都是如此。
 
-Perhaps it is no coincidence, therefore, that the major data and AI "superpowers" are emerging in the form of the governments of the USA and China and the companies that are based there. In full view of the citizens of the world, an AI arms-race is unfolding with almost all other countries being left behind as "data colonies" \cite{HarariDavos2020Mar}. There are warnings that as it currently stands, China and the United States will inevitably accumulate an insurmountable advantage as AI superpowers \cite{Lee2018Sep}.
+也许这不是巧合，因此，主要的数据和人工智能“超级大国”正在以美国和中国的政府以及总部设在那里的公司的形式出现。在全世界人民的注视下，一场人工智能军备竞赛正在展开，几乎所有其他国家都被甩在了后面，成为“数据殖民地”\cite{HarariDavos2020Mar}。有人警告说，按照目前的情况，中国和美国将不可避免地积累不可逾越的优势，成为人工智能超级大国\cite{Lee2018Sep}。
 
-It doesn't have to be so. In fact, it likely won't because the status quo is a bad deal for billions of people. Decentralised technologies and cryptography are the way to allow for privacy of data, and at the same time enable a fair data economy to gradually emerge that will present all of the advantages of the current centralised data economy, but without the pernicious drawbacks. This is the change that many consumer and tech organizations across the globe are working for, to support the push back against the big data behemoths, with more and more users beginning to realise that they have been swindled into giving away their data. Swarm will provide the infrastructure to facilitate this liberation.
+其实不必如此。事实上，它可能不会，因为现状对数十亿人来说是一个糟糕的交易。去中心化技术和密码学是一种允许数据隐私的方式，同时使公平的数据经济逐渐出现，它将呈现当前集中化数据经济的所有优点，但没有有害的缺点。这是全球许多消费者和科技组织都在努力争取的变化，以支持对大数据巨头的反击，越来越多的用户开始意识到，他们是被欺骗而泄露数据的。蜂群将提供基础设施来促进这一解放。
 
-Self-sovereign storage might well be the only way that individuals can take back control of their data and privacy, as the first step towards reclaiming their autonomy, stepping out of the filter bubble and reconnect instead with their own culture. Swarm represents at its core solutions for many of the problems with today's Internet and the distribution and storage of data. It is built for privacy from the ground up, with intricate encryption of data and completely secure and leak-proof communication. Furthermore, it enables sharing of selected data with 3rd parties, on the terms of the individual. Payments and incentives are integral parts of Swarm, making financial compensation in return for granular sharing of data a core concern.
+自我主权存储可能是个人能够重新控制他们的数据和隐私的唯一方式，作为重获自主权的第一步，走出过滤泡沫，重新与自己的文化联系起来。Swarm是解决当今互联网和数据分布和存储问题的核心解决方案。它从头到尾都是为隐私而建的，数据加密复杂，通信完全安全、防泄漏。此外，它可以在个人的条件下与第三方共享选定的数据。支付和激励是Swarm的组成部分，以经济补偿来换取数据的细粒度共享是一个核心问题。
 
-Because as Hughes wrote, "privacy in an open society requires anonymous transaction systems. ... An anonymous transaction system is not a secret transaction system. An anonymous system empowers individuals to reveal their identity when desired and only when desired; this is the essence of privacy."
+因为正如休斯所写，“开放社会中的隐私需要匿名交易系统. ...。匿名交易系统不是秘密交易系统。一个匿名系统使个人能够在需要时和仅在需要时透露自己的身份;这就是隐私的本质。”
 
-Using Swarm will allow to leverage a fuller set of data and to create better services, while still having the option to contribute it to the global good with self-verifiable anonymisation. The best of all worlds.
+使用Swarm可以利用更完整的数据集，创造更好的服务，同时还可以选择以可自我验证的匿名方式为全球利益做出贡献。世界上最好的。
 
-This new, wider availability of data, e.g. for young academic students and startups with disruptive ideas working in the AI and big-data sectors, would greatly facilitate the evolution of the whole field that has so much to contribute to science, healthcare, eradication of poverty, environmental protection, disaster prevention, to name a few; but which is currently at an impasse, despite its eye-catching success for robber barons and rogue states. With the facilities that Swarm provides, a new set of options will open up for companies and service providers, different but no less powerful. With widespread decentralisation of data, we can collectively own the extremely large and valuable data sets that are needed to build state-of-the-art AI models. The portability of this data, already a trend that is being hinted at in traditional tech, will enable competition and – as before – personalised services for individuals. But the playing field will be levelled for all, driving innovation worthy of the year 2020. 
+这种新的更广泛的可用性的数据,如年轻学术和学生创业与颠覆性的创意在AI和大数据领域工作,将极大地促进整个领域的演变作了不少贡献科学,医疗、消除贫困、环境保护、灾害预防、等等;但是，尽管强盗大亨和流氓国家取得了引人注目的成功，但它目前处于僵局。有了Swarm提供的设施，公司和服务提供商将有一系列不同但同样强大的新选择。随着数据的广泛去中心化，我们可以共同拥有极其庞大和有价值的数据集，这些数据集是构建最先进的人工智能模型所需的。这种数据的可移植性已经在传统技术中得到了暗示，它将使竞争成为可能，并像以前一样为个人提供个性化服务。但竞争环境对所有人来说都是公平的，这将推动值得在2020年进行的创新。 
 
 
 
-\subsection{Collective information \statusgreen}\label{sec:collective_information}
+\subsection{集体信息\statusgreen}\label{sec:collective_information}
 
-\glossupper{collective information} began to accumulate from the first emergence of the Internet, yet the concept has just recently become recognized and discussed under a variety of headings such as  \emph{open source}, \emph{fair data} or \emph{information commons}.
+\glossupper{collective information}从互联网首次出现时就开始积累，但这个概念最近才在\emph{开源}、\emph{合理的数据}或\emph{信息共享}等各种标题下得到认可和讨论。
 
-A collective, as defined by Wikipedia (itself an example of "collective information") is:
+集体信息，由维基百科(本身就是“集体信息”的一个例子)定义为:
 \begin{displayquote}
-"A group of entities that share or are motivated by at least one common issue or interest, or work together to achieve a common objective." 
+“一组实体，它们至少有一个共同的问题或兴趣，或为实现共同的目标而一起工作。” 
 \end{displayquote}
-The internet allows collectives to be formed on a previously unthinkable scale, despite differences in geographic location, political convictions, social status, wealth, even general freedom, and other demographics. Data produced by these collectives, through joint interaction on public forums, reviews, votes, repositories, articles and polls is a form of collective information – as is the metadata that emerges from the traces of these interactions. Since most of these interactions, today, are facilitated by for-profit entities running centralized servers, the collective information ends up being stored in data silos owned by a commercial entity, the majority concentrated in the hands of a few big technology companies. And while the actual work results are often in the open, as the offering of these providers, the metadata, which can often be the more valuable, powerful and dangerous representation of the interaction of contributors, is usually held and monetized secretly.
+尽管地理位置、政治信仰、社会地位、财富、甚至普遍自由和其他人口特征存在差异，但互联网允许集体以以前无法想象的规模形成。这些集体通过在公共论坛、评论、投票、存储库、文章和投票上的联合互动产生的数据是集体信息的一种形式——从这些互动的痕迹中产生的元数据也是如此。由于今天大多数的这些交互都是由运行集中服务器的营利性实体推动的，这些集体信息最终被存储在商业实体拥有的数据竖井中，其中大部分集中在几家大型技术公司的手中。虽然实际的工作结果往往是公开的，但作为这些提供者的提供，元数据通常是贡献者互动的更有价值、更强大和更危险的代表，通常是秘密持有和货币化的。
 
-These "platform economies" have already become essential and are only becoming ever more important in a digitising society. We are, however, seeing that the information the commercial players acquire over their users is increasingly being used against the very users' best interests. To put it mildly, this calls into question whether these corporations are capable of bearing the ethical responsibility that comes with the power of keeping our \gloss{collective information}.
+在一个数字化的社会中，这些“平台经济”已经变得至关重要，而且只会变得越来越重要。然而，我们看到，商业玩家通过其用户获取的信息正越来越多地被用于损害用户的最大利益。委婉地说，这让人怀疑，这些公司是否有能力承担与保留我们的\gloss{collective information}权力相伴随的道德责任。
 
-While many state actors are trying to obtain unfettered access to the collective mass of personal data of individuals, with some countries demanding magic key-like back-door access, there are exceptions. Since AI has the potential for misuse and ethically questionable use, a number of countries have started 'ethics' initiatives, regulations and certifications for AI use, for example the German Data Ethics Commission or Denmark's Data Ethics Seal. 
+尽管许多国家试图不受限制地获取大量个人数据，但有些国家要求获得像魔术钥匙一样的后门访问权，但也有例外。由于人工智能有可能被滥用和在伦理上存在问题的使用，许多国家已经启动了人工智能使用的“伦理”举措、法规和认证，例如德国数据伦理委员会或丹麦的数据伦理印章。
 
-Yet, even if corporations could be made to act more trustworthy, as would be appropriate in the light of their great responsibility, the mere existence of \glossplural{data silo} stifles innovation. The basic shape of the client-server architecture itself  led to this problem, as it has made centralised data storage (on the 'servers' in their 'farms') the default (see \ref{sec:web_1} and \ref{sec:web_2}). Effective peer-to-peer networks such as Swarm (\ref{sec:peer_to_peer}) now make it possible to alter the very topology of this architecture, thus enabling the collective ownership of collective information. 
+然而，即使可以使企业的行为更值得信赖(鉴于它们的重大责任，这是适当的)，\glossplural{data silo}的存在本身就扼杀了创新。客户端-服务器架构本身的基本形状导致了这个问题，因为它使集中式数据存储(在他们的“农场”的“服务器”上)成为默认(参见\ref{sec:web_1}和\ref{sec:web_2})。有效的点对点网络(如Swarm (\ref{sec:peer_to_peer}))现在可以改变这种架构的拓扑结构，从而实现集体信息的集体所有权。 
 
 
-\section{The vision  \statusorange}\label{sec:vision}
+\section{愿景\statusorange}\label{sec:vision}
 
 \wip{Gregor: still working on text}
 
 \begin{displayquote}
-Swarm is infrastructure for a self-sovereign society. 
+蜂群是一个自治社会的基础设施。 
 \end{displayquote}
 
 
-\subsection{Values \statusorange}\label{sec:values}
+\subsection{值\statusorange}\label{sec:values}
 
-Self-sovereignty implies freedom. If we break it down, this implies the following metavalues: 
+Self-sovereignty意味着自由。如果我们将其分解，这意味着以下元值:
 
 \begin{itemize}
-\item \emph{inclusivity} - Public and permissionless participation.  
-\item \emph{integrity} - Privacy, provable provenance. 
-\item \emph{incentivisation} - Alignment of interest of node and network.
-\item \emph{impartiality} -  Content and value neutrality.  
+\item \emph{包容性} -公众和未经允许的参与。  
+\item \emph{完整性} -隐私，可证明的来源。 
+\item 节点和网络的兴趣对齐。
+\item 内容和价值中立。  
 \end{itemize}
 
-These metavalues can be thought of as systemic qualities which contribute to empowering individuals and collectives to gain self-sovereignty.
+这些元价值可以被认为是有助于增强个人和集体获得自我主权的系统品质。
 
-Inclusivity entails we aspire to include the underprivileged in the data economy; and to lower the barrier of entry to define complex data flows and to build decentralised applications. Swarm is a network with open participation: for providing services and permissionless access to publishing, sharing, and investing your data.
+包容性意味着我们渴望将弱势群体纳入数据经济;以及降低定义复杂数据流和构建分散应用程序的准入门槛。Swarm是一个开放参与的网络:为发布、共享和投资你的数据提供服务和未经许可的访问。
 
-Users are free to express their intention as 'action' and have full authority to decide if they want to remain anonymous or share their interactions and preferences. The integrity of online persona is required. 
+用户可以自由地将他们的意图表达为“行动”，并拥有完全的权力来决定他们是否想要保持匿名或分享他们的互动和偏好。在线角色的完整性是必需的。
 
-Economic incentives serve to make sure participants' behaviour align with the desired emergent behaviour of the network (see \ref{sec:incentivisation}). 
+经济激励有助于确保参与者的行为与网络的预期紧急行为相一致(参见\ref{sec:incentivisation})。
 
-Impartiality ensures content neutrality and prevents gate-keeping. It also reaffirms that the other three values are not only necessary but sufficient: it rules out values that would treat any particular group as privileged or express preference for particular content or data from any particular source. 
+公正性保证了内容的中立性，防止了守门行为。它还重申，其他三种价值观不仅是必要的，而且是充分的:它排除了将任何特定群体视为特权或表示偏爱任何特定来源的特定内容或数据的价值观。 
 
-\subsection{Design principles \statusorange}\label{sec:design-principles}
+\subsection{设计原则\statusorange}\label{sec:design-principles}
  
 
-The Information Society and its data economy bring about an age where online transactions and big data are essential to everyday life and thus the supporting technology is critical infrastructure. It is imperative therefore, that this base layer infrastructure be \emph{future proof}, i.e., provided with strong guarantees for continuity. 
+信息社会和数据经济带来的时代，在线交易和大数据是必不可少的日常生活，因此支持技术是关键的基础设施。因此，这个基础层基础设施必须是\emph{未来的证明}，即提供强大的连续性保证。
 
-Continuity is achieved by the following generic requirements expressed as \emph{systemic properties}:
+通过以下\emph{系统属性}表示的一般要求可实现连续性:
 
 \begin{itemize}
-\item \emph{stable} - The specifications and software implementations be stable and resilient to changes in participation, or politics (political pressure, censorship).
-\item \emph{scalable} - The solution be able to accommodate many orders of magnitude more users and data than starting out with, without leading to prohibitive reductions in performance or reliability during mass adoption.  
-\item \emph{secure} - The solution is resistant to deliberate attacks, and immune to social pressure and politics, as well as tolerating faults in its technological dependencies (e.g. blockchain, programming languages). 
-\item \emph{self-sustaining} - The solution runs by itself as an autonomous system, not depending on human or organisational coordination of collective action or any legal entity's business, nor exclusive know-how or hardware or network infrastructure. 
+\item \emph{稳定的} -规范和软件实现对参与或政治(政治压力，审查)的变化是稳定和弹性的。
+\item \emph{可伸缩的} -与一开始相比，该解决方案能够容纳更多数量级的用户和数据，在大规模采用期间不会导致性能或可靠性的令人望而却步的降低。  
+\item \emph{安全}——该解决方案能抵抗蓄意攻击，不受社会压力和政治影响，也能容忍其技术依赖中的错误(例如区块链，编程语言)。 
+\item \emph{自我维持的} -该解决方案作为一个自主系统自行运行，不依赖于人或组织协调集体行动或任何法律实体的业务，也不依赖专有技术、硬件或网络基础设施。 
 \end{itemize}
 
 
 
 
-\subsection{Objectives \statusyellow}\label{sec:objectives}
+\subsection{目标\statusyellow}\label{sec:objectives}
 
 %\subsubsection{Scope}
 
-When we talk about the 'flow of data,' a core aspect of this is how information has provable integrity across modalities, see table \ref{tab:scope}. This corresponds to the original Ethereum vision of the \gloss{world computer},  constituting the trust-less (i.e. fully trustable) fabric of the coming datacene: a global infrastructure that supports data storage, transfer and processing.
+当我们谈论“数据流”时，其中一个核心方面是信息如何在不同的模式中具有可证明的完整性，参见表\ref{tab:scope}。这与以太坊\gloss{world computer}的原始愿景相对应，构成了未来数据场景的无信任(即完全可信)结构:一个支持数据存储、传输和处理的全球基础设施。
 
 \begin{table}[htb]
 \centering
@@ -282,50 +278,50 @@ time & memory & storage \\
 space & messaging & communication \\
 symbolic & manipulation & processing \\
 \end{tabular}
-\caption{Swarm's scope and data integrity aspects across 3 dimensions.}
+\caption{Swarm的范围和数据完整性横跨3个维度。}
 \label{tab:scope}
 \end{table}
 
  
-With the Ethereum blockchain as the CPU of the world computer, Swarm is best thought of as its "hard disk". Of course, this model belies the complex nature of Swarm, which is capable of much more than simple storage, as we will discuss.
+以太坊区块链作为世界计算机的CPU, Swarm被认为是它的“硬盘”。当然，这个模型掩盖了Swarm的复杂性，它的能力远不止简单的存储，正如我们将讨论的那样。
 
-The Swarm project sets out to bring this vision to completion and build the world computer's storage and communication. 
+Swarm项目旨在实现这一愿景，并建立世界计算机的存储和通信。 
 
-\subsection{Impact areas \statusorange}
+\subsection{影响地区\statusorange}
 
-In what follows, we try to identify feature areas of the product that best express or facilitate the values discussed above. 
+在接下来的内容中，我们试图确定产品的特性区域，以最好地表达或促进上面讨论的价值。
 
-Inclusivity in terms of permissionless participation is best guaranteed by a decentralised peer-to-peer network.  
-Allowing nodes to provide service and get paid for doing so will offer a zero-cash entry to the ecosystem: new users without currency can serve other nodes until they accumulate enough currency to use services themselves. A decentralised network providing distributed storage without gatekeepers is also inclusive and impartial in that it allows content creators who risk being deplatformed by repressive  authorities to publish without their right to free speech being censored. 
+在无许可参与方面的包容性最好由去中心化的点对点网络来保证。
+允许节点提供服务并从中获得报酬将为生态系统提供零现金入口:没有货币的新用户可以为其他节点服务，直到他们积累了足够的货币来使用自己的服务。一个不需要看门人就能提供分布式存储的去中心化网络也是包容和公正的，因为它允许那些冒着被专制当局取缔平台风险的内容创造者在不受审查的情况下发表自己的言论自由。
 
-The system of economic incentives built into the protocols works best if it tracks the actions that incur costs in the context of peer-to-peer interactions: bandwidth sharing as evidenced in message relaying is one such action where immediate accounting is possible as a node receives a message that is valuable to them. On the other hand, promissory services such the commitment to preserve data over time must be rewarded only upon verification. In order to avoid the \gloss{tragedy of commons} problem, such promissory commitments should be guarded against by enforcing individual accountability through the threat of punitive measures, i.e. by allowing staked insurers.
+经济激励的系统内置效果最好的协议如果它追踪行动,造成成本的点对点交互:带宽共享体现在消息传送就是这样的一个行动,立即会计是可能的节点收到一个消息,是有价值的。另一方面，诸如承诺保存数据这样的承诺只有在经过核实后才能得到回报。为了避免\gloss{tragedy of commons}问题，应该通过惩罚措施的威胁来加强个人问责，即通过允许参股保险公司，来防范此类承诺。
 
-Integrity is served by easy provability of authenticity, while maintaining anonymity.
-Provable inclusion and uniqueness are fundamental to allowing trustless data transformations.
+完整性是由易于证明的真实性，同时保持匿名。
+可证明的包含和惟一性是允许不可信数据转换的基础。
 
 % \subsection{Requirements \statusred}\label{sec:requirements}
 
-\subsection{The future} \label{sec:future}
+\subsection{未来} \label{sec:future}
 
-The future is unknown and many challenges lie ahead for humanity. What is certain in today's digital society is that to be sovereign and in control of our destinies, nations and individuals alike must retain access and control over their data and communication.
+未来是未知的，人类面临着许多挑战。在当今的数字社会中，可以肯定的是，国家和个人要想拥有主权并掌握自己的命运，就必须保留对其数据和通信的访问和控制。
 
-Swarm's vision and objectives stem from the decentralized tech community and its values, since it was originally designed to be the file storage component in the trinity which would form the world computer: Ethereum, Whisper, and Swarm.
+Swarm的愿景和目标源于去中心化的技术社区及其价值观，因为它最初被设计为三巨头中的文件存储组件，这三巨头将形成世界计算机:以太坊、Whisper和Swarm。
 
-It offers the responsiveness required by dapps running on the devices of users and well incentivised storage using any kind of storage infrastructure - from smartphone to high-availability clusters. Continuity will be guaranteed with well designed incentives for bandwidth and storage.
+它提供了运行在用户设备上的dapps所需的响应能力，以及使用任何类型的存储基础设施(从智能手机到高可用性集群)的良好激励存储。通过精心设计的带宽和存储激励措施，连续性将得到保证。
 
-Content creators will get fair compensation for the content they will offer and content consumers will be paying for it. By removing the middlemen providers that currently benefit from the network effects, the benefits of these network effects will be spread throughout the network.
+内容创造者将从他们提供的内容中获得公平的补偿，而内容消费者将为其付费。通过去除目前受益于网络效应的中间商，这些网络效应的好处将会扩散到整个网络。
 
-But it will be much more than that. Every individual, every device is leaving a trail of data. That data is picked up and stored in silos, its potential used up only in part and to the benefit of large players.
+但它将远不止于此。每个人，每个设备都会留下数据痕迹。这些数据被收集并存储在竖井中，其潜力仅被部分利用，这有利于大型企业。
 
-Swarm will be the go-to place for digital mirror worlds. Individuals, societies and nations will have a cloud storage solution, that will not depend on any one large provider. 
+蜂群将是数字镜像世界的首选场所。个人、社会和国家将有一个云存储解决方案，它将不依赖于任何一个大型提供商。 
 
 % This is especially important for countries currently lagging behind, such as Africa and Latin America. 
 
-Individuals will be able to fully control their own data. They will no longer have the need to be part of the data slavery, giving their data in exchange for services. Not only that, they will be able to organize into data collectives or data co-operatives - sharing certain kinds of data as commons for reaching common goals. 
+个人将能够完全控制自己的数据。他们将不再需要成为数据奴隶，用自己的数据换取服务。不仅如此，它们还能够组织成数据集体或数据合作社——共享某些类型的数据，以达到共同的目标。
 
-Nations will establish self-sovereign Swarm clouds as data spaces to cater to the emerging artificial intelligence industry - in industry, health, mobility and other sectors. The cloud will be between peers, though maybe inside an exclusive region, and third parties will not be able to interfere in the flow of data and communication - to monitor, censor,  or manipulate it. Yet, any party with proper permissions will be able to access it thus hopefully levelling the playing field for AI and services based on it.  
+各国将建立自主的集群云(Swarm cloud)作为数据空间，以迎合工业、卫生、移动和其他部门新兴的人工智能产业。云将在对等体之间，尽管可能在一个专属区域内，第三方将不能干涉数据和通信的流动——监控、审查或操纵它。然而，任何有适当许可的一方都可以访问它，从而有望为人工智能和基于它的服务创造公平的竞争环境。
 
-Swarm can, paradoxically, be the "central" place to store the data and enable robustness of accessibility, control, fair distribution of value and leveraging the data for benefiting individuals and society.
+矛盾的是，Swarm可以成为存储数据的“中心”场所，使数据的可访问性、控制、价值公平分配和利用数据造福个人和社会。
 
-Swarm will become ubiquitous in the future society, transparently and securely serving data of individuals and devices to data consumers in the Fair data economy.
+在未来的社会中，Swarm将变得无处不在，在Fair数据经济中，将个人和设备的数据透明、安全地提供给数据消费者。
 
