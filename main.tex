@@ -231,13 +231,13 @@ spaceabove=6pt, spacebelow=6pt,headfont=\normalfont\bfseries,notefont=\mdseries,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % the book of swarm
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{\Huge\sc the book of Swarm\\
+\title{\Huge\sc Swarm之书\\
 \Large 自主数字社会的储存和通信基础设施\\
-去中心化网络的后端堆栈}
+去中心化网络的后端栈}
 
 
 \author{Viktor Trón}
-\date{v1.0 pre-release 8 - worked on \today}
+\date{v1.0 pre-release 8 - 于 \today}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -249,18 +249,18 @@ spaceabove=6pt, spacebelow=6pt,headfont=\normalfont\bfseries,notefont=\mdseries,
 % instructions for versioning & deployment
 % they are hidden automatically if draft is FALSE when compiling
 \ifdraft
-Instructions for compiling and distributing.
+编译和分发的说明。
 
-These are hidden if conditional text is not shown (when publishing a version).
+如果不显示条件文本(在发布版本时)，则隐藏这些选项。
 
 \begin{enumerate}
-    \item any version being worked on should be named "Version vX - worked on";
-    \item when publishing, "worked on" should be removed; 
-    \item drafttrue line should be commented out removing conditional text upon compilation;
-    \item PDF should be generated, saved and pushed to Github repo \\ (https://github.com/ethersphere/publish-bookofswarm/tree/master/pdfs); \item verify that last commit was autodeployed to Swarm \\ (https://swarm-gateways.net/bzz:/latest.bookofswarm.eth/the-book-of-swarm-viktor-tron.pdf);
-    \item PDF commit in Github repo should be named with version number;
-    \item version number in Latex should be bumped up and "worked on" note added: "Version v(X+1) - worked on";
-    \item Goto 1.
+    \item 任何正在工作的版本应该被命名为“版本vX -工作”;
+    \item 在出版时，“曾工作过”应删除; 
+    \item Drafttrue line应该注释掉，在编译时删除条件文本;
+    \item PDF应该生成，保存和推到Github repo \\ (https://github.com/ethersphere/publish-bookofswarm/tree/master/pdfs); \item 验证上次提交是自动部署到Swarm \\ (https://swarm-gateways.net/bzz:/latest.bookofswarm.eth/the-book-of-swarm-viktor-tron.pdf);
+    \item 在Github repo中的PDF提交应该以版本号命名;
+    \item Latex中的版本号应该被提升，“已完成”注释添加:“版本v(X+1) -已完成”;
+    \item 转到1。
 \end{enumerate}
 \fi
 
@@ -273,11 +273,11 @@ These are hidden if conditional text is not shown (when publishing a version).
 \input{acknowledgements.tex} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
-\part{Prelude} \label{part:preface}
+\part{前言} \label{part:preface}
 \input{intro.tex}
-\part{Design and architecture} \label{part:designarchitecture}
+\part{设计与架构} \label{part:designarchitecture}
 \input{body.tex}
-\part{Specifications}
+\part{规范}
 \label{part:specifications}
 \input{specs.tex}
 %%%%%%%%%%%%%%%%%%%%%%
@@ -286,11 +286,11 @@ These are hidden if conditional text is not shown (when publishing a version).
 \bibliography{refs.bib}
 %%%%%%%%%%%%%%%%%%%%%
 \appendix
-\part{Appendix}\label{part:appendix}
+\part{附录}\label{part:appendix}
 \input{appendix.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
-\part{Indexes \statusorange}
+\part{索引 \statusorange}
 % main glossary with explanations
 % NOTE: cannot find a non-hierarchical style that works well
 % maybe we don't need hierarchy in its current form (defined by parent)

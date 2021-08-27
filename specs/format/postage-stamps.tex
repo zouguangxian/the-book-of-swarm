@@ -1,44 +1,44 @@
 
-\subsection{Stamps for upload}
-\subsubsection{Witness type}
+\subsection{邮票的上传}
+\subsubsection{见证类型}
 
-There can be different implementations of postage stamps that differ in the structure and semantics of the \emph{proof of payment}. To allow for new cryptographic mechanisms to be used as they are developed, the \lstinline{witnessType} argument indicates the type of the witness used. 
+可以有在\emph{付款证明}的结构和语义上不同的邮票实现。为了允许在开发新的加密机制时使用它们，\lstinline{witnessType}参数指示所使用的证人的类型。 
 
-Witness type $0$ stands for ECDSA witness, which is an ECDSA signature on the byte slice resulting from the concatenation of   1) preamble constant 2) chunk hash 3) batch reference 4) valid until date.% 
+见证类型$0$代表ECDSA见证，它是一个字节片上的ECDSA签名，该签名由1)序言常量2)块哈希3)批处理引用4)有效到date.% 
 %
-\footnote{The binary encoding of the ECDSA signature is 65 bytes resulting from the concatenation of the $r$ (32 bytes), $s$ (32 bytes) and $v$ (1 byte) parameters of the signature, in this order. The signature is calculated on the secp256k1 elliptic curve, just like the signatures of Ethereum transactions.}
+\footnote{ECDSA签名的二进制编码是65字节，由该签名的$r$(32字节)、$s$(32字节)和$v$(1字节)参数串联而成。该签名按照secp256k1椭圆曲线计算，就像以太坊交易的签名一样。}
 %
-This is the bare minimum that postage stamp contracts and clients must implement.%
+这是邮票合同和客户必须实现的最低要求。%
 %
-\footnote{The ECDSA witness is the simplest and cheapest solution both in terms of gas consumed by the stamp verification contract and in terms of computational resources used off chain. Also, it does not rely on cryptographic assumptions in addition to those on which Ethereum critically relies, therefore as long as Ethereum is considered cryptographically secure, no advance in cryptorgraphy can render this witness type insecure. This is the justification for this witness type to be the only mandatory witness type to be implemented.}
+\footnote{就戳戳验证契约所消耗的气体和链外使用的计算资源而言，ECDSA见证是最简单和最便宜的解决方案。此外，除了以太坊严重依赖的加密假设之外，它并不依赖加密假设，因此只要以太坊被认为是加密安全的，加密技术的任何进步都不能使这种见证类型变得不安全。这是证明该证人类型是唯一要执行的强制性证人类型的理由。}
 
-Witness type $1$ refers to the RSA witness, which is an RSA signature on the same 128 bytes as above. The binary encoding of the RSA signature is of variable length, and is an Solidity ABI encoded array of the RSA signature $s$.%
+见证类型$1$是RSA见证，它是与上述相同的128字节上的RSA签名。RSA签名的二进制编码是可变长度的，是RSA签名$s$.%的Solidity ABI编码数组
 %
-\footnote{as defined in \emph{PKCS \#1}, \url{https://tools.ietf.org/html/rfc8017} and the RSA public key parameters $n$ (RSA modulus) and $e$ (public exponent).}
+\footnote{如在\emph{PKCS \# 1}、\url{https://tools.ietf.org/html/rfc8017}和RSA公钥参数$n$ (RSA模量)和$e$(公共指数)中定义的。}
 
-The RSA witness is specified so that blind stamping services can be implemented in a simple fashion, in order to mitigate the privacy issues arising from the ability to link chunks signed with the same private key. Even though blind ECDSA signatures also exist, their protocol requires more rounds of communication, making the implementation of such a service more complex, more error-prone and less performant. 
+指定RSA见证，这样就可以以一种简单的方式实现盲戳服务，以减轻链接使用相同私钥签名的块的能力所带来的隐私问题。即使盲ECDSA签名也存在，但它们的协议需要更多的通信轮数，这使得此类服务的实现更加复杂，更容易出错，性能也更差。 
 
-The inclusion of the entire public key in each RSA witness rather than storing the public key in contract state and just referencing it from the witness is justified by reducing the gas costs of interactions with the contract as well as future-proofing the design in case contract state rent is introduced in Ethereum. These considerations are more important than the brevity of postage stamps, marginally reducing the bandwith costs of uploading and forwarding stamped content.
+包含整个每个RSA公钥的见证而不是存储在合同的公钥状态和刚从证人引用它通过减少天然气的成本是合理的交互设计与合同以及能否经得住时间的考验,以防在Ethereum租引入合同状态。这些考虑比邮票的简便性更重要，略微降低了上传和转发盖章内容的成本。
 
-Note that cryptographic advances can render RSA witnesses insecure without rendering Ethereum insecure, therefore RSA witnesses can be phased out in future versions of the protocol, if the security of RSA signatures gets compromised. Note, furthermore, that such blind signing services are not entirely trustless, through the damage they can incur is bounded. Trustless blind stamping services based on ZK proofs are not feasible at this stage, as the current algorithms are not sufficiently performant for the purpose, but given the rapid advances in the field, the development of suitable algorithms can be expected in the future, in which case a corresponding witness type will have to be specified in a separate SWIP.
+请注意，加密技术的进步可以使RSA证人不安全，而不会使以太坊不安全，因此，如果RSA签名的安全性受到威胁，RSA证人可以在协议的未来版本中逐步淘汰。此外，请注意，这种盲签名服务并不是完全不可信的，因为它们可能造成的损害是有限的。基于ZK证明的无Trustless blind stamping服务在现阶段还不可行，目前的算法性能还不够，但考虑到该领域的快速发展，未来可以期待合适的算法的发展。在这种情况下，必须在单独的SWIP中指定相应的见证类型。
 
-\subsubsection{Contract Upgrades}
+\subsubsection{合同的升级}
 
-In order to facilitate the upgrade of the contract either in case of a discovered vulnerability or some feature extension (such as adding new witness types), it is recommended that the part holding the funds with the database of payments and the part that verifies witnesses are in separate contracts so that a backwards-compatible upgrade can be performed with minimal disruption.
+为了便于在发现漏洞或某些特性扩展(如添加新的证人类型)的情况下升级合同，建议将拥有付款数据库的资金的那部分和核查证人的那部分分别订立合同，以便能够在最少中断的情况下进行向后兼容的升级。
 
-In order to avoid centralized control, it is also recommended that it is the witness-verifying contract that is referenced in client configuration so that client operators can independently decide for themselves when and whether to switch to a new contract, as they become available.
+为了避免集中控制，还建议在客户端配置中引用证人验证合同，以便客户端操作人员可以在新合同可用时独立决定何时以及是否切换到新合同。
 
 
-Nodes participating in the same postage system are configured to reference the same contract on the same blockchain. This contract must conform to the following interface:
+参与同一邮资系统的节点被配置为在同一区块链上引用同一合同。本合同必须符合以下接口:
 
 \begin{definition}[Postage contract]\label{def:postage}
 
 \end{definition}
 
 
-This accessor method returns \lstinline{true} if the proof embodied by \lstinline{witness} checks out for all other arguments within the claimed 
-validity period, i.e. when \lstinline{block.timestamp} (the output of \lstinline{TIMESTAMP EVM} opcode) is between \lstinline{beginValidity} (inclusive) and 
-\lstinline{endValidity} (exclusive). Outside of the validity period, the return value is \lstinline{undefined}.
+如果\lstinline{witness}包含的证明检查出声明中的所有其他参数，则此访问器方法返回\lstinline{true} 
+有效期，即\lstinline{block.timestamp} (\lstinline{TIMESTAMP EVM}操作码的输出)介于\lstinline{beginValidity}(含)和 
+\lstinline{endValidity}(独家)。在有效期之外，返回值为\lstinline{undefined}。
  
 
 \begin{definition}[Postage stamp basic types: batchID, address, witness, stamp, validity]\label{def:postage-stamp}
@@ -64,6 +64,6 @@ as
 \end{lstlisting}
 \end{definition}
 
-\subsection{Postage subscriptions}\label{spec:format:subscriptions}
+\subsection{邮资订阅}\label{spec:format:subscriptions}
 
-\subsection{Postage lottery race}\label{spec:format:race}
+\subsection{邮资彩票比赛}\label{spec:format:race}

@@ -1,67 +1,67 @@
-In the following we describe 3 strategies: each is more complex than the previous.
+下面我们将描述3种策略:每一种都比前一种更复杂。
 
-passive: weak cartell - hard wired fix price table
-minimal responsiveness: if margin is not guaranteed, the peer is not forwarded to. 
+被动:弱卡特尔-硬有线固定价格表
+最小响应性:如果没有保证边界，则不对对等体进行转发。 
 
-reactive - respond to downstream price increase with exploring alternative peers. If there is no alternative it raises the price. If downstream peers drop the price, it follows suit.
+反应性-对下游价格上涨的反应，探索其他同行。如果没有其他选择，就会提高价格。如果下游的同行降低价格，它也会效仿。
 
-proactive: respond to 
+积极主动:回复 
 
 
-\subsection{Passive strategy \statusorange}\label{sec:pricing-retrieval}
-The following strategy is a basic way on how nodes *can* use the protocol described above. The strategy intends to be as easy as possible to implement, while balbalbala
+\subsection{被动策略\statusorange}\label{sec:pricing-retrieval}
+下面的策略是节点如何使用上面描述的协议的基本方法。该策略的意图是尽可能容易地实施，而balbalbala
 
-\subsubsection{Margin}
-A nodes price for a `ChunkDeliveryRequest` is always at least his desired `margin` + the price of the cheapest upstream peer. 
+\subsubsection{保证金}
+“ChunkDeliveryRequest”的节点价格总是至少是他想要的“保证金”+最便宜的上游peer的价格。 
 
-\subsubsection{Filling the priceInformationRegistry}
-Initially, nodes only know the price for serving content from the most proximate bin (price == `margin`). When this node gets his first request for serving content that is one proximity order away from the border of his most proximate bin, he will first of all check that the price for this request is more than his margin. If this is the case, he will forward the `RetrieveRequest` with a price of 0 (since the state is not initialized yet). If the upstream peer in the appropriate bin did not change his price, this peer will get back a `NewPrice` message, where the price equals the `margin` of the downstream peer. If the original price is at least 2x the `margin`, the node can forward the request with a price of `margin` (and pocket the other marin himself). From this point onwards, the `state` is initialized for one peer and one proximity. Subsequent `RetrieveRequests` to this peer will be send with a `price` of `margin`. Chunks which are further away will have a higher price. The peer will quickly learn about this via this iterative process. If all peers apply the same `margin`, the price of a `ChunkDelivery` equals the proximity order between the requestor and the chunk times the `margin`. If a peer get's a request for a chunk with a price that is less than his `margin` + the price of the cheapest upstream peer in that bin, the request is not forwarded, but immediately answered by a `NewPrice` message with a price equal to the `margin` + the price of the cheapest upstream peer in that bin.
+\subsubsection{填充priceInformationRegistry}
+最初，节点只知道从最接近的容器中提供内容的价格(price == ' margin ')。当这个节点收到他的第一个请求，提供的内容是距离他最接近的存储库边界一个接近订单的内容时，他首先会检查这个请求的价格是否超过他的边际。如果是这种情况，他将以0的价格转发' retriverequest '(因为状态还没有初始化)。如果在适当的仓中的上游对等体没有改变他的价格，这个对等体将返回一个' NewPrice '消息，其中价格等于下游对等体的' margin '。如果原始价格至少是“保证金”的2倍，节点可以以“保证金”的价格转发请求(并将另一个马林自己收进口袋)。从这一点开始，“状态”将为一个对等体和一个邻近体初始化。随后发送给这个peer的' retriverequests '将以' margin '的' price '发送。更远的区块价格更高。通过这个迭代过程，同伴将很快了解到这一点。如果所有对等点应用相同的' margin '， ' ChunkDelivery '的价格等于请求者和块之间的接近顺序乘以' margin '。如果对等的请求一块价格小于他的“保证金”+上游同行最便宜的价格,本,请求不转发,但立即回答“NewPrice”的信息与价格等于“保证金”+上游同行最便宜的价格,本。
 
-\subsubsection{Reacting to price differences}
-In a network where no peer ever charges a `margin` different than the default margin, `NewPrice` messages will be only send to peers who have not fully initialized their `state` and, given equal proximity between the requested chunk and the peer in a particular bin, a node does not have a preferred supplier of a chunk based on the price. If any peer in the network would change his price, however, a preference based on price will emerge:
+\subsubsection{对价格差异的反应}
+网络中没有对等收取“保证金”不同于默认的边缘,只“NewPrice”消息将发送到同龄人没有完全初始化他们的“状态”,同等的距离所请求的块和同行之间在一个特定的箱子,一个节点没有一块基于价格的首选供应商。但是，如果网络中的任何一个peer改变了他的价格，基于价格的偏好就会出现:
 
-For any chunk request:
-- Select the bin to forward the request to
-- Select the peers who are closest to the chunk in terms of PO
-- Select the peer with the lowest price
-- Do a round-robin load balancing if there are multiple peers with the same price
+对于任何块请求:
+—选择要转发请求的bin
+—选择PO距离chunk最近的对等体
+—选择价格最低的对等体
+-如果有多个对等点具有相同的价格，则执行轮询负载均衡
 
-From this, we can conclude that if a peer lowers his price, he is expected to receive more `RetrieveRequests` and if a peer increases his price, he is expected to receive fewer `RetrieveRequests`. A node who is connected to an upstream peer with a lower price may decide to lower his price for this distance as well in order to receive more requests.
+由此，我们可以得出结论，如果对等体降低价格，他将收到更多的‘retriverequests’;如果对等体提高价格，他将收到更少的‘retriverequests’。与价格较低的上游peer连接的节点可能会决定在此距离上降低价格，以便接收更多请求。
 
-\subsubsection{Notifying about price changes}
-It is in the interest of the network, that when there is a price change this gets propagated as soon as possible to the relevant parties. A price change can be initiated by a change of `margin`, or by a change of the price from upstream peers. In both cases, a peer might decide not to notify other peers about the decrease in price--the only thing which changes is that it will accept `RetrieveRequests` with a lower price than before. Without notifying the downstream peers, however, a node might not get the expected amount of additional clients directly, as the downstream peers might never propose a lower price than before. For this reason, we propose that nodes pro-actively send `NewPrice` messages to his peers, essentially requesting them to update their `priceInformationRegistry`. In the case of pro-active `NewPrice` messages, the `chunkReference` may be synthetic, meaning it does not have to respond to an actual chunk; all that is important is that peers update their `priceInformationRegistry`.
+\subsubsection{通知价格变动}
+这是网络的利益，当有价格变化时，这将尽快传播到相关各方。价格变化可以由“保证金”的变化引起，或者由上游对等方的价格变化引起。在这两种情况下，对等体可能决定不通知其他对等体价格的下降——惟一的变化是它将以比以前更低的价格接受' retriverequests '。然而，如果不通知下游对等体，节点可能无法直接获得预期数量的额外客户端，因为下游对等体可能永远不会提出比以前更低的价格。出于这个原因，我们建议节点主动发送“NewPrice”消息给他的同伴，本质上是要求他们更新他们的“priceInformationRegistry”。在主动' NewPrice '消息的情况下，' chunkReference '可能是合成的，这意味着它不必响应一个实际的块;重要的是同行们更新他们的“价格信息注册表”。
 
 \textbf{Overpriced bins}
-Since the price of a node depends on the price of his upstream peers, it might happen that by change, all his upstream peer-connections in a certain bin are populated by expensive peers—effectively making the node itself to be too expensive as well for his downstream peers. To solve this issue, we propose to do statistical analysis: if a node has sensible prices across his bins, it is expected that he receives an equal amount of requests for all his bins. If a node receives statistically significantly less requests for one bin compared to his other bins, he marks the supposedly overpriced peers as non-functional and the hive protocol should kick in to suggest new peer connections. 
+自一个节点的价格取决于他的上游同行的价格,它会发生改变,他所有的上游同学之间的关系在某本是由昂贵的peers-effectively填充节点本身过于昂贵和下游的同行。为了解决这个问题，我们建议进行统计分析:如果一个节点在他的所有箱子上都有合理的价格，那么他将收到所有箱子相同数量的请求。如果一个节点接收到的对某个箱子的请求比其他箱子的请求少得多，他就会将那些被认为价格过高的对等体标记为无功能，蜂巢协议就会启动，建议新的对等体连接。 
 
 \textbf{Reacting to demand increases/decreases}
 
-A node that decreases its price such that he is the cheapest, is expected to get much more traffic. Without an adequate response to an increase in traffic, a node might be forced to go offline as D
+如果一个节点的价格降低到最便宜，那么它将获得更多的流量。如果不能对流量的增加作出适当的响应，节点可能被迫在D时脱机
 
-\subsubsection{Configuration options}
-The following configuration options will be added. 
+\subsubsection{配置选项}
+将添加以下配置选项。 
 
 \begin{verbatim}
 
-| name | unit | default |
+|名称|单位|默认|
 | -------- | -------- | -------- |
-| `margin`     | base currency of chequebook     | 0     |
-| `period`      | duration in seconds    | 300     |
-| `maximum_upstream_bandwidth`      | bandwidth usage in bytes per `period`     | TODO     |
-|`high_water_mark`    | percentage: (upstream bandwidth used / `period`) / (`maximum_upstream_bandwidth`)     | 80%     |
-| `low_water_mark`    | percentage: (upstream bandwidth used / `period`) / (`maximum_upstream_bandwidth`)      | 20%     |
-| `margin_change`    | percentage    | 1%     |
+'保证金'支票簿的基础货币
+| ' period ' | duration in seconds | 300 |
+| ' maximum_upstream_bandwidth ' |带宽使用，以字节为单位每'周期' | TODO |
+| ' high_water_mark ' | percentage:(upstream bandwidth used / ' period ') / (' maximum_upstream_bandwidth ') | 80%     |
+| ' low_water_mark ' | percentage:(upstream bandwidth used / ' period ') / (' maximum_upstream_bandwidth ') | 20%     |
+| ' margin_change ' | percentage | 1%     |
 
 \end{verbatim}
 
-See below for how these variables are used.
+下面是如何使用这些变量的。
 
-\subsection{Behavior of a node \statusred}
-1) Given a particular \lstinline{`chunkReference`}, a node chooses to send the $`ChunkRequestMessage`$, usually, to the peer with the lowest price of all peers in that bin.
-2) If a `newPrice` message is returned from a `chunkRequestMessage`, the node updates the `priceInformationRegistry` and sends the `chunkRequestMessage` again, choosing a peer on the basis of the updated `priceInformationRegistry`. 
-4) When a peer requests a certain `ChunkRequestMessage` and does not have the `chunkContent` in its local storage, it forwards the `chunkRequestMessage` (see 1) with a price equal to the `chunkRequestMessage` it received minus his `margin`.
-5) A node keeps track of his `bandWidth\_usage` (\lstinline{(upstream bandwidth used / `period`) / (`maximum\_upstream\_bandwidth`)})
-6) Whenever `bandWidth\_usage` > `high\_water\_mark`, the `margin` will be (1+`margin\_change`) * `margin`
-7) Whenever `bandWidth\_usage` < `low\_water\_mark`, the `margin` will be (1-`margin\_change`) * `margin`. `margin\_change` indicates the 
-8) Whenever a node can get a `chunk` for a cheaper price than requested by a `ChunkRequestMessage` (upstream peers changed prices, amount of hops are less than the average request for the same distance), he answers with a `ChunkDeliveryMessage`, which will be priced based on the `ChunkRequestMessage`. 
-9) Whenever a node expects to be able to deliver long-term lower prices than currently known by his peers, he sends a `NewPrice` message to his peers. 
+\subsection{节点fabbd的行为}
+1)给定一个特定的\lstinline{`chunkReference`}，节点选择将$`ChunkRequestMessage`$发送给该bin中所有节点中价格最低的节点。
+2)如果从一个' chunkRequestMessage '返回一个' newPrice '消息，节点更新' priceInformationRegistry '并再次发送' chunkRequestMessage '，并根据更新的' priceInformationRegistry '选择对等体。 
+4)当对等端请求一个特定的ChunkRequestMessage，并且在其本地存储中没有' chunkContent '，它转发' ChunkRequestMessage '(见1)，价格等于它收到的' ChunkRequestMessage '减去他的' margin '。
+一个节点跟踪他的“带宽\_usage”(\lstinline{(upstream bandwidth used / `period`) / (`maximum\_upstream\_bandwidth`)})
+6)当' bandWidth\_usage ' > ' high\_water\_mark '时，' margin '将为(1+ ' margin\_change ') * ' margin '
+7)当' bandWidth\_usage ' < ' low\_water\_mark '时，' margin '将是(1- ' margin\_change ') * ' margin '。“保证金\_change”表示 
+8)当一个节点可以得到更便宜的价格而不是“块”要求由“ChunkRequestMessage”(上游同行改变价格,数量的啤酒花小于平均请求相同的距离),他回答“ChunkDeliveryMessage”,将基于“ChunkRequestMessage”定价。 
+9)当一个节点期望能够提供比他的同行目前知道的长期更低的价格时，他发送一个“NewPrice”消息给他的同行。 

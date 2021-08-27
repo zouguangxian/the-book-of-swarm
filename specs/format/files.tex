@@ -1,5 +1,5 @@
 
-This table gives an overview of data sizes a chunk span represents, depending on the level of recursion.
+这个表给出了块跨度表示的数据大小的概述，这取决于递归的级别。
 
 \begin{table}[ht]
 \begin{tabular}{|r||r|r|r||r|r|r|}
@@ -22,9 +22,9 @@ level & chunks & $\mathit{log}_2$ of bytes & standard & chunks & $\mathit{log}_2
 
 
 
-\subsubsection{Calculating the Swarm Hash}
+\subsubsection{计算群哈希}
 
-Client-side custom redundancy is achieved by CRS erasure coding (see \ref{sec:erasure} and \ref{sec:features}); using it neccessitates some CRS parameters.
+客户端自定义冗余通过CRS擦除编码实现(参见\ref{sec:erasure}和\ref{sec:features});使用它需要一些CRS参数。
       
 \begin{definition}[File API: upload/storage;  swarm hash]\label{def:swarm-hash}
 \begin{lstlisting}[language=buzz1]

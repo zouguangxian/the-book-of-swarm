@@ -1,9 +1,7 @@
-\subsection{Chunks}
+\subsection{块}
 
-\begin{apiRoute}{GET}{/chunk/\{reference\}}{Retrieve chunk as in \ref{def:retrieve}}
-{
-}
-{ }
+\begin{apiRoute}{GET}{/chunk/\{reference\}}{Retrieve chunk as in \ref{def:retrieve}}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{reference}{hex string}
@@ -19,10 +17,8 @@
 
 
 
-\begin{apiRoute}{POST}{/chunk/(?span=\{span\})}{Create chunk as in \ref{def:store}}
-{
-}
-{ }
+\begin{apiRoute}{POST}{/chunk/(?span=\{span\})}{Create chunk as in \ref{def:store}}{
+}{ }
 
 \begin{queryParameter} 
 \queryParamItem{span}{integer}
@@ -47,10 +43,8 @@
 
 
 
-\begin{apiRoute}{GET}{/soc/\param{owner}/\param{id}}{Retrieve single owner chunk as in \ref{def:soc-retrieve} }
-{
-}
-{ }
+\begin{apiRoute}{GET}{/soc/\param{owner}/\param{id}}{Retrieve single owner chunk as in \ref{def:soc-retrieve} }{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{owner}{eth address of single owner}
@@ -71,10 +65,8 @@
 
 
 
-\begin{apiRoute}{POST}{/soc/\param{owner}/\param{id}?span=\param{span}}{Create new single owner chunk as in \ref{def:soc-store} }
-{
-}
-{ }
+\begin{apiRoute}{POST}{/soc/\param{owner}/\param{id}?span=\param{span}}{Create new single owner chunk as in \ref{def:soc-store} }{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{owner}{eth address of single owner}
@@ -100,12 +92,10 @@
 \end{routeResponse}
 \end{apiRoute}
 
-\subsection{File \statusgreen}\label{spec:api:file}
+\subsection{文件\statusgreen}\label{spec:api:file}
 
-\begin{apiRoute}{POST}{/file/}{Path description as in \ref{def:swarm-hash}}
-{
-}
-{ }
+\begin{apiRoute}{POST}{/file/}{Path description as in \ref{def:swarm-hash}}{
+}{ }
 
 \begin{headerParameter} 
 \headerParamItem{SWARM-TAG}{hex string}
@@ -126,10 +116,8 @@
 
 
 
-\begin{apiRoute}{PUT}{/file/\param{reference} }{Append body to file, returns new reference. Note that any intermediate chunk of a file is a file.}
-{
-}
-{ }
+\begin{apiRoute}{PUT}{/file/\param{reference} }{Append body to file, returns new reference. Note that any intermediate chunk of a file is a file.}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{reference}{hex string}
@@ -154,10 +142,8 @@
 
 
 
-\begin{apiRoute}{GET}{/file/\param{reference}}{Retrieve file by reference as in \ref{def:file-retrieval}}
-{
-}
-{ }
+\begin{apiRoute}{GET}{/file/\param{reference}}{Retrieve file by reference as in \ref{def:file-retrieval}}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{reference}{string}
@@ -173,15 +159,13 @@
 \end{apiRoute}
 
 
-\subsection{Manifest \statusgreen}\label{spec:api:manifest}
+\subsection{清单\statusgreen}\label{spec:api:manifest}
 
 
 
 
-\begin{apiRoute}{GET}{/manifest/\param{reference}/\param{path}}{Lookup entry by path in manifest, see \ref{def:manifests-lookup}}
-{
-}
-{ }
+\begin{apiRoute}{GET}{/manifest/\param{reference}/\param{path}}{Lookup entry by path in manifest, see \ref{def:manifests-lookup}}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{reference}{hex string}
@@ -199,10 +183,8 @@
 
 
 
-\begin{apiRoute}{DELETE}{/manifest/\param{reference}/\param{path} }{Delete entry on path in referenced manifest, see \ref{def:manifest-remove}}
-{
-}
-{ }
+\begin{apiRoute}{DELETE}{/manifest/\param{reference}/\param{path} }{Delete entry on path in referenced manifest, see \ref{def:manifest-remove}}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{reference}{hex string}
@@ -221,10 +203,8 @@
 
 
 
-\begin{apiRoute}{PUT}{/manifest/\param{reference}/\param{path}}{Update manifest as in \ref{def:manifest-update}}
-{
-}
-{ }
+\begin{apiRoute}{PUT}{/manifest/\param{reference}/\param{path}}{Update manifest as in \ref{def:manifest-update}}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{reference}{hex string}
@@ -245,10 +225,8 @@
 
 
 
-\begin{apiRoute}{POST}{/manifest/\param{old}/\param{new}}{Merge manifests as in \ref{def:manifest-merge}}
-{
-}
-{ }
+\begin{apiRoute}{POST}{/manifest/\param{old}/\param{new}}{Merge manifests as in \ref{def:manifest-merge}}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{old}{hex string}
@@ -265,13 +243,11 @@
 \end{routeResponse}
 \end{apiRoute}
 
-\subsection{High level storage API \statusyellow}\label{spec:api:manifest}
+\subsection{高级存储API \statusyellow}\label{spec:api:manifest}
 
 
-\begin{apiRoute}{GET}{/bzz:/\param{host}/\param{path}}{Download file}
-{
-}
-{ }
+\begin{apiRoute}{GET}{/bzz:/\param{host}/\param{path}}{Download file}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{host}{}
@@ -297,10 +273,8 @@
 
 
 
-\begin{apiRoute}{PUT}{/bzz:/\param{host}/\param{path}}{Append upload to file referenced, add new entry to path, returns new manifest}
-{
-}
-{ }
+\begin{apiRoute}{PUT}{/bzz:/\param{host}/\param{path}}{Append upload to file referenced, add new entry to path, returns new manifest}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{file/collection}{as request body}
@@ -327,10 +301,8 @@
 
 
 
-\begin{apiRoute}{POST}{/bzz:/\param{host}/\param{path}}{Upload file or collection, returns new manifest root reference}
-{
-}
-{ }
+\begin{apiRoute}{POST}{/bzz:/\param{host}/\param{path}}{Upload file or collection, returns new manifest root reference}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{file/collection}{as request body}

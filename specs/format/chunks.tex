@@ -1,4 +1,4 @@
-First let us define some basic types, such as \emph{payload, span, segment}. These fixed length byte slices enables verbose expression of fundamental units like \lstinline{segment size} or \lstinline{payload size}.
+首先，让我们定义一些基本类型，如\emph{载荷、跨段}。这些固定长度的字节片支持基本单元(如\lstinline{segment size}或\lstinline{payload size})的详细表达式。
 
 \begin{definition}[segment, payload, span, branches]\label{def:chunk-constants}
 \begin{lstlisting}[language=buzz1]
@@ -14,7 +14,7 @@ define function branches
 \end{lstlisting}
 \end{definition}
 
-Now  let's turn to the definition of \emph{address,  key} and \emph{reference}:                                             
+现在我们来看看\emph{地址,关键}和\emph{参考}的定义:                                             
 
 \begin{definition}[Chunk reference]\label{def:chunk-reference}
 \begin{lstlisting}[language=buzz1]
@@ -29,7 +29,7 @@ define type reference
 \end{lstlisting}
 \end{definition}
 
-Now, define chunk as a object with span  and payload.
+现在，将chunk定义为具有跨度和有效载荷的对象。
 
 \begin{definition}[Content addressed chunk]\label{def:chunks}
 \begin{lstlisting}[language=buzz1]
@@ -54,9 +54,9 @@ as
 \end{lstlisting}
 \end{definition}
 
-Where length is the content of the length field and reference  size is the sum of size of the referencing hash value and that of the decryption key, which is currently 64, as we use 256-bit hashes and 256-bit keys.
+其中length是length字段的内容，reference size是引用哈希值和解密密钥的大小之和，解密密钥目前是64，因为我们使用的是256位哈希值和256位密钥。
 
-In order to remove the padding after decryption before returning the plaintext chunk. 
+以便在返回明文块之前删除解密后的填充。 
 
 \begin{definition}[Span to payload length]\label{def:span}
 \begin{lstlisting}[language=buzz1]
@@ -72,7 +72,7 @@ as
 \end{lstlisting}
 \end{definition}
 
-Finally, we can define the public API of chunks  for retrieval and storage.
+最后，我们可以定义用于检索和存储的块的公共API。
 
 \begin{definition}[Chunk API retrieval]\label{def:retrieve}
 \begin{lstlisting}[language=buzz1]

@@ -77,7 +77,7 @@ Using the long-lived communication channels of the\gloss{underlay network}，群
 %
 \footnote{接近顺序是离散对数尺度的接近，反过来，是标准化的异或距离的倒数。参见\ref{sec:proximity}的正式定义。}
 %
-Given two addresses, $x$ and $y$, $\mathit{PO}(x,y)$ counts the matching bits of their binary representation starting from the most significant bit up to the first one that differs. The highest proximity order is therefore 256, designating the maximum relatedness, i.e. where $x=y$.
+给定两个地址$x$和$y$, $\mathit{PO}(x,y)$计算它们二进制表示的匹配位，从最有效位开始，直到第一个不同的位。因此，最高的接近顺序为256，表示最大的相关性，即$x=y$。
 
 \subsection{Kademlia路由\statusgreen}\label{sec:kademlia-routing}
 \yellow{与附录一起返工}
@@ -118,7 +118,7 @@ Given two addresses, $x$ and $y$, $\mathit{PO}(x,y)$ counts the matching bits of
 \footnote{迭代协议等价于\cite{maymounkov2002kademlia}中描述的原始Kademlia路由。
 }
 %
-critically depends on the nodes' ability to find peers that are currently online. In order to find such a peer, a node needs to collect several candidates for each bin. The best predictor of availability is the recency of the peer's last response, so peers in a bin should be prioritised according to this ordering.
+关键取决于节点查找当前在线节点的能力。为了找到这样的对等点，节点需要为每个bin收集多个候选节点。可用性的最佳预测器是对等点最近一次响应的时间，因此容器中的对等点应该根据这个顺序进行优先级排序。
 
 \begin{figure}[htbp]
    \centering
@@ -204,7 +204,7 @@ Swarm对引导节点没有不同的节点类型或操作模式。这意味着普
 %
 \footnote{虽然节点不需要知道网络中节点的数量。实际上，当节点停止接收到新的对等体地址一段时间后，节点可以有效地估计网络的大小:网络深度为$\log_2(n+1)+ d$，其中$n$为最近邻居的远程对等体数量，$d$为该邻居的深度。由此可知，只需将其取2的指数，即可估计出网络中的节点总数。}
 %
-Instead of having a hard deadline and a binary state of saturation, we can quantify the certainty of saturation by the age of the last new peer received. Assuming stable connections, eventually each node online will get to know its nearest neighbours and connect to them while keeping each bin up to $d$ non-empty. Therefore each node will converge on the saturated state. If no new nodes join, health (Kademlia topology) is maintained even if peer connections change. A node is not supposed to go back to a lower saturation state for instance. This is achieved by requiring several peers in each proximity order bin. 
+我们可以根据接收到的最后一个新对等体的年龄来量化饱和的确定性，而不是硬性的截止日期和二元饱和状态。假设连接稳定，最终每个在线节点将了解其最近的邻居，并与他们连接，同时保持每个bin不超过$d$为空。因此，每个节点都收敛于饱和状态。如果没有新节点连接，即使对等连接发生变化，运行状况(Kademlia拓扑)也会保持。例如，一个节点不应该回到一个较低的饱和状态。这是通过在每个邻近订单箱中需要几个对等点来实现的。 
 
 \section{群storage\statusgreen}\label{sec:kademlia-storage}
 
@@ -216,10 +216,10 @@ Instead of having a hard deadline and a binary state of saturation, we can quant
 %
 \footnote{盘是\gloss{distributed immutable store for chunks}。在早期的工作中，我们将这个组件称为“分布式原映像归档”(DPA)，然而，这个短语变得容易误导人，因为我们现在也允许不是其地址的原映像的块。}
 % 
-model, Swarm's narrower interpretation of a DHT for storage. This model 
-imposes some requirements on chunks and necessitates 'upload' protocols. 
+这是Swarm对DHT存储的狭义解释。这个模型 
+对数据块施加了一些要求，并要求使用“上传”协议。 
 
-As is customary in Swarm, we provide a few resolutions of this acronym, which summarise the most important features:
+按照Swarm的惯例，我们提供了这个首字母缩略词的一些解决方案，它们总结了最重要的特征:
 
 
 \begin{itemize}
@@ -959,10 +959,10 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 %
 \footnote{然而，使用支票似乎是一种选择，因为支票是针对累积债务签署的，并假定单一受益人能够在先前发出的支票上重建增加值。换句话说，支票不是向非同侪传递价值的合适方式。}
 %
-However, because of the high transaction cost, requiring an on-chain payment for each chunk would be prohibitively expensive. Instead, we need a solution that allows the uploader to purchase the postage stamps in a \gloss{postage batch} and then re-use it over many chunks. 
+然而，由于交易成本高，要求对每个区块进行链上支付将是非常昂贵的。相反，我们需要一个解决方案，允许上传者在\gloss{postage batch}中购买邮票，然后在许多块中重用它。 
 
 
-The batches are created by a central postage smart contract when a transaction is sent to its creation endpoint, together with an amount of BZZ tokens and the following transaction data:
+当交易被发送到其创建端点时，中央邮费智能合约会创建这些批，同时还会创建一定量的BZZ令牌和以下交易数据:
 
 \begin{itemize}
 \item \emph{主人地址}—有权使用为标记块创建的批的所有者。
@@ -1025,9 +1025,9 @@ The batches are created by a central postage smart contract when a transaction i
 
 一个解决方案是对批施加一个显式的fbadb:使用相同批标识符签名的块没有比深度更长的\gloss{prefix collision}约束。一个批次大小为$2^d$的邮票可以被认为是深度为$d$的平衡二叉树，其中叶子对应于批次的最大长度\glossplural{collision slot}。如果一个批处理的深度大于网络的深度(日志网络中节点的数量),那么所有的块匹配相同的碰撞位置是保证土地在同一街区,,因此,“违规”的统一性要求可以在本地检测到节点(参见图\ref{fig:prefix-collision})。 
 % If storers respond to this violation by randomly keeping only one of the chunks for each collision slot, uploaders will not only lose one chunk if they try to store more then their allowed allocation, but also lose the  predictability of which one on top.
-Storer nodes then are expected to  correct the depth recorded with a batch.
-They can do the correction by reporting two postage stamps issued by the owner against a batch that are closer than the currently recorded depth for the batch.
-The incentive to do this comes from the possibility for a storer to obtain the extra storage cost above the one already paid out.
+存储节点将纠正批处理记录的深度。
+他们可以通过对比当前记录的批次深度更接近的批次报告所有者发行的两枚邮票来进行更正。
+这样做的动机是，存储者可能获得比已支付的存储成本更高的额外存储成本。
 
 
 \begin{figure}[htbp]
@@ -1081,8 +1081,8 @@ In order for these collisions to be detectable, the batch size needs to be highe
 %
 \footnote{选择$N$是为了使两轮之间的时间能够轻松地适应抽签过程的所有阶段。}
 %
-block on the blockchain marks the beginning of a new global lottery round.
-The subsequent $N$ blocks are composed of three phases representing periods during which the participants in the raffle are expected to send transactions to interact with the raffle smart contracts: 
+区块链上的区块标志着新一轮全球彩票的开始。
+后续的$N$块由三个阶段组成，在这三个阶段中，抽奖参与者被期望发送交易来与抽奖智能合约进行交互: 
 
 \begin{enumerate}
 \item \emph{pre-committal}——节点通过发送价格报价来预先承诺抽奖挑战。作为有效的预提交事务的结果，定义了一组申请人。这一阶段的结束标志着证人批次的选择。
@@ -1099,10 +1099,10 @@ RACE过程在抽奖阶段初始化。首先，将起始块的哈希值与从$0$�
 %
 \footnote{每轮需要多次抽奖，以校准节点赢得抽奖的预期频率。随着网络的增长，通过增加$n$，存储服务补偿所需的预期时间可以保持不变。}。 
 %
-Once these winning tickets have been produced, nodes whose addresses are in the close proximity of the ticket $r_i$ are then able to apply to participate in the applicable raffle.
+一旦这些中奖彩票被生产出来，其地址接近彩票$r_i$的节点就能够申请参加适用的抽奖活动。
 
 
-From the network perspective, these raffles serve as spot checks on storer nodes, whereas from the storer nodes' perspective, raffles represent the means of securing compensation for providing network storage within the swarm. 
+从网络的角度来看，这些抽奖是对存储节点的抽奖，而从存储节点的角度来看，抽奖代表了集群内提供网络存储获得补偿的手段。 
 
 
 \begin{figure}[htbp]
@@ -1231,11 +1231,11 @@ Kademlia拓扑结构和冗余参数决定了节点的邻域深度(见\ref{sec:re
 %
 \footnote{在存储容量的意义上;或者假设每个节点的最小存储容量为节点数。}
 %
-such that all content that users want preserved is preserved. 
+这样用户想要保存的所有内容都会被保存。 
 
-If the rate of new uploads to Swarm is higher than the rate of expiry (postage stamp balances going below the current price), then a fixed network will experience increasing pressure. As a consequence, without added capacity, after a while, content that is meant to be preserved will be garbage collected. 
+如果向Swarm上传新内容的速度高于过期时间(邮票余额低于当前价格)，那么固定网络将面临越来越大的压力。因此，在没有添加容量的情况下，一段时间后，本应保存的内容将被垃圾收集。 
 
-Such capacity shortage is solved if added storage is invited by incentivising new storer nodes to join the network or rising demand is resisted by raising prices. Conversely, if the rate of expiry is faster than new uploads, pressure decreases and there may well be surplus capacity. The resulting situation with underutilised resources is remedied if added content is invited by incentivising users to upload their content or by some nodes dropping out disincentivised by lower prices. Thinking in terms of supply and demand, we can reach a self-regulating market simply if storage capacity pressure is signalled in the price of storage, i.e. the minimum value for postage stamp per chunk. 
+如果通过激励新的存储节点加入网络来吸引新增存储，或者通过提高价格来抵制不断增长的需求，就可以解决这种容量短缺问题。相反，如果过期的速度比新上传的速度快，压力就会降低，很可能会有多余的容量。如果通过鼓励用户上传内容或一些节点因价格降低而退出，就可以弥补资源未得到充分利用的情况。从供给和需求的角度考虑，只要储存容量的压力以储存价格(即每一大块邮票的最小价值)来表示，我们就可以达到一个自我调节的市场。 
 
 \subsubsection{垃圾收集策略和邮资价值}
 
@@ -1372,13 +1372,13 @@ If there was a change, the chunk will need to be reinserted in the queue.
 %
 \footnote{合同可以很容易地验证新被质疑的节点(作为反驳提交的收据的签名者)是否比最初被质疑的节点更接近块地址。}
 %
-Thus litigation can trigger a chain of challenges with receipts pointing from the initially challenged node all the way to a node that can shift the blame no further and therefore must present the chunk or be punished. This way of refuting a challenge is called \gloss{fingerpointing}. 
+因此，诉讼可以触发一系列挑战，从最初被挑战的节点一直指向一个不能进一步转移责任的节点，因此必须呈现区块或受到惩罚。这种反驳挑战的方式被称为\gloss{fingerpointing}。 
 
-Upon verifying the format of the refutation, the contract checks its validity by checking the hash of the chunk payload against the hash that is litigated or validating the proof of custody. 
+在验证反驳的格式时，合同通过检查块有效载荷的哈希值与被诉讼的哈希值或验证保管证明来检查其有效性。 
 
-If a challenge is refuted within the period the challenge is open, the deposit of the accused node remains untouched. The cost of uploading the chunk must be reimbursed to the uploader from the deposit of the challenge, but in order to prevent DoS attacks, this deposit should actually be substantially higher than this in any case (e.g. a small integer multiple of the corresponding gas price). After successful refutation the challenge is cleared from the blockchain state.
+如果在质疑开始的时间内质疑被反驳，被指控节点的押金将保持不变。上传块的成本必须从挑战的押金中偿还给上传者，但为了防止DoS攻击，在任何情况下，这个押金实际上应该比这个高得多(例如，对应的天然气价格的一个小整数倍)。成功驳倒后，挑战被从区块链状态清除。
 
-This challenge scheme is the simplest way (1) for the defendants to refute the challenge as well as (2) to make the actual data available for the nodes that needs it.
+这个挑战方案是(1)让被告反驳挑战以及(2)让需要它的节点获得实际数据的最简单的方法。
 
 \subsubsection{成功的挑战和执行}
 
@@ -1525,7 +1525,7 @@ Swarm哈希具有一个有趣的特性，即与中间块对应的任何数据跨
 %
 \footnote{看到\url{https://en.wikipedia.org/wiki/Trie}}
 %
-in which individual trie nodes are serialised as chunks (see \ref{spec:format:manifests}). The paths are associated with a \gloss{manifest entry} that specifies at least the \emph{参考}. The reference may then point to an embedded manifest if the path is a common prefix of more than one path in the collection, thereby implementing branching in the trie, see figure \ref{fig:manifest-structure}. 
+其中，单个的try节点被序列化为块(参见\ref{spec:format:manifests})。这些路径与至少指定\emph{参考}的\gloss{manifest entry}相关联。如果路径是集合中多个路径的公共前缀，则引用可以指向嵌入的清单，从而在try中实现分支，参见图\ref{fig:manifest-structure}。 
 
 
 \begin{figure}[htbp]
@@ -1566,8 +1566,8 @@ Swarm支持使用\gloss{Ethereum Name Service} (\gloss{ENS})进行域名解析�
 % TODO:  add references 
 \footnote{RNS，也支持RSK上RIF OS的名称服务。}
 %
-In order to use ENS, the Swarm node needs to be connected to an EVM-based blockchain supporting the Ethereum API (ETH mainnet, Ropsten, ETC, etc). 
-Users of ENS can register a domain name on the blockchain and set it to resolve to a reference. This reference is most commonly the content hash of a public (unencrypted) manifest root. In the case that this manifest represents a directory containing the assets of a website, the default path for the hash may be set to be the desired root html page. When an ENS name is navigated to using a Swarm enabled browser or gateway, Swarm will simply render the root html page and Swarm will provide the rest of the assets provided in the relative path. In this way, users are able to very easily host websites, and Swarm provides an interface to older pre-existing browsers, as well as implementing a decentralised improvement over DNS.
+为了使用ENS, Swarm节点需要连接到一个支持以太坊API (ETH主网，Ropsten, ETC等)的基于evm的区块链。 
+ENS用户可以在区块链上注册域名，并设置域名解析为引用。该引用通常是公共(未加密)清单根的内容散列。在这种情况下，该清单表示一个包含网站资产的目录，哈希的默认路径可以设置为所需的根html页面。当ENS名称被导航到启用了Swarm的浏览器或网关时，Swarm将简单地呈现根html页面，Swarm将提供相对路径中提供的其余资产。通过这种方式，用户可以很容易地托管网站，Swarm提供了一个老旧浏览器的接口，并实现了对DNS的分散改进。
 
 
 \subsection{映射和键值存储\statusgreen}\label{sec:maps}
@@ -1805,10 +1805,10 @@ feed可以解释为\gloss{pub-sub systems}，具有持久性，支持异步拉�
 %
 \footnote{如果块是使用相同的路由上传的，那么后面的块将作为已知的被拒绝。如果这两个块来自网络中的不同地址，它们可能最终都在各自的本地邻居中。这个场景将导致不一致的检索，这取决于请求最终指向哪个节点。}
 %
-This is the result of the ambiguity of the originator of the request due to the nature of forwarding Kademlia. Let us imagine that the attacker, with some sophisticated traffic analysis, has the chance of $1/n$ (asymptotic ceiling) to identify the originator and give a differential response. Sending multiple requests from random addresses, however, one can test integrity and consider a consistent response a requirement to conclude finality. The chance that the attacker can give a consistent differential response to a creditor testing with $k$ independent requests is $1/n^k$. With linear bandwidth cost in $k$, we can achieve exponential degrees of certainty about the uniqueness of an update. If a creditor finds consistency, it can conclude that there is no alternative allocation table.
+这是由于转发Kademlia的性质，请求的发起者模棱两可的结果。让我们假设攻击者通过一些复杂的流量分析，有机会使用$1/n$(渐近上限)来识别发起者并给出微分响应。然而，从随机地址发送多个请求，可以测试完整性，并将一致的响应视为结束性的要求。攻击者使用$k$独立请求为债权人测试提供一致的差异响应的可能性是$1/n^k$。在$k$中使用线性带宽开销，我们可以获得关于更新唯一性的指数确定度。如果债权人找到了一致性，它可以得出结论，没有可供选择的分配表。
 
 
-By requiring the allocation tables to be disseminated as feed updates, we can leverage permissionlessness, availability and anonymity to enforce feed integrity. If the feed is a blockchain-like ledger, a real-time integrity check translates to fork finality. 
+通过要求分配表作为提要更新进行传播，我们可以利用无权限、可用性和匿名性来强制提要完整性。如果提要是一个类似区块链的账本，则实时完整性检查将转换为分叉终结性。 
 
 
 \subsection{Epoch-based
@@ -1906,7 +1906,7 @@ By requiring the allocation tables to be disseminated as feed updates, we can le
 %
 \footnote{也被称为未来保密或妥协后安全。}
 %
-and (3) immediate decryption and message loss resilience.
+(3)即时解密和消息丢失恢复能力。
 
 
 \begin{figure}[htbp]
@@ -2002,7 +2002,7 @@ pss提供的用户体验将在稍后的\ref{sec:pss-ux}中讨论。
 %
 \footnote{在挖掘木马块时，使用邮资彩票批处理深度(请参阅\ref{sec:postage-lottery})作为目标接近顺序的启发式方法是有意义的。这可以作为对邮票智能合约的只读调用。}
 %
-when it comes online, so it is logarithmic in the number of nodes in the network. The expected number of nonces that need to be tried per Trojan message before an appropriate content address is found is exponential in the difficulty, and therefore equal to the number of nodes in the network. As the expected number of computational cycles needed to find the nonce equals the network size, in practice, mining a Trojan will never be prohibitively expensive or slow even for a single node. A small delay in the second range is expected only in a network of a billion nodes and even that is acceptable given that Trojan messages are meant to be used only for one-off instances such as initiations of a channel. All subsequent real-time exchange will happen using the previously described bidirectional outbox model using single owner chunks.
+当它上线时，它是网络中节点数的对数。在找到合适的内容地址之前，每个木马消息需要尝试的nonces的预期数量是困难的指数级，因此等于网络中的节点数量。由于寻找nonce所需的预期计算周期数等于网络大小，在实践中，挖掘一个特洛伊木马永远不会昂贵或缓慢，即使是对单个节点。第二个范围内的小延迟预计仅在一个有10亿个节点的网络中出现，即使这样也可以接受，因为木马消息只用于一次性实例，如信道的初始化。所有后续的实时交换将使用前面描述的使用单个所有者块的双向发件箱模型进行。
 
 
 \subsubsection{匿名邮箱}
@@ -2072,7 +2072,7 @@ X3DH使用如下密钥:%
 \footnote{如果X3DH不使用一次性预键，那么从理论上讲，第三方可以重新发送初始消息，并导致应答者假设真实的重复请求。如果握手后协议添加了来自应答者的随机密钥材料，这样的协议重放攻击就可以消除。
 但是最初的木马消息也可以被要求包含一个唯一的标识符，例如用于挖掘块的nonce。重用id是不可能的，因为它会导致相同的块。}
 %
-This shared secret constitutes the seed key for the double-ratchet continuous key agreement protocol as used in the signal protocol. The double-ratchet scheme provides forward secrecy and post-compromise security to the end-to-end encryption. By applying separate key-chains for the outbox feed's indexing scheme, additional \gloss{recover security}, i.e. resilience to message insertion attack, can be achieved. Most importantly, however, by adding forward and backward secrecy to outbox addresses, the communication channel is obfuscated, which renders sequential message interception contingent on the same security assumptions as encryption and therefore eliminates the only known attack surface for double-ratchet encryption. The obfuscation and deniability of the channel based on outbox feeds, together with the initial X3DH message being disguised indistingushable as a chunk warrants designating this as  zero-leak communication.
+该共享秘密构成信号协议中使用的双棘轮连续密钥协议的种子密钥。双棘轮方案为端到端加密提供了前向保密和后折衷安全性。通过为发件箱提要的索引方案应用单独的密钥链，可以实现额外的\gloss{recover security}，即对消息插入攻击的弹性。然而，最重要的是，通过向发件箱地址添加前向和后向保密，通信通道变得模糊，这使得连续的消息拦截依赖于与加密相同的安全假设，因此消除了双棘轮加密的唯一已知攻击面。基于发件箱提要的信道的混淆性和可否认性，加上初始X3DH消息被伪装成难以分辨的块，保证将其指定为零泄漏通信。
 
 \subsection{解决envelopes\statusgreen}\label{sec:addressed-envelopes}
 
@@ -2284,9 +2284,9 @@ This shared secret constitutes the seed key for the double-ratchet continuous ke
 特别是\glossplural{erasure code} (\ref{sec:repair})和\glossplural{entanglement code} %(\ref{sec:缠结})
 为具有不同访问模式的文档提供优化的冗余。
 % First we discuss how popular content stays alive due to opportunistic caching (\ref{sec:caching}).  
-After introducing the notion of local pinning in \ref{sec:reupload}, i.e. the ability to mark content as sticky in your Swarm local storage, we will present ways in which this can help achieve global persistence across the network. We define a \gloss{missing chunk notification protocol}, which allows content maintainers to make sure their published content is restored in the event of some chunks being garbage collected, by proxying retrieval through select \glossplural{pinner} of the content.
+在\ref{sec:reupload}中引入了本地固定的概念，即在你的Swarm本地存储中将内容标记为粘性的能力之后，我们将介绍一些有助于实现整个网络的全局持久性的方法。我们定义了一个\gloss{missing chunk notification protocol}，它允许内容维护者在一些块被垃圾收集的事件中确保他们发布的内容被恢复，通过通过选择\glossplural{pinner}的内容进行代理检索。
 
-Finally, in \ref{sec:insurance}, we present the holy grail, that is, decentralised file insurance: combining the concepts of the postage lottery and missing chunk notifications, Swarm offers a protocol that enables users to pay other nodes to keep their content available. While ordinary storer nodes are rewarded for storing chunks via the postage lottery, for a higher premium, staked nodes will promise to take responsibility for storing and responding to requests for chunks, accepting the risk of punitive measures that will be imposed on them in the event that the insured data does not remain available to the network.
+最后，在\ref{sec:insurance}中，我们提出了圣杯，即去中心化文件保险:结合邮费彩票和丢失块通知的概念，Swarm提供了一种协议，允许用户支付其他节点以保持他们的内容可用。虽然普通的存储节点通过邮资抽奖来存储块，但为了获得更高的溢价，相关节点将承诺承担存储和响应块请求的责任，接受在被保险数据无法在网络上保持可用的情况下对他们施加惩罚措施的风险。
 
 
 \section{冗余、延迟和修复\statusgreen}\label{sec:repair}
@@ -2312,7 +2312,7 @@ Finally, in \ref{sec:insurance}, we present the holy grail, that is, decentralis
 \gloss{Cauchy-Reed-Solomon erasure code}(今后\gloss{CRS} \cite{lubyetal1995CRS} \cite{plank2006optimizing})是一个\emph{系统性} \gloss{erasure code},当应用到一个blob $m$固定大小的数据块,产生额外$k$相同大小的块(所以称为\emph{奇偶校验块})这样的$m$ $n=m+k$ fix-sized块足以重建原来的团。因此存储开销是由decfa .%给出的
 %
 \footnote{%
-There are several open source libraries that implement Reed Solomon or Cauchy-Reed-Solomon coding. See \cite{plank2009performance} for a thorough comparison.}
+有几个开源库实现了Reed-Solomon或Cauchy-Reed-Solomon编码。详细的比较请参阅\cite{plank2009performance}。}
 
 CRS码的编码和解码都需要$O(mk)$时间，其中$m$是数据块的数量，$k$是附加块的数量，以及在不损失可解码性的情况下可以丢失的最大块数量。如果将$k$定义为$m$的给定分数，在一个固定的单个块丢失概率$p$的条件下，保证一定的可检索概率所必需的$m$，那么CRS代码的时间复杂度就变成了$O(n^2)$，这对于大文件来说是不可接受的。 
 
@@ -2465,7 +2465,7 @@ A typical piece of our tree would look like this (see figure \ref{fig:Swarm-hash
 
 \subsubsection{恢复主机}
 
-\glossupperplural{recovery host}是愿意在复苏背景下提供固定块的钉钉。这些pinners应该表示他们将把这个任务交给发行商，并下载了所有相关的块，并将它们全部固定在本地实例中。
+\glossupperplural{recovery host}是愿意在恢复上下文中提供固定块的固定块。这些pinners应该表示他们将把这个任务交给发行商，并下载了所有相关的块，并将它们全部固定在本地实例中。 
 
 希望将其出版物发布为全局固定或可修复的发布者将收集这些自愿恢复主机的覆盖地址。事实上，只收集长度大于Swarm深度的覆盖层前缀就足够了。我们将这些部分地址称为\gloss{recovery targets}。
 
@@ -2529,8 +2529,8 @@ A typical piece of our tree would look like this (see figure \ref{fig:Swarm-hash
 %
 \footnote{事实上，没有必要有最最新的根，任何晚于保险开始时间的状态都可以工作。}
 %
-The actual receipt for the chunk can then be retrieved by traversing the receipt store using the original chunk address as the key. The insurer is implicitly responsible for insuring all the chunks of their receipt store as well as the receipt store feed. So if any chunk is found missing during this lookup procedure, the Merkle proof of segment that corresponds to the address of the missing chunk can be used to litigate. 
-Otherwise, we can assume that the lookup is successful and the receipt is obtained by the user who can thus initiate litigation by submitting the receipt. 
+然后，可以使用原始块地址作为密钥遍历收据存储来检索块的实际收据。保险公司含蓄地负责对其收据存储的所有块以及收据存储feed进行保险。因此，如果在查找过程中发现任何块丢失了，可以使用与丢失块地址对应的段的默克尔证明进行诉讼。 
+否则，我们可以假设查找是成功的，用户获得了收据，因此可以通过提交收据发起诉讼。 
 
 
 \begin{figure}[htbp]

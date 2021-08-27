@@ -2,278 +2,278 @@
 
 \longnewglossaryentry{node}{name=node}{}
 
-\longnewglossaryentry{fingerpointing}{name=fingerpointing}{Litigation scheme allowing upstream peers to shift blame to a downstream peer in the case of deferred responsibility.}
-\longnewglossaryentry{Kademlia topology}{name=Kademlia topology}{A scale free network topology that has guaranteed path between any two nodes in $O(log(n))$ hops.}
-\longnewglossaryentry{Kademlia connectivity}{name=Kademlia connectivity}{Connectivity pattern of a node $x$ in forwarding Kademlia where (1) there is at least one peer in each PO bins $0<\leq i<d$, and (2) no peer $y$ in the network such that $\mathit{PO}(x,y) \geq d$ and $y$ is not connected to $x$. }
+\longnewglossaryentry{fingerpointing}{name=fingerpointing}{允许上游同行在推迟责任的情况下将责任转嫁给下游同行的诉讼方案。}
+\longnewglossaryentry{Kademlia topology}{name=Kademlia topology}{一种无伸缩的网络拓扑结构，在$O(log(n))$跳中任意两个节点之间具有保证路径。}
+\longnewglossaryentry{Kademlia connectivity}{name=Kademlia connectivity}{转发Kademlia时节点$x$的连接模式，其中:(1)每个PO bins $0<\leq i<d$中至少有一个peer，(2)网络中没有peer $y$，使得$\mathit{PO}(x,y) \geq d$和$y$没有连接到$x$。 }
 % \longnewglossaryentry{mutable resource update}{name=mutable resource update}{}
 % \longnewglossaryentry{resource update chunk}{name=resource update chunk}{}
-\longnewglossaryentry{forwarding Kademlia}{name=forwarding Kademlia}{Recursive flavour of Kademlia routing involving message relay.}
-\longnewglossaryentry{Kademlia table}{name=Kademlia table}{Indexing of peers based on proximity order of peer address relative to local overlay address.}
-\longnewglossaryentry{saturated Kademlia table}{name=saturated Kademlia table}{Nodes with a saturated Kademlia table realise Kademlia connectivity.}
-\longnewglossaryentry{retrieve request}{name=retrieve request, plural=retrieve requests}{Peer-to-peer protocol message asking for the delivery of a chunk based on the chunk address.}
-\longnewglossaryentry{proximity order}{name=proximity order}{A measure of relatedness of two addresses on a discrete scale.}
-\longnewglossaryentry{neighbourhood}{name=neighbourhood}{An area of a certain distance around an address.}
-\longnewglossaryentry{retrievability}{name=retrievability}{The ability for a chunk to be retrieved in the network.}
-\longnewglossaryentry{routability}{name=routability}{The ability for a chunk to be routed to a destination.}
+\longnewglossaryentry{forwarding Kademlia}{name=forwarding Kademlia}{递归式的Kademlia路由，包括消息中继。}
+\longnewglossaryentry{Kademlia table}{name=Kademlia table}{基于对等体地址相对于本地覆盖地址的接近顺序的对等体索引。}
+\longnewglossaryentry{saturated Kademlia table}{name=saturated Kademlia table}{具有饱和的Kademlia表的节点实现了Kademlia连接。}
+\longnewglossaryentry{retrieve request}{name=retrieve request, plural=retrieve requests}{请求基于块地址的块传递的点对点协议消息。}
+\longnewglossaryentry{proximity order}{name=proximity order}{在离散尺度上对两个地址的关系的量度。}
+\longnewglossaryentry{neighbourhood}{name=neighbourhood}{一个地址周围一定距离的区域。}
+\longnewglossaryentry{retrievability}{name=retrievability}{在网络中检索数据块的能力。}
+\longnewglossaryentry{routability}{name=routability}{将数据块路由到目的地的能力。}
 % \longnewglossaryentry{practical routability}{name=practical routability}{TBD}
-\longnewglossaryentry{redundant retrievability}{name=redundant retrievability}{A chunk is said to be redundantly retrievable with degree $r$ if it is retrievable and would remain so after any $r$ nodes responsible for it leave the network.}
-\longnewglossaryentry{chunk synchronisation}{name=chunk synchronisation}{The process in which a peer stores locally the chunks from an upstream peer.}
+\longnewglossaryentry{redundant retrievability}{name=redundant retrievability}{如果一个数据块是可检索的，那么就称它是具有$r$度的冗余可检索的，并且在负责该数据块的任何$r$节点离开网络后仍然是如此。}
+\longnewglossaryentry{chunk synchronisation}{name=chunk synchronisation}{对等点在本地存储来自上游对等点的数据块的过程。}
 % \longnewglossaryentry{history sync state}{name=history sync state}{TBD}
 % \longnewglossaryentry{live sync state}{name=live sync state}{TBD}
 % \longnewglossaryentry{history syncing}{name=history syncing}{TBD}
 % \longnewglossaryentry{session syncing}{name=session syncing}{TBD}
 % \longnewglossaryentry{sync lag}{name=sync lag}{TBD}
 % \longnewglossaryentry{maturity}{name=maturity}{TBD}
-\longnewglossaryentry{chunk}{name=chunk, plural=chunks}{A chunk is fixed sized data blob, the basic unit of storage in Swarm's DISC keyed by its address. There are both content addressed chunks and single owner chunks.}
-\longnewglossaryentry{proximity}{name=proximity}{Proximity measures the relatedness of two addresses in the overlay address space. It is the inverse of the normalised logarithmic XOR distance metric.}
-\longnewglossaryentry{saturation depth}{name=saturation depth}{The neighbourhood depth in the context of saturation (minimum cardinality) constraints on proximity bins outside the nearest neighbourhood.}
-\longnewglossaryentry{area of responsibility}{name=area of responsibility}{The area of the overlay address space in the node's neighbourhood. A storer node is responsible for chunks belonging to this area.}
-\longnewglossaryentry{radius of responsibility}{name=radius of responsibility}{The proximity order designating the area of responsibility.}
-\longnewglossaryentry{guaranteed delivery}{name=guaranteed delivery}{Guaranteed in the sense that delivery failures due to network problems result in direct error response.}
-\longnewglossaryentry{eventual consistency}{name=eventual consistency}{The guarantee that all chunks are redundantly retrievable after allowing time for the neighbourhood peers to sync their content.}
-\longnewglossaryentry{erasure code}{name=erasure code, plural={erasure codes}}{An error correction coding scheme which optimally inflates data of $n$ chunks with $k$ parities to allow any $n$ out of the $n+k$ chunks to recover the original data.}
-\longnewglossaryentry{storer node}{name=storer node, plural=storer nodes, parent={node}}{A node storing the requested chunk.}
-\longnewglossaryentry{relaying node}{name=relaying node, plural=relaying nodes}{A node relaying messages in the context of forwarding Kademlia.}
-\longnewglossaryentry{syncing}{name=syncing}{The process of exchanging chunks with neighbours in order to realise one's area of responsibility.}
-\longnewglossaryentry{chunking}{name=chunking}{Splitting of data into chunks, to be stored in Swarm.}
-\longnewglossaryentry{plausible deniability}{name=plausible deniability}{The ability to deny knowledge of any damnable actions committed by others.}
-\longnewglossaryentry{feeds}{name=feeds}{A data structure based on single owner chunks, suitable for representing a variety of sequential data, such as versioning updates of a mutable resource or indexing messages for real-time data exchange offering a system of persisted pull messaging.}
-\longnewglossaryentry{dapps}{name=dapps}{Applications benefitting from a decentralised infrastructure.}
-\longnewglossaryentry{underlay network}{name=underlay network}{The lowest level base network by which nodes connect using a peer-to-peer network protocol as their transport layer.}
-\longnewglossaryentry{enode}{name=enode}{An addressing scheme identifying a node's public key, ip and host port.}
-\longnewglossaryentry{network ID}{name=network ID}{An ID used to differentiate between swarm networks, such as mainnet, testnets etc.}
-\longnewglossaryentry{overlay topology}{name=overlay topology}{The connectivity graph realising a particular topology over the underlay network.}
-\longnewglossaryentry{proximity order bin}{name=proximity order bin, plural={proximity order bins}}{An equivalence class of peers in regard to their proximity order.}
-\longnewglossaryentry{churn}{name=network churn, text=churn}{The cycle of accumulation and attrition of nodes by a network.}
-\longnewglossaryentry{hive protocol}{name=hive protocol}{The protocol nodes joining the network use to discover their peers.}
-\longnewglossaryentry{address book}{name=address book}{Kademlia table of a peer's known addresses.}
-\longnewglossaryentry{immutable}{name=immutable chunk store, text=immutable}{No replace/update operation is available on chunks.}
-\longnewglossaryentry{reference}{name=chunk reference, text=reference}{information needed to retrieve and read a chunk; it is the address with an optional decryption key appended used for encrypted chunks.}
-\longnewglossaryentry{content addressed chunk}{name=content addressed chunk, plural=content addressed chunks}{A chunk is content addressed if the chunk content determines the chunk address. The address usually represents a fingerprint or digest of the data using some hash function. The default content addressed chunk in Swarm uses the Binary Merkle Tree hash algorithm with Keccak256 base hash to determine its address.}
-\longnewglossaryentry{single owner chunk}{name=single owner chunk, plural=single owner chunks}{A special type of chunk in Swarm, the integrity of which is given by the association of its payload to an identifier attested by the signature of its owner. The identifier and the owner's account determines the chunk address.}
-\longnewglossaryentry{garbage collection}{name=garbage collection}{The process that selectively purges chunks from a node's local storage.}
-\longnewglossaryentry{garbage collection strategy}{name=garbage collection strategy}{The process that dictates which chunks are chosen for garbage collection.}
-\longnewglossaryentry{direct delivery}{name=direct delivery}{Chunk delivery happens in one step via some lower level network protocol.}
-\longnewglossaryentry{backwarding}{name=backwarding}{A method of delivering a response to a forwarded request, where the response simply follows the request route back to the originator.}
-\longnewglossaryentry{routed delivery}{name=routed delivery}{Hypothetical way of implementing chunk delivery using Kademlia routing independently of the initial request.}
-\longnewglossaryentry{opportunistic caching}{name=opportunistic caching}{When a forwarding node receives a chunk, then the chunk is saved in case it will be requested again.}
-\longnewglossaryentry{light node}{name=light node, plural={light nodes}}{Concept of light node refer to a special mode of operation necessitated by poor bandwidth environments, e.g., mobile devices on low throughput networks or devices allowing only transient or low-volume storage. Such nodes do not accept incoming connections.}
-\longnewglossaryentry{chequebook contract}{name=chequebook contract}{Smart contract that allows the beneficiary to choose when payments are to be processed.}
-\longnewglossaryentry{global balance}{name=global balance}{The amount deposited in the chequebook to serve as collateral for the cheques.}
-\longnewglossaryentry{newcomer}{name=newcomer}{A party entering the Swarm system with zero liquid funds.}
-\longnewglossaryentry{raffle draw}{name=raffle draw}{Instance of the postage lottery draw repeated every $N$ blocks conducted by the postage lottery contract on the blockchain.}
-\longnewglossaryentry{insider}{name=insider}{A peer inside the Swarm that already has some funds.}
+\longnewglossaryentry{chunk}{name=chunk, plural=chunks}{块是固定大小的数据块，是Swarm的DISC中存储的基本单位，以其地址作为密钥。有内容处理块和单个所有者块。}
+\longnewglossaryentry{proximity}{name=proximity}{接近度度量覆盖地址空间中两个地址的相关性。它是归一化对数异或距离度量的倒数。}
+\longnewglossaryentry{saturation depth}{name=saturation depth}{邻域深度在饱和(最小基数)约束的环境下，在最近的邻域之外的邻近箱子。}
+\longnewglossaryentry{area of responsibility}{name=area of responsibility}{在节点的邻近区域中覆盖地址空间的面积。存储节点负责属于该区域的块。}
+\longnewglossaryentry{radius of responsibility}{name=radius of responsibility}{指定责任范围的接近命令。}
+\longnewglossaryentry{guaranteed delivery}{name=guaranteed delivery}{保证由于网络问题导致的交付失败会导致直接的错误响应。}
+\longnewglossaryentry{eventual consistency}{name=eventual consistency}{保证在允许邻居对等端同步其内容之后，所有块都是冗余可检索的。}
+\longnewglossaryentry{erasure code}{name=erasure code, plural={erasure codes}}{一种错误校正编码方案，该方案以$k$校验最优地膨胀$n$块的数据，以允许$n+k$块中的任何$n$恢复原始数据。}
+\longnewglossaryentry{storer node}{name=storer node, plural=storer nodes, parent={node}}{存储请求块的节点。}
+\longnewglossaryentry{relaying node}{name=relaying node, plural=relaying nodes}{在转发Kademlia上下文中中继消息的节点。}
+\longnewglossaryentry{syncing}{name=syncing}{与邻居交换区块以实现自己职责范围的过程。}
+\longnewglossaryentry{chunking}{name=chunking}{将数据分割成块，存储在Swarm中。}
+\longnewglossaryentry{plausible deniability}{name=plausible deniability}{否认他人犯下的任何罪行的能力。}
+\longnewglossaryentry{feeds}{name=feeds}{一种基于单个所有者块的数据结构，适用于表示各种顺序数据，例如可变资源的版本更新或实时数据交换的索引消息，提供持久的拉消息传递系统。}
+\longnewglossaryentry{dapps}{name=dapps}{应用程序受益于分散的基础设施。}
+\longnewglossaryentry{underlay network}{name=underlay network}{节点使用点对点网络协议作为其传输层进行连接的最低层基本网络。}
+\longnewglossaryentry{enode}{name=enode}{一种标识节点公钥、ip和主机端口的寻址方案。}
+\longnewglossaryentry{network ID}{name=network ID}{用于区分群网络(如主网、测试网等)的ID。}
+\longnewglossaryentry{overlay topology}{name=overlay topology}{在底层网络上实现特定拓扑的连通性图。}
+\longnewglossaryentry{proximity order bin}{name=proximity order bin, plural={proximity order bins}}{关于对等体的接近顺序的等价类。}
+\longnewglossaryentry{churn}{name=network churn, text=churn}{网络中节点的积累和磨损的循环。}
+\longnewglossaryentry{hive protocol}{name=hive protocol}{加入网络的协议节点用来发现它们的对等体。}
+\longnewglossaryentry{address book}{name=address book}{一个同侪的已知地址的Kademlia表。}
+\longnewglossaryentry{immutable}{name=immutable chunk store, text=immutable}{块上没有可用的替换/更新操作。}
+\longnewglossaryentry{reference}{name=chunk reference, text=reference}{检索和读取块所需的信息;它是带有可选解密密钥的地址，用于加密块。}
+\longnewglossaryentry{content addressed chunk}{name=content addressed chunk, plural=content addressed chunks}{如果块内容决定了块地址，那么块就是内容寻址。地址通常表示使用某种哈希函数的数据的指纹或摘要。Swarm中的默认内容寻址块使用带有kecak256基哈希的二进制Merkle树哈希算法来确定其地址。}
+\longnewglossaryentry{single owner chunk}{name=single owner chunk, plural=single owner chunks}{群中的一种特殊类型的块，其完整性由其有效载荷与由其所有者签名证明的标识符相关联而得到。标识符和所有者的帐户确定块地址。}
+\longnewglossaryentry{garbage collection}{name=garbage collection}{有选择地从节点的本地存储中清除块的过程。}
+\longnewglossaryentry{garbage collection strategy}{name=garbage collection strategy}{指定选择哪些块进行垃圾收集的过程。}
+\longnewglossaryentry{direct delivery}{name=direct delivery}{块的传递通过较低层次的网络协议一步完成。}
+\longnewglossaryentry{backwarding}{name=backwarding}{将响应传递到转发请求的一种方法，响应只是按照请求路由返回到发起者。}
+\longnewglossaryentry{routed delivery}{name=routed delivery}{使用独立于初始请求的Kademlia路由实现块交付的假设方法。}
+\longnewglossaryentry{opportunistic caching}{name=opportunistic caching}{当转发节点接收到一个块时，该块将被保存，以防再次请求。}
+\longnewglossaryentry{light node}{name=light node, plural={light nodes}}{轻节点的概念是指在低带宽环境下需要的一种特殊的操作方式，例如低吞吐量网络上的移动设备或只允许瞬态或小容量存储的设备。这样的节点不接受传入的连接。}
+\longnewglossaryentry{chequebook contract}{name=chequebook contract}{允许受益人选择何时处理付款的智能合约。}
+\longnewglossaryentry{global balance}{name=global balance}{存入支票本作为支票抵押品的金额。}
+\longnewglossaryentry{newcomer}{name=newcomer}{进入蜂群系统的一方没有流动资金。}
+\longnewglossaryentry{raffle draw}{name=raffle draw}{邮资彩票抽奖的实例重复由邮资彩票合同在区块链上执行的每个$N$块。}
+\longnewglossaryentry{insider}{name=insider}{一个已经有一些资金的群体内部人士。}
 
-\longnewglossaryentry{postage stamp}{name={postage stamp}, plural={postage stamps} }{Proof of payment for pre-paid delivery and storage.}
-\longnewglossaryentry{batch}{name=batch}{A group of chunks referenced under an intermediate node.}
-\longnewglossaryentry{chunk span}{name=chunk span}{The length of data subsumed under an intermediate chunk.}
-\longnewglossaryentry{Swarm manifest}{name={Swarm manifest}, plural={Swarm manifests} }{A structure that defines a mapping between arbitrary paths and files to handle collections.}
-\longnewglossaryentry{manifest entry}{name=manifest entry}{Contains a reference to the Swarm root chunk of the representation of a file and also specifies the media mime type of file.}
-\longnewglossaryentry{root access}{name=root access}{Non-privileged access to encrypted content based on meta-information encoded in the root manifest entry for a document.}
-\longnewglossaryentry{granted access}{name=granted access}{A type of selective access to encrypted content requiring \gloss{root access} as well as access credentials comprising either an authorized private key or passphrase.}
-\longnewglossaryentry{encrypted reference}{name=encrypted reference}{Symmetric encryption of a swarm reference to access controlled content.}
-\longnewglossaryentry{access key}{name=access key}{Symmetric key used for encryption of reference to encrypted data.}
-\longnewglossaryentry{session key}{name=session key}{One of the keys involved in the process of allowing selective access to content to multiple parties. }
-\longnewglossaryentry{lookup key}{name=lookup key}{One of the keys involved in the process of allowing selective access to content to multiple parties. }
-\longnewglossaryentry{access key decryption key}{name=access key decryption key}{The key the publisher grants to a party in a multi-party selective access scenario, used to decrypt the global access key.}
-\longnewglossaryentry{Trojan chunk}{name={Trojan chunk}, plural={Trojan chunks} }{A chunk containing a disguised message while appearing no different to other chunks. }
-\longnewglossaryentry{neighbourhood notification}{name=neighbourhood notification}{Notification of a feed update which works without the issuer of the notification needing to know the identity of prospective posters.}
-\longnewglossaryentry{targeted chunk delivery}{name=targeted chunk delivery}{Mechanism to request a chunk from an arbitrary neighbourhood where it is known to be stored to an arbitrary neighbourhood where it is known to be needed.}
-\longnewglossaryentry{direct notification from publisher}{name=direct notification from publisher}{The process where a recipient is notified of a feed update by the publisher or other parties known to have it.}
+\longnewglossaryentry{postage stamp}{name={postage stamp}, plural={postage stamps} }{预付款交付和储存的付款证明。}
+\longnewglossaryentry{batch}{name=batch}{在中间节点下引用的一组块。}
+\longnewglossaryentry{chunk span}{name=chunk span}{包含在中间块下的数据的长度。}
+\longnewglossaryentry{Swarm manifest}{name={Swarm manifest}, plural={Swarm manifests} }{定义任意路径和文件之间的映射以处理集合的结构。}
+\longnewglossaryentry{manifest entry}{name=manifest entry}{包含对文件表示形式的Swarm根块的引用，并指定文件的媒体mime类型。}
+\longnewglossaryentry{root access}{name=root access}{对基于文档的根清单项中编码的元信息的加密内容的非特权访问。}
+\longnewglossaryentry{granted access}{name=granted access}{一种对加密内容的选择性访问，需要\gloss{root access}以及包含授权私钥或密码短语的访问凭据。}
+\longnewglossaryentry{encrypted reference}{name=encrypted reference}{对称加密的群引用访问控制内容。}
+\longnewglossaryentry{access key}{name=access key}{用于对加密数据的引用进行加密的对称密钥。}
+\longnewglossaryentry{session key}{name=session key}{这是允许多方选择性访问内容过程中涉及的关键之一。 }
+\longnewglossaryentry{lookup key}{name=lookup key}{这是允许多方选择性访问内容过程中涉及的关键之一。 }
+\longnewglossaryentry{access key decryption key}{name=access key decryption key}{在多方选择性访问场景中，发布者授予某一方的密钥，用于解密全局访问密钥。}
+\longnewglossaryentry{Trojan chunk}{name={Trojan chunk}, plural={Trojan chunks} }{包含伪装消息的块，但与其他块没有区别。 }
+\longnewglossaryentry{neighbourhood notification}{name=neighbourhood notification}{feed更新通知，无需通知发布者知道潜在发布者的身份即可工作。}
+\longnewglossaryentry{targeted chunk delivery}{name=targeted chunk delivery}{从已知块被存储到已知块被需要的任意区域请求块的机制。}
+\longnewglossaryentry{direct notification from publisher}{name=direct notification from publisher}{在此过程中，发布者或已知拥有feed更新的其他方将feed更新通知接收者。}
 
-\longnewglossaryentry{RLP}{name=RLP}{An encoding scheme used to encode arbitrarily nested arrays of binary data.}
+\longnewglossaryentry{RLP}{name=RLP}{一种编码方案，用于对任意嵌套的二进制数据数组进行编码。}
 
-\longnewglossaryentry{distributed immutable store for chunks}{name=distributed immutable store for chunks}{Swarm's version of a distributed hash table for storing files. Swarm does not keep a list of where files are to be found, instead it actually stores pieces of the file directly on the node.}
-\longnewglossaryentry{distributed hash table}{name=distributed hash table,plural=distributed hash tables}{A distributed system that provides a lookup service with which any participating node can efficiently retrieve the value associated with a given key. }
-\longnewglossaryentry{binary Merkle tree}{name={binary Merkle tree}}{A binary tree in which every leaf node is labelled with the cryptographic hash of a data block, and every non-leaf node is labelled with hash of the labels of its child nodes.}
-\longnewglossaryentry{binary Merkle tree chunk}{name=binary Merkle tree chunk}{The canonical content addressed chunk in Swarm.}
-\longnewglossaryentry{binary Merkle tree hash}{name=binary Merkle tree hash}{The method used for calculating the address of the binary Merkle tree chunks.}
-\longnewglossaryentry{bzz account}{name=bzz account}{An account in Swarm, also see \gloss{Swarm base account}.}
-\longnewglossaryentry{enode URL scheme}{name=enode URL scheme}{A URL scheme under which an Ethereum node can be described.}
-\longnewglossaryentry{mining chunks}{name=mining chunks}{An example of chunk mining is to generate an encrypted variant of chunk content so that the resulting chunk address satisfies certain constraints, e.g.\ is closer to or farther away from a particular address.}
-\longnewglossaryentry{chunk value}{name=chunk value}{The chunk value is determined by the price of the postage batch it is stamped with. It serves to determine the order of chunks when a node prioritises for garbage collection.}
-\longnewglossaryentry{postage lottery}{name=postage lottery}{A scheme to provide compensation to storing nodes through redistribution of the revenue resulting from postage stamps among the registered storers in a fair way.}
-\longnewglossaryentry{security deposit}{name=security deposit}{The stake a node must put up when registering to be able to sell promissory storage receipts.}
-\longnewglossaryentry{litigation}{name=litigation}{An on-chain process where nodes violating the rules of Swarm stand to lose their deposit.}
-\longnewglossaryentry{challenge}{name=challenge}{User can submit a challenge when they attempt to retrieve insured content and fail to find a chunk.}
-\longnewglossaryentry{access control trie}{name=access control trie}{A tree-like data structure containing access keys and other access information.}
-\longnewglossaryentry{pinning}{name=pinning}{The mechanism that makes content sticky and prevents it from being garbage collected.}
+\longnewglossaryentry{distributed immutable store for chunks}{name=distributed immutable store for chunks}{Swarm版本的用于存储文件的分布式哈希表。Swarm并没有保存一个文件列表，而是直接将文件片段存储在节点上。}
+\longnewglossaryentry{distributed hash table}{name=distributed hash table,plural=distributed hash tables}{提供查找服务的分布式系统，任何参与节点都可以使用该服务有效地检索与给定键相关联的值。 }
+\longnewglossaryentry{binary Merkle tree}{name={binary Merkle tree}}{一种二叉树，其中每个叶节点都用数据块的加密哈希标记，而每个非叶节点都用其子节点的标签哈希标记。}
+\longnewglossaryentry{binary Merkle tree chunk}{name=binary Merkle tree chunk}{在Swarm中处理块的规范内容。}
+\longnewglossaryentry{binary Merkle tree hash}{name=binary Merkle tree hash}{用于计算二进制Merkle树块地址的方法。}
+\longnewglossaryentry{bzz account}{name=bzz account}{Swarm中的一个账号，也可以参见\gloss{Swarm base account}。}
+\longnewglossaryentry{enode URL scheme}{name=enode URL scheme}{描述以太坊节点的URL方案。}
+\longnewglossaryentry{mining chunks}{name=mining chunks}{块挖掘的一个例子是生成块内容的加密变体，使生成的块地址满足某些约束，例如\ is closer to or farther away from a particular address.}
+\longnewglossaryentry{chunk value}{name=chunk value}{大块价值是由印章的邮资批次的价格决定的。当节点进行垃圾收集时，它用于确定块的顺序。}
+\longnewglossaryentry{postage lottery}{name=postage lottery}{一种通过在注册的存储节点之间以公平的方式重新分配邮票产生的收入，从而向存储节点提供补偿的方案。}
+\longnewglossaryentry{security deposit}{name=security deposit}{一个节点在注册时必须持有的股份才能出售约定的存储收据。}
+\longnewglossaryentry{litigation}{name=litigation}{在链上过程中，违反Swarm规则的节点将失去其存款。}
+\longnewglossaryentry{challenge}{name=challenge}{当用户试图检索保险内容而未能找到块时，可以提交一个挑战。}
+\longnewglossaryentry{access control trie}{name=access control trie}{一种树状的数据结构，包含访问键和其他访问信息。}
+\longnewglossaryentry{pinning}{name=pinning}{使内容具有粘性并防止其被垃圾收集的机制。}
 % \longnewglossaryentry{SWINDLE}{name=SWINDLE}{TBD} DELETE
-\longnewglossaryentry{Secured With INsurance Deposit Litigation and Escrow}{name=Secured With INsurance Deposit Litigation and Escrow}{ See \gloss{SWINDLE}.}
-\longnewglossaryentry{update notification}{name=update notification}{A notification that a feed has been updated.}
-\longnewglossaryentry{upload tag}{name=upload tag}{An object representing an upload and tracking the progress by counting how many chunks reached a particular state.}
-\longnewglossaryentry{singleton manifest}{name=singleton manifest}{A manifest that contains a single entry to a file.}
-\longnewglossaryentry{range queries}{name=range queries}{Range queries will trigger the retrieval of all but only those chunks of the file that cover the desired range.}
-\longnewglossaryentry{BZZ network ID}{name=bzz network ID}{The ID of the Swarm network.}
-\longnewglossaryentry{Kademlia}{name=Kademlia}{A network connectivity or routing scheme based on bit prefix length used in distributed hash tables.}
-\longnewglossaryentry{reference count}{name=reference count}{A property of a chunk used to prevent it from being garbage collected. It is increased and decreased when the chunk is pinned and unpinned, respectively.}
-\longnewglossaryentry{cheque}{name=cheque, plural=cheques}{An off-chain method of payment where issuer signs a cheque specifying a beneficiary, a date and an amount, gives it to the recipient as a token of promise to pay at a later date.}
-\longnewglossaryentry{uploader}{name=uploader}{An entity uploading content to the Swarm network.}
-\longnewglossaryentry{witness}{name=witness}{Digital signature issued by the entity that the payer of a postage stamp designates.}
-\longnewglossaryentry{upload and disappear}{name=upload and disappear}{A way to deploy your interactive dynamic content to be stored in the cloud so it may be retrieved even if the uploader goes offline.}
-\longnewglossaryentry{world computer}{name=world computer}{Global infrastructure that supports data storage, transfer and processing.}
-\longnewglossaryentry{neighbourhood depth}{name=neighbourhood depth, parent=neighbourhood}{Distance from the node within which its peers are considered to be nearest neighbours. }
-\longnewglossaryentry{thin Kademlia table}{name=thin Kademlia table, parent={Kademlia table}}{A Kademlia table in which a single peer is present for each bin (up to a certain bin).}
-\longnewglossaryentry{aligned incentives}{name=aligned incentives}{Rewarding / penalisation in such a way, that the actors are inclined towards the desired behavior.}
-\longnewglossaryentry{forwarding lag}{name=forwarding lag}{The time in which healthy nodes could forward messages.}
-\longnewglossaryentry{sender anonymity}{name=sender anonymity}{As requests are relayed from peer-to-peer, those further down on the request cascade can never know who the originator of the request is.}
-\longnewglossaryentry{decentralised network}{name=decentralised network}{A network designed with no central nodes upon which the other nodes would need to depend on.}
-\longnewglossaryentry{load balancing}{name=load balancing}{The process of distributing a set of tasks over a set of nodes to make the process more efficient.}
-\longnewglossaryentry{redundancy}{name=redundancy}{In the context of the distributed chunk store, redundancy is provided by surplus replicas or so called parities that contribute to resilience of chunk storage in the face of churn and garbage collection.}
-\longnewglossaryentry{inclusion proofs}{name=inclusion proofs}{A proof that a string is a substring of another string, for instance that a string is included in a chunk.}
-\longnewglossaryentry{span value}{name=span value}{An 8 byte encoding of the length of the data span subsumed under an intermediate chunk.}
-\longnewglossaryentry{neighbourhood size}{name=neighbourhood size}{The number of nearest neighbours of a node. }
-\longnewglossaryentry{NHS}{name=NHS, parent={neighbourhood size}}{neighbourhood size}
-\longnewglossaryentry{postage batch}{name=postage batch, plural={postage batches}}{A postage batch is an id associated with a verifiable payment on chain which can be attached to one or more chunks as a postage stamp.}
-\longnewglossaryentry{host}{name=host}{In the context of pinning, host is the volunteer pinner to be notified if a chunk that is part of the content they host is no longer found in the network.}
-\longnewglossaryentry{simple ordered sequence}{name=simple ordered sequence}{An indexing scheme used by a feed type, where subsequent updates indexes are incrementing integers.}
-\longnewglossaryentry{access control}{name=access control}{The selective restriction of access to a read a document or collection in Swarm.}
-\longnewglossaryentry{root access manifest}{name=root access manifest}{A special unencrypted manifest used as an entry point for access control.}
-\longnewglossaryentry{witness batch}{name=witness batch}{Serves as a spot check for the applicant's claim that they store all chunks they are responsible for. The witness batch is random choice of the valid postage batches; the applicant must have actually stored all chunks in their neighbourhood.}
+\longnewglossaryentry{Secured With INsurance Deposit Litigation and Escrow}{name=Secured With INsurance Deposit Litigation and Escrow}{ 看到\gloss{SWINDLE}。}
+\longnewglossaryentry{update notification}{name=update notification}{提要已更新的通知。}
+\longnewglossaryentry{upload tag}{name=upload tag}{一个对象，表示上传并通过计算有多少块达到特定状态来跟踪进度。}
+\longnewglossaryentry{singleton manifest}{name=singleton manifest}{包含文件的单个条目的清单。}
+\longnewglossaryentry{range queries}{name=range queries}{范围查询将触发对覆盖所需范围的所有文件块的检索，但只检索那些块。}
+\longnewglossaryentry{BZZ network ID}{name=bzz network ID}{Swarm网络ID。}
+\longnewglossaryentry{Kademlia}{name=Kademlia}{一种基于位前缀长度的网络连接或路由方案，用于分布式哈希表。}
+\longnewglossaryentry{reference count}{name=reference count}{块的一种属性，用于防止它被垃圾回收。当块被钉住和未钉住时，它分别增加和减少。}
+\longnewglossaryentry{cheque}{name=cheque, plural=cheques}{一种链下支付方式，发行方在支票上签字，注明受益人、日期和金额，并将支票交给收款人，作为在以后日期支付的承诺标记。}
+\longnewglossaryentry{uploader}{name=uploader}{向群集网络上传内容的实体。}
+\longnewglossaryentry{witness}{name=witness}{由邮票付款人指定的实体发出的数字签名。}
+\longnewglossaryentry{upload and disappear}{name=upload and disappear}{一种将交互式动态内容部署到云中存储的方法，这样即使上传器离线也可以检索到它。}
+\longnewglossaryentry{world computer}{name=world computer}{支持数据存储、传输和处理的全球基础设施。}
+\longnewglossaryentry{neighbourhood depth}{name=neighbourhood depth, parent=neighbourhood}{其对等体被认为是最近邻居的节点之间的距离。 }
+\longnewglossaryentry{thin Kademlia table}{name=thin Kademlia table, parent={Kademlia table}}{一个kdemlia表，其中每个容器(直到某个容器)都有一个对等体。}
+\longnewglossaryentry{aligned incentives}{name=aligned incentives}{奖励/惩罚的方式，使行动者倾向于期望的行为。}
+\longnewglossaryentry{forwarding lag}{name=forwarding lag}{健康节点可以转发消息的时间。}
+\longnewglossaryentry{sender anonymity}{name=sender anonymity}{由于请求是从点对点转发的，请求级联中更低的部分永远不可能知道请求的发起者是谁。}
+\longnewglossaryentry{decentralised network}{name=decentralised network}{一种没有其他节点依赖的中心节点的网络。}
+\longnewglossaryentry{load balancing}{name=load balancing}{将一组任务分配到一组节点上以提高效率的过程。}
+\longnewglossaryentry{redundancy}{name=redundancy}{在分布式块存储的上下文中，冗余是由冗余副本或所谓的奇偶提供的，它们有助于块存储在面对篡改和垃圾收集时的恢复能力。}
+\longnewglossaryentry{inclusion proofs}{name=inclusion proofs}{一个字符串是另一个字符串的子字符串的证明，例如一个字符串包含在一个块中。}
+\longnewglossaryentry{span value}{name=span value}{包含在中间块下的数据跨度长度的一种8字节编码。}
+\longnewglossaryentry{neighbourhood size}{name=neighbourhood size}{节点的最近邻居数。 }
+\longnewglossaryentry{NHS}{name=NHS, parent={neighbourhood size}}{社区规模}
+\longnewglossaryentry{postage batch}{name=postage batch, plural={postage batches}}{邮资批是一个与链上可验证付款相关联的id，可以作为邮票附在一个或多个块上。}
+\longnewglossaryentry{host}{name=host}{在固定的上下文中，如果属于它们所承载内容的数据块不在网络中，则主机是被通知的志愿者钉。}
+\longnewglossaryentry{simple ordered sequence}{name=simple ordered sequence}{提要类型使用的一种索引方案，其中后续的更新索引是递增整数。}
+\longnewglossaryentry{access control}{name=access control}{在Swarm中，对读取文件或集合的访问的选择性限制。}
+\longnewglossaryentry{root access manifest}{name=root access manifest}{一种特殊的未加密清单，用作访问控制的入口点。}
+\longnewglossaryentry{witness batch}{name=witness batch}{作为申请人声明他们存储了他们负责的所有块的抽查。见证批次是有效邮资批次的随机选择;申请人必须把所有的块都存储在附近。}
 \longnewglossaryentry{mutable
 resource updates}{name=mutable
-resource updates}{Feeds that represent revisions of the same semantic entity.}
-\longnewglossaryentry{series}{name=series, parent={feeds}}{Special kind of feeds representing a series of content connected by a common thread, theme or author such as status updates on social media, a person's blog posts or blocks of a blockchain.}
-\longnewglossaryentry{partitions}{name=partitions, parent={feeds}}{Special kind of feeds, updates of which are meant to be accumulated or added to earlier ones, e.g.\ parts of a video stream.}
-\longnewglossaryentry{sporadic feeds}{name=sporadic feeds, parent={feeds}}{Feeds with irregular asynchronicities, i.e.\ updates can have unpredictable gaps.}
-\longnewglossaryentry{periodic feeds}{name=periodic feeds, parent={feeds}}{Feeds with updates published at regularly recurring intervals.}
-\longnewglossaryentry{real-time feeds}{name=real-time feeds, parent={feeds}}{Feeds where the update frequencies may not be regular but show variance within the temporal range of  real-time human interaction.}
-\longnewglossaryentry{pub-sub systems}{name={pub\slash sub systems}}{A publish/subscribe system is a form of asynchronous communication where any message published is immediately received by subscribers.}
-\longnewglossaryentry{Ethereum Name Service}{name=Ethereum Name Service}{The system that, analogously to the DNS of the old web, translates human-readable names into system-specific identifiers, i.e.\ a reference in the case of Swarm.}
-\longnewglossaryentry{epoch-based indexing}{name=epoch-based indexing}{Indexing based on the epoch in which an action took place.}
-\longnewglossaryentry{outbox}{name=outbox}{a feed representing information intended for one or more third parties.}
-\longnewglossaryentry{double ratchet}{name=double ratchet}{An industry standard key management solution providing forward secrecy, backward secrecy, immediate decryption and message loss resilience.}
-\longnewglossaryentry{feed index}{name=feed index}{Part of the identifier of the feed chunk.}
-\longnewglossaryentry{lookup strategy}{name=lookup strategy}{A strategy used for following updates to feeds.}
-\longnewglossaryentry{feed aggregation}{name=feed aggregation}{The process of combining a set of sporadic feeds into a periodic one.}
-\longnewglossaryentry{outbox feed}{name=outbox feed}{A feed representing the outgoing messages of a persona.}
-\longnewglossaryentry{extended triple Diffie--Hellmann key exchange}{name=extended triple Diffie--Hellmann key exchange}{The customary method of establishing the initial parameters of a double ratchet key-chain.}
-\longnewglossaryentry{future secrecy}{name=future secrecy}{A feature of specific key agreement protocols that gives assurances that all other session keys will not be compromised even one or more session keys is obtained by an attacker.}
-\longnewglossaryentry{authoritative version history}{name=authoritative version history}{A secure audit trail of the revisions of a mutable resource.}
-\longnewglossaryentry{outbox index key chains}{name=outbox index key chains}{Additional key chains added to the double-ratchet key management (beside the ones for encryption) that make the feed update locations resilient to compromise.}
-\longnewglossaryentry{real-time integrity check}{name=real-time integrity check}{For any deterministically indexed feed. Integrity translates to a non-forking or unique chain commitment.}
-\longnewglossaryentry{indexing scheme}{name=indexing scheme, plural={indexing schemes}}{Defines the way the addresses of subsequent updates of a feed are calculated. The choice of indexing scheme depends on the type and usage characteristics (update frequency) of the feed.}
-\longnewglossaryentry{pre-key bundle}{name=pre-key bundle}{Consists of all information the initiator needs to know about the responder to initiate a cryptographic handshake.}
-\longnewglossaryentry{destination target}{name=destination target}{A bit sequence that represents a neighbourhood in the address space. In the context of chunk mining, it refers to the prefix that the mined address should match.}
-\longnewglossaryentry{requestor node}{name=requestor node}{A node requesting some information from the network.}
-\longnewglossaryentry{anonymous retrieval}{name=anonymous retrieval}{Not disclosing the identity of the requestor node while retrieving a chunk.}
-\longnewglossaryentry{push syncing}{name=push syncing}{Network protocol responsible for delivering a chunk to its proper storer after it is uploaded to an arbitrary node.}
-\longnewglossaryentry{statement of custody receipt}{name=statement of custody receipt}{A receipt from the storer node to the uploader after successful \gloss{push syncing} of a chunk.}
-\longnewglossaryentry{anonymous uploads}{name=anonymous uploads}{Uploading leveraging the forwarding Kademlia routing while keeping the identity of the uploader hidden.}
-\longnewglossaryentry{pull syncing}{name=pull syncing}{Network protocol responsible for eventual consistency and maximum resource utilisation by pulling chunks by a certain node.}
-\longnewglossaryentry{upstream peer}{name=upstream peer}{The peer preceding some other peer in the chain of forwarding.}
-\longnewglossaryentry{forwarding node}{name={forwarding node},plural={forwarding nodes},parent={node}}{Nodes that engage in forwarding messages.}
-\longnewglossaryentry{net user}{name=net user, plural=net users}{A node that is using more resources of the Swarm network than it is providing.}
-\longnewglossaryentry{net provider}{name=net provider, plural=net providers}{A node that is providing more resources to the Swarm network than it is using.}
+resource updates}{表示同一语义实体的修订的提要。}
+\longnewglossaryentry{series}{name=series, parent={feeds}}{一种特殊的feed，表示由一个共同的线程、主题或作者连接起来的一系列内容，比如社交媒体上的状态更新、一个人的博客帖子或区块链的区块。}
+\longnewglossaryentry{partitions}{name=partitions, parent={feeds}}{特殊类型的提要，其更新意味着要积累或添加到较早的提要，例如bedce}
+\longnewglossaryentry{sporadic feeds}{name=sporadic feeds, parent={feeds}}{不规则异步性的饲料，即\ updates can have unpredictable gaps.}
+\longnewglossaryentry{periodic feeds}{name=periodic feeds, parent={feeds}}{定期定期发布更新的提要。}
+\longnewglossaryentry{real-time feeds}{name=real-time feeds, parent={feeds}}{更新频率可能不是定期的提要，但在实时人类交互的时间范围内显示变化。}
+\longnewglossaryentry{pub-sub systems}{name={pub\slash sub systems}}{发布/订阅系统是一种异步通信形式，其中发布的任何消息都会立即被订阅者接收。}
+\longnewglossaryentry{Ethereum Name Service}{name=Ethereum Name Service}{类似于旧网络的DNS，该系统将人类可读的名称转换为系统特定的标识符，即\ a reference in the case of Swarm.}
+\longnewglossaryentry{epoch-based indexing}{name=epoch-based indexing}{根据动作发生的时间进行索引。}
+\longnewglossaryentry{outbox}{name=outbox}{表示供一个或多个第三方使用的信息的提要。}
+\longnewglossaryentry{double ratchet}{name=double ratchet}{一种行业标准密钥管理解决方案，提供前向保密、后向保密、立即解密和消息丢失弹性。}
+\longnewglossaryentry{feed index}{name=feed index}{提要块标识符的一部分。}
+\longnewglossaryentry{lookup strategy}{name=lookup strategy}{用于跟踪提要更新的一种策略。}
+\longnewglossaryentry{feed aggregation}{name=feed aggregation}{将一组零星的提要合并成周期性提要的过程。}
+\longnewglossaryentry{outbox feed}{name=outbox feed}{表示角色传出消息的提要。}
+\longnewglossaryentry{extended triple Diffie--Hellmann key exchange}{name=extended triple Diffie--Hellmann key exchange}{建立双棘轮钥匙链初始参数的习惯方法。}
+\longnewglossaryentry{future secrecy}{name=future secrecy}{特定密钥协议的一个特性，它保证所有其他会话密钥不会被攻击者破坏，即使攻击者获得了一个或多个会话密钥。}
+\longnewglossaryentry{authoritative version history}{name=authoritative version history}{可变资源修订的安全审计跟踪。}
+\longnewglossaryentry{outbox index key chains}{name=outbox index key chains}{在双棘轮密钥管理中添加了额外的密钥链(除了用于加密的密钥链)，使提要更新位置能够抵御破坏。}
+\longnewglossaryentry{real-time integrity check}{name=real-time integrity check}{用于任何确定索引的提要。完整性意味着非分叉或独特的链承诺。}
+\longnewglossaryentry{indexing scheme}{name=indexing scheme, plural={indexing schemes}}{定义计算提要后续更新地址的方式。索引模式的选择取决于提要的类型和使用特征(更新频率)。}
+\longnewglossaryentry{pre-key bundle}{name=pre-key bundle}{由启动器需要知道的关于响应器的所有信息组成，以发起加密握手。}
+\longnewglossaryentry{destination target}{name=destination target}{表示地址空间中的邻域的位序列。在块挖掘的上下文中，它指的是被挖掘的地址应该匹配的前缀。}
+\longnewglossaryentry{requestor node}{name=requestor node}{从网络中请求某些信息的节点。}
+\longnewglossaryentry{anonymous retrieval}{name=anonymous retrieval}{在检索块时不透露请求者节点的标识。}
+\longnewglossaryentry{push syncing}{name=push syncing}{一种网络协议，负责在数据块上传到任意节点后，将其传送到相应的存储器。}
+\longnewglossaryentry{statement of custody receipt}{name=statement of custody receipt}{块\gloss{push syncing}成功后，存储节点向上传器发送的收据。}
+\longnewglossaryentry{anonymous uploads}{name=anonymous uploads}{上传利用转发Kademlia路由，同时保持上传者的身份隐藏。}
+\longnewglossaryentry{pull syncing}{name=pull syncing}{一种网络协议，通过某个节点拉块来实现最终的一致性和最大的资源利用率。}
+\longnewglossaryentry{upstream peer}{name=upstream peer}{在转发链中位于其他对等体之前的对等体。}
+\longnewglossaryentry{forwarding node}{name={forwarding node},plural={forwarding nodes},parent={node}}{参与转发消息的节点。}
+\longnewglossaryentry{net user}{name=net user, plural=net users}{一个节点在群网络中使用的资源多于它提供的资源。}
+\longnewglossaryentry{net provider}{name=net provider, plural=net providers}{群集网络提供的资源比使用的资源多的节点。}
 \longnewglossaryentry{honey token}{name=honey token}{TBD}
-\longnewglossaryentry{spurious hop}{name=spurious hop}{Relaying traffic to a node without increasing proximity to the target address.}
-\longnewglossaryentry{payment threshold}{name=payment threshold}{The value of debt at which a cheque is issued.}
+\longnewglossaryentry{spurious hop}{name=spurious hop}{在不增加与目标地址的距离的情况下，将流量转发到一个节点。}
+\longnewglossaryentry{payment threshold}{name=payment threshold}{签发支票的债务的价值。}
 \longnewglossaryentry{effective settlement threshold}{name=effective settlement threshold}{TBD}
-\longnewglossaryentry{peer}{name=peer, plural=peers}{Nodes that are in relation to a particular node $x$ are called peers of $x$.}
-\longnewglossaryentry{downstream peer}{name=downstream peer, parent={peer}}{A peer that succeeds some other peer in the chain of forwarding.}
-\longnewglossaryentry{disconnect threshold}{name=disconnect threshold}{The threshold for debt between peers that determines the value of the debt at which a peer in debt will be disconnected.}
-\longnewglossaryentry{uniformity requirement}{name=uniformity requirement}{A constraint on postage batches that chunks signed with same batch identifier must not have a common prefix longer than the depth.}
-\longnewglossaryentry{prefix collision}{name=prefix collision}{In the context of postage stamps, when the owner of a batch attaches a stamp to two chunks with a shared prefix longer than the depth of the batch.}
-\longnewglossaryentry{collision slot}{name=collision slot, plural= collision slots}{The collection of maximum length prefixes that any two chunks stamped with a postage batch are allowed to share. A stamped chunk occupies a collision slot. }
-\longnewglossaryentry{tragedy of the commons}{name=tragedy of the commons}{Disappearing content will have no negative consequence to any one storer node if no negative incentives are used.}
+\longnewglossaryentry{peer}{name=peer, plural=peers}{与特定节点$x$相关的节点称为$x$的节点。}
+\longnewglossaryentry{downstream peer}{name=downstream peer, parent={peer}}{在转发链中成功转发其他对等体的对等体。}
+\longnewglossaryentry{disconnect threshold}{name=disconnect threshold}{对等点之间的债务阈值，确定断开债务中的对等点的债务值。}
+\longnewglossaryentry{uniformity requirement}{name=uniformity requirement}{使用相同批标识符签名的邮资批的约束不能具有大于深度的公共前缀。}
+\longnewglossaryentry{prefix collision}{name=prefix collision}{在邮票上下文中，批处理的所有者将一个邮票附加到两个具有比批处理深度更长的共享前缀的块。}
+\longnewglossaryentry{collision slot}{name=collision slot, plural= collision slots}{允许使用邮资批戳的任意两个块共享的最大长度前缀集合。冲压块占据碰撞槽。 }
+\longnewglossaryentry{tragedy of the commons}{name=tragedy of the commons}{如果不使用负面激励，消失的内容将不会对任何一个存储节点产生负面后果。}
 % swap, swear and swindle
-\longnewglossaryentry{swindle}{name=swindle}{Incentive scheme where nodes monitor other nodes to check if they comply with their promise by submitting challenges according to a process of litigation.}
-\longnewglossaryentry{swear}{name=swear}{Incentive scheme where nodes registered on the Swarm network are accountable and stand to lose their deposit if they are found to violate the rules of the Swarm in an on-chain litigation process.}
+\longnewglossaryentry{swindle}{name=swindle}{激励机制，节点监视其他节点，根据诉讼程序提交挑战，以检查它们是否遵守承诺。}
+\longnewglossaryentry{swear}{name=swear}{激励机制，在群集网络上注册的节点承担责任，如果在链上诉讼过程中被发现违反群集规则，将失去押金。}
 % \longnewglossaryentry{swap}{name=swap}{Incentive scheme where nodes are in quasi-permanent long term contact with their registered peers. Along these connections the peers are swapping chunks and receipts triggering swap accounting.}
-\longnewglossaryentry{swap}{name=swap}{swap is a Swarm accounting protocol with a tit-for-tat accounting scheme that scales microtransactions. Includes a network protocol also called Swap.}
+\longnewglossaryentry{swap}{name=swap}{swap是一种具有一报还一报会计方案的Swarm会计协议，可扩展微交易。包括一个网络协议也称为交换。}
 % \longnewglossaryentry{chunk-epoch}{name=chunk-epoch}{TBD}
-\longnewglossaryentry{collect-and-run attack}{name=collect-and-run attack}{Situation where a party would collect the funds for some promised work, but not actually do the work.}
-\longnewglossaryentry{addressed envelope}{name=addressed envelope}{A construct where the address of the single owner chunk is created before the chunk content is associated with it.}
-\longnewglossaryentry{stamped addressed envelope}{name=stamped     addressed envelope}{Addressed envelope with an attached stamp.}
-\longnewglossaryentry{entanglement code}{name=entanglement code, plural=entanglement codes}{An error correction code optimized for bandwidth of repair.}
-\longnewglossaryentry{Cauchy-Reed-Solomon erasure code}{name=Cauchy-Reed-Solomon erasure code}{A systemic erasure code which when applied to data consisting of $n$ chunks produces $k$ extra 'parity' chunks in such a way that any $n$ chunks out of the total $n + k$ are enough to reconstruct the original blob.}
-\longnewglossaryentry{missing chunk notification protocol}{name=missing chunk notification protocol}{A protocol upon which downloader not finding a chunk, can fall back to a recovery process and request the chunk from a pinner of that chunk.}
-\longnewglossaryentry{recovery}{name=recovery}{A process of requesting a missing chunk from specific recovery hosts.}
-\longnewglossaryentry{recovery request}{name=recovery request}{A request to a recovery host to initiate the reupload of a missing chunk we know it has pinned in its local store.}
-\longnewglossaryentry{recovery feed}{name=recovery feed}{A publisher's feed advertising recovery targets to their consumers.}
-\longnewglossaryentry{recovery host}{name=recovery host}{Pinning nodes that are willing to provide their pinned chunks in the context of recovery.}
-\longnewglossaryentry{recovery response envelope}{name=recovery response envelope}{An addressed envelope which provides a way for recovery hosts to  respond directly to the originator of the recovery request promptly and without cost or computational burden.}
+\longnewglossaryentry{collect-and-run attack}{name=collect-and-run attack}{一个政党会为一些承诺的工作筹集资金，但实际上不做这些工作。}
+\longnewglossaryentry{addressed envelope}{name=addressed envelope}{一种构造，在与块内容相关联之前创建单个所有者块的地址。}
+\longnewglossaryentry{stamped addressed envelope}{name=stamped     addressed envelope}{写好地址并附邮票的信封。}
+\longnewglossaryentry{entanglement code}{name=entanglement code, plural=entanglement codes}{为修复带宽优化的错误修正码。}
+\longnewglossaryentry{Cauchy-Reed-Solomon erasure code}{name=Cauchy-Reed-Solomon erasure code}{一种系统擦除码，当应用于由$n$块组成的数据时，会产生$k$额外的'奇偶校验'块，这样一来，从整个dfaae中的任何$n$块都足以重建原来的blob。}
+\longnewglossaryentry{missing chunk notification protocol}{name=missing chunk notification protocol}{一种协议，在此协议下，下载器在找不到块时，可以回退到恢复进程，并从该块的pinter请求该块。}
+\longnewglossaryentry{recovery}{name=recovery}{向特定的恢复主机请求丢失的块的过程。}
+\longnewglossaryentry{recovery request}{name=recovery request}{请求恢复主机重新加载丢失的块，我们知道它已固定在本地存储中。}
+\longnewglossaryentry{recovery feed}{name=recovery feed}{出版商的feed广告恢复目标是他们的消费者。}
+\longnewglossaryentry{recovery host}{name=recovery host}{将愿意在恢复上下文中提供其固定块的节点固定起来。}
+\longnewglossaryentry{recovery response envelope}{name=recovery response envelope}{一种有地址的信封，它为恢复主机提供了一种方法，使其能够在没有成本或计算负担的情况下直接响应恢复请求的发起者。}
 %\longnewglossaryentry{prod}{name=prod}{}
-\longnewglossaryentry{duplicate chunk}{name=duplicate chunk, plural=duplicate chunks}{We define a chunk as a duplicate (or seen) if and only if it is already found in the local store.}
-\longnewglossaryentry{World Wide Web}{name=World Wide Web}{A part of the Internet where documents and other web resources are identified by Uniform Resource Locators and interlinked by hypertext.}
-\longnewglossaryentry{Web 1.0}{name=Web 1.0, parent={World Wide Web}}{Websites where people were limited to viewing content in a passive manner.}
-\longnewglossaryentry{Web 2.0}{name=Web 2.0, parent={World Wide Web}}{Describes websites that emphasise user-generated content, ease of use, participatory culture and complex user interfaces for end users.}
-\longnewglossaryentry{peer-to-peer}{name=peer-to-peer}{A network where tasks or workloads are partitioned between peers who are all equally privileged participants.}
-\longnewglossaryentry{Web 3.0}{name=Web 3.0, parent={World Wide Web}}{A decentralised, censorship-resistant way of sharing and even collectively creating interactive content, while retaining full control over it.}
-\longnewglossaryentry{BitTorrent}{name=BitTorrent}{A communication protocol for peer-to-peer file sharing used to distribute data and electronic files over the Internet.}
-\longnewglossaryentry{seeder}{name=seeder}{User hosting the content in the BitTorrent peer-to-peer file exchange protocol.}
-\longnewglossaryentry{Hypertext Transfer Protocol}{name=Hypertext Transfer Protocol}{An application protocol for distributed, collaborative, hypermedia information systems.}
-\longnewglossaryentry{ZeroNet}{name=ZeroNet}{Decentralized web platform using Bitcoin cryptography and BitTorrent network.}
-\longnewglossaryentry{distributed web application}{name=distributed web application, plural={distributed web applications}}{A client side web application that leverages the Web 3.0 technologies (e.g. Ethereum network) and does not rely on any central server.}
-\longnewglossaryentry{InterPlanetary File System}{name=InterPlanetary File System}{A protocol and peer-to-peer network for storing and sharing data in a distributed file system.}
-\longnewglossaryentry{freeriding}{name=freeriding}{The uncompensated depletion of limited resources.}
-\longnewglossaryentry{incentive strategy}{name=incentive strategy}{A strategy of rewarding and penalising behavior to encourage desired behaviour.}
-\longnewglossaryentry{data slavery}{name=data slavery}{A situation where an individual is trapped in a situation where they do not control or receive sufficient remuneration for their personal data which is used for commercial purposes by companies.}
-\longnewglossaryentry{collective information}{name=collective information}{Data produced by collective effort, such as data on public forums, reviews, votes, polls, wikis.}
-\longnewglossaryentry{data silo}{name=data silo, plural={data silos}}{A collection of information in an organization that is isolated from and not accessible by other parts of the organization. In more general terms, the large datasets organisations often keep to themselves.}
-\longnewglossaryentry{distributed storage}{name=distributed storage}{A network of storage where information is stored on more than one node, possibly in replicated fashion.}
-\longnewglossaryentry{overlay network}{name=overlay network}{Connectivity pattern of Swarm secondary conceptual network, a second network scheme overlayed over the base \gloss{underlay network}.}
-\longnewglossaryentry{overlay address space}{name=overlay address space}{Address space of the overlay Swarm network consisting of 256-bit integers.}
-\longnewglossaryentry{underlay address}{name=underlay address}{The address of a Swarm node on the underlay network. It might not remain stable between sessions.}
-\longnewglossaryentry{protocol multiplexing}{name=protocol multiplexing}{The underlay network service can accommodate several separate protocols running on the same connection.}
-\longnewglossaryentry{devp2p}{name=devp2p}{A set of network protocols which form the Ethereum peer-to-peer network. Implemented as a set of programming libraries with the same name.}
-\longnewglossaryentry{libp2p}{name=libp2p}{A framework and suite of protocols for building peer-to-peer network applications. }
-\longnewglossaryentry{overlay address}{name=overlay address}{The address with which each node running Swarm is identified. It is the basis for communication in the sense that it remains stable across sessions even if underlay address changes.}
-\longnewglossaryentry{nearest neighbours}{name=nearest neighbours}{Generally, peers that are closest to the node. In particular, those residing within the neighbourhood depth of each other.}
-\longnewglossaryentry{PO bin}{name=PO bin, parent={proximity order bin}}{A container containing nodes with the same relative proximity order as the origin node.}
-\longnewglossaryentry{routing}{name=routing}{Relaying messages via a chain of peers ever closer to the destination.}
-\longnewglossaryentry{balanced binary tree}{name=balanced binary tree}{A binary tree in which subtrees of every node differ in height by at most 1.}
-\longnewglossaryentry{proximity order boundary}{name=proximity order boundary}{Such a boundary of the area of responsibility defines a \gloss{radius of responsibility} for the node.}
-\longnewglossaryentry{empty bin}{name=empty bin}{Address book proximity order bin with no peers.}
-\longnewglossaryentry{bottom-up  depth-first strategy}{name={bottom-up, depth-first strategy}, parent={Kademlia}}{A method of discovering peers where filling an empty bin with one peer is more important than adding a new peer to a non-empty bin.}
-\longnewglossaryentry{identifier}{name=identifier, parent={single owner chunk}}{A  32-byte key 
-used in single owner chunks: the payload is signed against it by the owner and hashed together with the owner's account results in the address.}
-\longnewglossaryentry{owner}{name=owner, parent={single owner chunk}}{Account of the owner of single owner chunk.}
-\longnewglossaryentry{payload}{name=payload, parent={single owner chunk}}{Part of single owner chunk with size of maximum 4096 bytes of regular chunk data.}
-\longnewglossaryentry{topic}{name=topic}{An arbitrary identifier chosen by the creating node and used to distinguish data structures.}
-\longnewglossaryentry{redundant Kademlia connectivity}{name=redundant Kademlia connectivity}{A Kademlia connectivity where some peers might churn, yet Kademlia connectivity would still exist.}
-\longnewglossaryentry{stable node}{name=stable node, plural={stable nodes}, parent={node}}{Node that is stably online.}
-\longnewglossaryentry{stream provider}{name=stream provider}{To provide of a stream of chunks to another node on request.}
-\longnewglossaryentry{bin ID}{name=bin ID}{A sequential counter  per PO bin acting as an index of the chunks stored locally on a node.}
-\longnewglossaryentry{value-consistent garbage collection strategy}{name=value-consistent garbage collection strategy}{Strategy of garbage collection where a minimum postage stamp value accepted on a chunk coincides with the garbage collection cutoff value. }
-\longnewglossaryentry{batch proof of custody}{name=batch proof of custody}{A canonically serialised ordered list of binary Merkle tree proofs.}
-\longnewglossaryentry{feed topic}{name=feed topic}{Part of the identifier of the feed chunk.}
-\longnewglossaryentry{epoch-based feeds}{name=epoch-based feeds}{Special kind of feeds which provide feeds with sporadic updates a way to be searched.}
-\longnewglossaryentry{epoch}{name=epoch}{A concrete time period starting at a specific point in time with specific length.}
-\longnewglossaryentry{epoch base time}{name=epoch base time}{The specific point in time when an epoch starts.}
-\longnewglossaryentry{epoch grid}{name=epoch grid}{The arrangement of epochs where rows (referred to as levels) represent alternative partitioning of time into various disjoint epochs with the same length.}
-\longnewglossaryentry{lookahead area}{name=lookahead area}{An area that can be part of search of the algorithm that finds the latest update of a epoch-based feed.}
-\longnewglossaryentry{lookback area}{name=lookback area}{An area that can be part of search of the algorithm that finds the latest update of a epoch-based feed.}
-\longnewglossaryentry{head start}{name=head start}{A configurable time interval that defines the waiting time before an exploration of an area for updates of epoch-based feeds. }
-\longnewglossaryentry{hint}{name=hint}{A hint can be provided to provide a starting point for the discovery of feed updates.}
-\longnewglossaryentry{epoch reference}{name=epoch reference}{A pair of epoch base time and level that identify a specific epoch.}
-\longnewglossaryentry{fair data economy}{name=fair data economy}{Economy of processing data characterised by fair compensation of all parties involved in its creation or enrichment.}
-\longnewglossaryentry{pinner}{name=pinner, plural={pinners}}{A node keeping a persistent copy of a chunk.}
-\longnewglossaryentry{accessible chunk}{name=accessible chunk}{A chunk is accessible if a message is routable between the requester and the node that is closest to the chunk.}
-\longnewglossaryentry{Swarm base account}{name=Swarm base account}{The Ethereum account the Swarm node is associated with. See also \gloss{bzz account}.}
-\longnewglossaryentry{prompt recovery of data}{name=prompt recovery of data}{The protocol of the missing chunk notification and recovery.}
-\longnewglossaryentry{time to live}{name=time to live}{The lifespan or lifetime of a request or other message in a computer or network.}
-\longnewglossaryentry{denial of service (DoS)}{name=denial of service (DoS)}{Denying of access to services by flooding those services with illegitimate requests.}
-\longnewglossaryentry{raffle--apply--claim--earn}{name=raffle--apply--claim--earn (race)}{The postage lottery protocol for  incentivising non-promissory storage by redistributing postage stamp revenue to simple non-staked storers applying with proof of custody.}
-\longnewglossaryentry{tar stream}{name=tar stream}{In computing, tar is a computer software utility for collecting many files into one archive file, often referred to as a tarball.}
-\longnewglossaryentry{shallow bin}{name={shallow bin}, plural={shallow bins} }{A bin that is relatively far away from a particular node and hence contains a larger part of the address space.}
-\longnewglossaryentry{deep bin}{name={deep bin}, plural={deep bins}}{A bin that is relatively close to a particular node and hence contains a smaller part of the address space.}
-\longnewglossaryentry{on-chain payment}{name={on-chain payment}, plural= {on-chain payments}}{Payment via a blockchain network.}
-\longnewglossaryentry{second-layer payment}{name={second-layer payment}, plural={second-layer payments} }{Payments processed by an additional system superimposed on a blockchain network.}
-\longnewglossaryentry{tragedy of commons}{name={tragedy of commons} }{A situation where, in a shared-resource system, individual users act in their own interest contrary to common good and deplete or spoil the shared resource through collective action.}
-\longnewglossaryentry{blockhash}{name=blockhash}{The hash of a block which itself forms part of a blockchain.}
+\longnewglossaryentry{duplicate chunk}{name=duplicate chunk, plural=duplicate chunks}{当且仅当块已经在本地存储中找到时，我们将其定义为副本(或可见)。}
+\longnewglossaryentry{World Wide Web}{name=World Wide Web}{因特网的一部分，文件和其他网络资源由统一资源定位器识别，并通过超文本相互连接。}
+\longnewglossaryentry{Web 1.0}{name=Web 1.0, parent={World Wide Web}}{在这些网站上，人们只能被动地浏览内容。}
+\longnewglossaryentry{Web 2.0}{name=Web 2.0, parent={World Wide Web}}{描述为最终用户强调用户生成内容、易用性、参与性文化和复杂用户界面的网站。}
+\longnewglossaryentry{peer-to-peer}{name=peer-to-peer}{一种将任务或工作量分配给同等特权参与者的网络。}
+\longnewglossaryentry{Web 3.0}{name=Web 3.0, parent={World Wide Web}}{一种去中心化、抵制审查的分享方式，甚至集体创造互动内容，同时保留对其的完全控制。}
+\longnewglossaryentry{BitTorrent}{name=BitTorrent}{一种用于点对点文件共享的通信协议，用于在因特网上分发数据和电子文件。}
+\longnewglossaryentry{seeder}{name=seeder}{用户托管的内容在BitTorrent点对点文件交换协议。}
+\longnewglossaryentry{Hypertext Transfer Protocol}{name=Hypertext Transfer Protocol}{一种用于分布式、协作、超媒体信息系统的应用协议。}
+\longnewglossaryentry{ZeroNet}{name=ZeroNet}{使用比特币加密和BitTorrent网络的去中心化网络平台。}
+\longnewglossaryentry{distributed web application}{name=distributed web application, plural={distributed web applications}}{一个利用web 3.0技术(如以太坊网络)且不依赖任何中央服务器的客户端web应用程序。}
+\longnewglossaryentry{InterPlanetary File System}{name=InterPlanetary File System}{一种在分布式文件系统中存储和共享数据的协议和点对点网络。}
+\longnewglossaryentry{freeriding}{name=freeriding}{对有限资源的无偿消耗。}
+\longnewglossaryentry{incentive strategy}{name=incentive strategy}{一种奖励和惩罚行为以鼓励期望行为的策略。}
+\longnewglossaryentry{data slavery}{name=data slavery}{个人被公司用于商业目的的个人资料，陷入无法控制或无法获得足够报酬的情况下。}
+\longnewglossaryentry{collective information}{name=collective information}{由集体努力产生的数据，如公共论坛、评论、投票、民意调查、维基百科上的数据。}
+\longnewglossaryentry{data silo}{name=data silo, plural={data silos}}{组织中与组织的其他部分隔离且不能访问的信息的集合。更笼统地说，大型数据集往往是企业自己保留的。}
+\longnewglossaryentry{distributed storage}{name=distributed storage}{一种存储网络，其中信息存储在一个以上的节点上，可能采用复制的方式。}
+\longnewglossaryentry{overlay network}{name=overlay network}{群次级概念网络的连通性模式，一种覆盖在\gloss{underlay network}基础上的第二网络方案。}
+\longnewglossaryentry{overlay address space}{name=overlay address space}{覆盖群网络的地址空间由256位整数组成。}
+\longnewglossaryentry{underlay address}{name=underlay address}{底层网络中群节点的地址。它可能不会在两次会议之间保持稳定。}
+\longnewglossaryentry{protocol multiplexing}{name=protocol multiplexing}{底层网络服务可以容纳在同一连接上运行的多个独立协议。}
+\longnewglossaryentry{devp2p}{name=devp2p}{一组网络协议，形成以太坊点对点网络。作为一组具有相同名称的编程库实现。}
+\longnewglossaryentry{libp2p}{name=libp2p}{用于构建对等网络应用程序的框架和协议套件。 }
+\longnewglossaryentry{overlay address}{name=overlay address}{确定了运行群的每个节点的地址。它是通信的基础，即使底层地址发生变化，它也能在会话之间保持稳定。}
+\longnewglossaryentry{nearest neighbours}{name=nearest neighbours}{一般是指离节点最近的节点。特别是那些居住在相邻区域内的人。}
+\longnewglossaryentry{PO bin}{name=PO bin, parent={proximity order bin}}{一种容器，其中包含与起源节点具有相同的相对邻近顺序的节点。}
+\longnewglossaryentry{routing}{name=routing}{通过更接近目的地的对等点链来中继消息。}
+\longnewglossaryentry{balanced binary tree}{name=balanced binary tree}{一种二叉树，其中每个节点的子树高度不超过1。}
+\longnewglossaryentry{proximity order boundary}{name=proximity order boundary}{职责区域的这样一个边界为节点定义了一个\gloss{radius of responsibility}。}
+\longnewglossaryentry{empty bin}{name=empty bin}{通讯录接近指令箱没有对等。}
+\longnewglossaryentry{bottom-up  depth-first strategy}{name={bottom-up, depth-first strategy}, parent={Kademlia}}{发现对等点的方法，其中用一个对等点填充一个空容器比向一个非空容器添加一个新对等点更重要。}
+\longnewglossaryentry{identifier}{name=identifier, parent={single owner chunk}}{32字节的密钥 
+在单个所有者块中使用:有效负载由所有者对其签名，并与所有者的帐户散列在一起得到地址。}
+\longnewglossaryentry{owner}{name=owner, parent={single owner chunk}}{单个所有者块的所有者的帐户。}
+\longnewglossaryentry{payload}{name=payload, parent={single owner chunk}}{单个所有者块的一部分，最大大小为常规块数据的4096字节。}
+\longnewglossaryentry{topic}{name=topic}{由创建节点选择的任意标识符，用于区分数据结构。}
+\longnewglossaryentry{redundant Kademlia connectivity}{name=redundant Kademlia connectivity}{卡德米利亚连通性，一些同行可能会搅乱，但卡德米利亚连通性仍然存在。}
+\longnewglossaryentry{stable node}{name=stable node, plural={stable nodes}, parent={node}}{稳定在线的节点。}
+\longnewglossaryentry{stream provider}{name=stream provider}{根据请求将数据块流提供给另一个节点。}
+\longnewglossaryentry{bin ID}{name=bin ID}{每个PO bin的顺序计数器，作为存储在本地节点上的块的索引。}
+\longnewglossaryentry{value-consistent garbage collection strategy}{name=value-consistent garbage collection strategy}{垃圾收集策略，其中一块上接受的最小邮票值与垃圾收集截止值一致。 }
+\longnewglossaryentry{batch proof of custody}{name=batch proof of custody}{二叉默克尔树证明的正规序列化有序表。}
+\longnewglossaryentry{feed topic}{name=feed topic}{提要块标识符的一部分。}
+\longnewglossaryentry{epoch-based feeds}{name=epoch-based feeds}{提供零星更新的特殊提要的一种搜索方法。}
+\longnewglossaryentry{epoch}{name=epoch}{从某一特定时间点开始，有特定长度的具体时间段。}
+\longnewglossaryentry{epoch base time}{name=epoch base time}{纪元开始的特定时间点。}
+\longnewglossaryentry{epoch grid}{name=epoch grid}{纪元的安排，其中行(称为水平)表示时间划分到不同的不相交的具有相同长度的纪元的备选方案。}
+\longnewglossaryentry{lookahead area}{name=lookahead area}{一个区域，可以作为算法搜索的一部分，用于查找基于纪元的提要的最新更新。}
+\longnewglossaryentry{lookback area}{name=lookback area}{一个区域，可以作为算法搜索的一部分，用于查找基于纪元的提要的最新更新。}
+\longnewglossaryentry{head start}{name=head start}{一个可配置的时间间隔，它定义了在一个区域内对基于纪元的提要进行更新之前的等待时间。 }
+\longnewglossaryentry{hint}{name=hint}{可以提供提示，以提供发现提要更新的起点。}
+\longnewglossaryentry{epoch reference}{name=epoch reference}{纪元基准时间和级别对，用于标识特定的纪元。}
+\longnewglossaryentry{fair data economy}{name=fair data economy}{处理数据的经济性，其特征是对参与创建或丰富数据的各方给予公平补偿。}
+\longnewglossaryentry{pinner}{name=pinner, plural={pinners}}{保存块的持久副本的节点。}
+\longnewglossaryentry{accessible chunk}{name=accessible chunk}{如果消息在请求者和最接近数据块的节点之间是可路由的，则数据块是可访问的。}
+\longnewglossaryentry{Swarm base account}{name=Swarm base account}{群集节点关联的以太坊账户。也看到cec。}
+\longnewglossaryentry{prompt recovery of data}{name=prompt recovery of data}{丢失块的通知和恢复协议。}
+\longnewglossaryentry{time to live}{name=time to live}{请求或其他信息在计算机或网络中的生命周期。}
+\longnewglossaryentry{denial of service (DoS)}{name=denial of service (DoS)}{通过大量的非法请求来拒绝对服务的访问。}
+\longnewglossaryentry{raffle--apply--claim--earn}{name=raffle--apply--claim--earn (race)}{邮资彩票协议，通过将邮票收入重新分配给简单的无利害关系的保管人，以激励非约定存储。}
+\longnewglossaryentry{tar stream}{name=tar stream}{在计算中，tar是一种计算机软件实用工具，用于将许多文件收集到一个归档文件中，通常称为tarball。}
+\longnewglossaryentry{shallow bin}{name={shallow bin}, plural={shallow bins} }{一种距离特定节点相对较远，因此包含较大部分地址空间的bin。}
+\longnewglossaryentry{deep bin}{name={deep bin}, plural={deep bins}}{距离特定节点相对较近，因此只包含较小部分地址空间的一种bin。}
+\longnewglossaryentry{on-chain payment}{name={on-chain payment}, plural= {on-chain payments}}{通过区块链网络支付。}
+\longnewglossaryentry{second-layer payment}{name={second-layer payment}, plural={second-layer payments} }{由附加在区块链网络上的系统处理的支付。}
+\longnewglossaryentry{tragedy of commons}{name={tragedy of commons} }{在共享资源系统中，个人使用者为了自己的利益而违背公共利益，通过集体行动消耗或破坏共享资源的情况。}
+\longnewglossaryentry{blockhash}{name=blockhash}{块的哈希值，它本身是区块链的一部分。}
 
 
-\longnewglossaryentry{recover security}{name=recover security}{A property that ensures that once an adversary manages to forge a message from A to B, then no future message from A to B will be accepted by B.}
-\longnewglossaryentry{recovery targets}{name=recovery targets}{Volunteering nodes that are advertised by the publisher as keeping pinned its globally pinned publication.}
-\longnewglossaryentry{elliptic curve Diffie-Hellman}{name=elliptic curve Diffie-Hellman}{A key agreement protocol that allows two parties, each in possession of an elliptic-curve public–private key pair, to establish a shared secret over an insecure channel.}
-\longnewglossaryentry{key derivation  function}{name=key derivation  function}{A function which deterministically produces keys from an initial seed, often used concurrently by parties separately to generate secure messaging key schemes.}
+\longnewglossaryentry{recover security}{name=recover security}{一种属性，确保一旦对手伪造了从A到B的消息，那么B将不再接受从A到B的消息。}
+\longnewglossaryentry{recovery targets}{name=recovery targets}{由发布者发布为保持其全局固定发布的自愿节点。}
+\longnewglossaryentry{elliptic curve Diffie-Hellman}{name=elliptic curve Diffie-Hellman}{一种密钥协议，允许双方在不安全的通道上建立共享密钥，每个方都拥有一个椭圆曲线的公私密钥对。}
+\longnewglossaryentry{key derivation  function}{name=key derivation  function}{确定地从初始种子生成密钥的函数，通常由各方分别并发地使用，以生成安全消息传递密钥方案。}
 
-\longnewglossaryentry{FAANG}{name=FAANG}{Facebook, Apple, Amazon, Netflix and Google.}
+\longnewglossaryentry{FAANG}{name=FAANG}{Facebook，苹果，亚马逊，Netflix和谷歌。}
 
-\longnewglossaryentry{blockchain}{name=blockchain}{An immutable list of blocks, where each next block contains a cryptographic hash of the previous block. }
-\longnewglossaryentry{trustless}{name=trustless}{property of a system of economic interaction where service provision is either realtime verifiable and/or providers are accountable, reward and penalties are automatically enforced, and where -- as a result -- transaction security is no longer contingent upon reputation or trust and is therefore scalable.}
-\longnewglossaryentry{Ethereum Virtual Machine}{name=Ethereum Virtual Machine (EVM)}{A Turing complete byte code interpreter that is responsible to calculate state changes by executing the instructions of smart contracts.}
+\longnewglossaryentry{blockchain}{name=blockchain}{一个不可变的块列表，其中每个下一个块包含前一个块的加密散列。 }
+\longnewglossaryentry{trustless}{name=trustless}{经济互动系统的属性，其中服务提供是可实时验证的和/或供应商是负责任的，奖惩是自动执行的，因此，交易安全不再依赖于声誉或信任，因此是可扩展的。}
+\longnewglossaryentry{Ethereum Virtual Machine}{name=Ethereum Virtual Machine (EVM)}{图灵完整字节码解释器，负责通过执行智能合约的指令来计算状态变化。}
 %\longnewglossaryentry{zzz}{name=zzz}{TBD}
 %\longnewglossaryentry{zzz}{name=zzz}{TBD}
 %\longnewglossaryentry{zzz}{name=zzz}{TBD}

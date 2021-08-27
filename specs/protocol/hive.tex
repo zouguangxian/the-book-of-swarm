@@ -1,9 +1,9 @@
-The \gloss{hive protocol} enables nodes to exchange information about other peers that are relevant to them in order to bootstrap their connectivity  (see \ref{sec:bootstrapping}) . The information communicated are both overlay and underlay addresses of the known remote peers (see  \ref{spec:format:bzzaddress}). The overlay address serves to select peers to achieve the connectivity pattern needed for the desired network topology. Underlay address is needed to establish the peer connections by dialing selected peers.
+\gloss{hive protocol}使节点能够交换与它们相关的其他对等点的信息，以便引导它们的连接(请参阅\ref{sec:bootstrapping})。通信的信息是已知远程对等点的覆盖地址和底层地址(参见\ref{spec:format:bzzaddress})。覆盖地址用于选择对等点，以实现所需的网络拓扑所需的连接模式。通过拨号选定的对等体来建立对等体连接需要底层地址。
 
-\subsection{Streams and messages \statusgreen}
+\subsection{流和消息\statusgreen}
 
 
-The protocol specifies one stream with two messages:
+协议指定一个流有两个消息:
 
 \begin{definition}[Hive protocol messages]\label{def:hive-messages}
 
@@ -26,14 +26,14 @@ message BzzAddress {
 \end{lstlisting}
 \end{definition}
 
-During the lifetime of connection, nodes can broadcast newly received peers to their peers. This is done by sending the \lstinline{Peers} message over the \\\lstinline{/swarm/hive/1.0.0/peers} stream.
+在连接的生命周期内，节点可以广播新接收到的对等体。这是通过通过\\\lstinline{/swarm/hive/1.0.0/peers}流发送\lstinline{Peers}消息来实现的。
 
-Upon receiving a peers message, nodes are meant to store the peer information in their \gloss{address book}, i.e., a data structure containing info about peers known to the node. The address book is meant to be used to suggest peers  to a connectivity manager according to a connection strategy (\ref{spec:strategy:connection}) in order to bootstrap kademlia topology (\ref{sec:kademlia-connectivity}). The address book is meant to be persisted across sessions.
+在接收到对等点消息后，节点将在其\gloss{address book}中存储对等点信息，即包含该节点已知的对等点信息的数据结构。地址簿用于根据连接策略(\ref{spec:strategy:connection})向连接管理器推荐对等点，以引导kademlia拓扑(\ref{sec:kademlia-connectivity})。地址簿意味着跨会话持久化。
 
-\subsubsection{Sending side}
+\subsubsection{发送端}
 
-A stream with the appropriate id is created and a \lstinline{Peers} message is sent over the stream. There is no response to this message. The sending node should wait for the receiving side to close its side of the stream, before closing the stream themselves and moving on.
+创建一个具有适当id的流，并通过流发送\lstinline{Peers}消息。这条消息没有回应。发送节点应该等待接收端关闭自己的流，然后再关闭流并继续前进。
 
-\subsubsection{Receiving side}
+\subsubsection{接收端}
 
 When the stream is created, receiving node should wait for a \lstinline{Peers} message. After receiving the message, node should close its side of the stream to let the sender node know that the message was received, and move on with processing. If the new node was not known, it should also be forwarded to all connected peers closer to peer address then the node themselves.
