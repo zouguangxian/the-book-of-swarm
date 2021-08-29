@@ -25,7 +25,7 @@ on Mac, install fonts to system.
 
 [DejaVu Fonts](https://dejavu-fonts.github.io/)
 
-[Noto Fonts](https://www.google.com/get/noto/help/cjk/)
+[Noto Fonts](https://www.google.com/get/noto/)
 
 ````
 tlmgr install collection-fontsrecommended
