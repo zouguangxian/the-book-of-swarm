@@ -1,9 +1,9 @@
 
-Symmetric encryption in Swarm is using a slightly modified version blockcipher in counter mode.
+Swarm中的对称加密在counter模式中使用了一个稍微修改过的块密码版本。
 
-The encryption seed for the chunk is derived from the master seed if given, otherwise just generated randomly. 
+如果给定了块的加密种子，则该加密种子来自主种子，否则只是随机生成的。 
 
-The reference to a single chunk (and the whole content) is the concatenation of the hash of encrypted data and the decryption key (see \ref{def:chunk-reference}). This means the encrypted Swarm reference (64 bytes) will be longer than the unencrypted one (32 bytes). When a node syncs encrypted chunks, it does not share the full references (or the decryption keys) with the other nodes in any way.  Therefore, other nodes will be unable to access the original data, or in fact, even to detect whether a chunk is encrypted.
+对单个块(和整个内容)的引用是加密数据的散列和解密密钥的连接(请参阅\ref{def:chunk-reference})。这意味着加密的Swarm引用(64字节)将比未加密的Swarm引用(32字节)长。当一个节点同步加密块时，它不会以任何方式与其他节点共享完整的引用(或解密密钥)。因此，其他节点将无法访问原始数据，甚至无法检测一个chunk是否被加密。
 
 \begin{definition}[Chunk encryption/decryption API]\label{def:encrypt}
 \begin{lstlisting}[language=buzz1]
@@ -43,5 +43,5 @@ as
 \end{definition} 
        
         
-Encrypted Swarm chunks are not different from plaintext chunks and therefore no change is needed on the P2P protocol level to accommodate them. The proposed encryption scheme is end-to-end, meaning that encryption and decryption is done on endpoints, i.e., where the http proxy layer runs. This has an important consequence that public gateways cannot be used for encrypted content. On the other hand, the apiary modular design allows for client side encryption on top of external  APIs while proxying all other calls via the gateway.
+加密的Swarm块与明文块没有区别，因此不需要在P2P协议级别上更改以适应它们。提议的加密方案是端到端，这意味着加密和解密是在端点上完成的，即http代理层运行的地方。这有一个重要的后果，即公共网关不能用于加密内容。另一方面，蜂房模块化设计允许客户端在外部api上加密，同时通过网关代理所有其他调用。
 

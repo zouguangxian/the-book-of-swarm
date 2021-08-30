@@ -1,9 +1,9 @@
 
-\chapter{Formalisations and proofs}\label{sec:formalisation}
+\chapter{正规化和证明}\label{sec:formalisation}
 
-\section{Logarithmic distance and proximity order \statusgreen}\label{sec:proximity}
-Consider the set of bit sequences with fixed length $d$ as points in a space. We can define a distance metric $\chi$ such that
-the distance between two such sequences is defined as the bigendian numerical value of their bitwise XOR ($\xor$).
+\section{对数距离和接近顺序\statusgreen}\label{sec:proximity}
+将具有固定长度$d$的位序列集合看作空间中的点。我们可以定义一个距离度量$\chi$
+两个这样的序列之间的距离定义为它们的按位异或($\xor$)的双端数值。
 
 \begin{definition}[XOR distance ($\chi$)]\label{def:xor}
 \begin{equation}
@@ -11,7 +11,7 @@ the distance between two such sequences is defined as the bigendian numerical va
 \end{equation}
 \end{definition}
 
-Given the fixed length $d>0$, there is a maximum distance in this space, and thus we can define the notion of \emph{normalised distance} and its inverse, \emph{proximity}:
+给定固定长度$d>0$，在这个空间中存在一个最大距离，因此我们可以定义\emph{正常的距离}及其倒数\emph{接近}的概念:
 
 \begin{definition}[normalised XOR distance ($\overline{\chi}$)]\label{def:normalisedxor}
 \begin{equation}
@@ -26,7 +26,7 @@ Given the fixed length $d>0$, there is a maximum distance in this space, and thu
 \end{definition}
 
 
-\emph{Proximity order (PO)} is a discrete logarithmic scaling of proximity.
+\emph{接近顺序(PO)}是距离的离散对数缩放。
 
 
 \begin{definition}[Proximity order ($\PO$)]\label{def:xorPO}
@@ -43,12 +43,12 @@ d & \text{ if } x=y\\
 \end{definition}
 
 
-In practice, $\PO(x,y)$ is the length of the longest common prefix in the big-endian binary representation of $x$ and $y$. It is therefore most practical to calculate by counting the matching bits of the binary form of the addresses from the left. Hence, Kademlia falls into the prefix matching class of DHT-s \cite{rowstron2001pastry,zhao2004tapestry}. The maximum possible value of proximity is the total number of bits $d$. 
+实际上，$\PO(x,y)$是$x$和$y$大端二进制表示中最长的公共前缀的长度。因此，最实用的方法是从左边开始计算二进制地址的匹配位。因此，Kademlia属于DHT-s \cite{rowstron2001pastry,zhao2004tapestry}的前缀匹配类。接近度的最大可能值是$d$的总比特数。 
 
-Taking the proximity order relative to a fixed point $x_0$ partitions all points in
-the space, consisting of all possible bit sequences of length $d$ into equivalence classes. Points in each class are at
-most half as distant from $x_0$ as items in the previous class. Furthermore, any two points belonging to the same class are at most half as distant from each other as they are from $x_0$. 
-We can generalise the important properties of the proximity order function as follows:
+取相对于不动点的接近顺序，$x_0$将所有点划分为
+空间，由长度为$d$的所有可能的位序列组成等价类。每节课的分数都在
+与$x_0$的距离是上一节课的一半。此外，任何属于同一类的两点之间的距离最多是它们到$x_0$的距离的一半。 
+我们可以将接近阶函数的重要性质推广如下:
 
 \begin{definition}[Proximity order definitional properties]\label{def:PO}
 \begin{equation}
@@ -66,17 +66,17 @@ We can generalise the important properties of the proximity order function as fo
 % \end{equation}
 \end{definition}
 
-Given a set of points uniformly distributed in the space (e.g. the results of a hash function), proximity orders map onto a series of subsets with cardinalities on a negative exponential scale, i.e. PO bin $0$ has half of the points of any random sample, PO bin 1 has one fourth, PO bin 2 one eighth, etc.
+给定一组点均匀分布在空间(如一个哈希函数的结果),接近命令映射到一系列的子集与负指数规模基数,即阿宝本$0$一半的任何随机样本点,阿宝本1有一个第四,阿宝本2八分之一等。
 
-\section{Proximity orders in graph topology \statusgreen}
+\section{图拓扑\statusgreen中的接近顺序}
 
-This section outlines a graph theoretical  approach to Kademlia topology \cite{aspnes2007skip}.
-Consider a set of points $V$ in the space with a logarithmic distance and 
-a binary relation $R$. Define a directed graph where every point in the set is a vertex and any two vertices $x$ and $y$ are connected with an edge if they are in relation $R$. 
+本节概述了一个图形理论方法的Kademlia拓扑\cite{aspnes2007skip}。
+考虑空间中距离为和的点的集合$V$ 
+二元关系$R$。定义一个有向图，其中集合中的每个点都是一个顶点，任何两个顶点$x$和$y$如果与$R$相关，则它们与一条边相连。 
 
 
-Points in relation $R$ with a particular point $x_0$ can be indexed by their proximity order relative to $x_0$. This index is called \gloss{Kademlia table}.
-The Kademlia table can then serve as the basis for local decisions in graph traversal where the task is to find a path between two points. 
+$R$与特定点$x_0$的关系点可以通过它们相对于$x_0$的接近顺序来索引。这个索引称为\gloss{Kademlia table}。
+然后，Kademlia表可以作为图遍历中查找两点之间路径的局部决策的基础。 
 
 
 \begin{definition}[Kademlia table]\label{def:kademlia-table}
@@ -88,7 +88,7 @@ The Kademlia table can then serve as the basis for local decisions in graph trav
 \end{equation}
 \end{definition}
 
-We say that a point has \emph{Kademlia connectivity} (or the point's connectivity has  the Kademlia property) if (1) it is connected to at least one node for each proximity order up to (but excluding) some maximum value $d$ (called the \gloss{saturation depth}) and (2) it is connected to all nodes whose proximity order relative to the node is greater or equal to $d$.
+我们说点\emph{Kademlia连接}(或点的连通性Kademlia属性)如果(1)连接到至少一个节点为每个接近订单(但不包括)一些最大值$d$(称为\gloss{saturation depth})和(2)连接到所有节点的邻近秩序相对于节点大于或等于$d$。
 
 \begin{definition}[Kademlia connectivity]\label{sec:kademlia-connectivity}
 \begin{equation}
@@ -101,12 +101,12 @@ We say that a point has \emph{Kademlia connectivity} (or the point's connectivit
 \end{definition}
 
 
-If each point of a connected subgraph has Kademlia connectivity, then we say the subgraph has a \gloss{Kademlia topology}. In a graph with Kademlia topology, (1) a path between any two arbitrary points must exist, (2) this path can be discovered using decisions based on only information local to each hop and (3) is guaranteed to terminate in no more steps than the depth of the destination from the start point plus one. 
+如果一个连通子图的每个点都有Kademlia连通性，那么我们说这个子图有一个\gloss{Kademlia topology}。与Kademlia拓扑图形,(1)任意两点之间的路径必须存在,(2)这条路只能被发现使用决策基于本地信息每一跳,(3)保证终止在任何步骤比目的地从一开始的深度点+ 1。 
 
-The procedure is as follows. Given point $x$ and $y$, construct the path $x_0=x , x_1, ..., x_k=y$ such that $x_{i+1}\in \mathit{PO}(x_i, x_{i+1})=\mathit{PO}(x_i, y)$, i.e. starting from the source point, choose the next point from the available options in the PO bin that the destination address falls into. Because of the first assumption of Kademlia connectivity as defined above, such a point must exist. Due to another previous conjecture, the actual bin must be monotonically increasing at each step and is able to start with zero. Therefore for every $0<i\leq l$, $\mathit{PO}(x_{i}, y)\geq i$. Hence, since there exists a $d\leq d_y$, such that 
-$\mathit{PO}(x_{d}, y)\geq d_y$. This, together with the second Kademlia connectivity criterion above, entails that either $x_d=y$ and $k=d$ or $y$ is connected to $x_d$, and so we can choose $x_{d+1}=y$, and $k=d+1\leq d_y+1$.
+操作步骤如下。给定点$x$和$y$，构造路径$x_0=x , x_1, ..., x_k=y$，使$x_{i+1}\in \mathit{PO}(x_i, x_{i+1})=\mathit{PO}(x_i, y)$，即从源点开始，从目标地址所在的PO bin中的可用选项中选择下一个点。由于上面定义的Kademlia连通性的第一个假设，这样一个点必须存在。由于前面的另一个猜想，实际的容器在每一步都必须是单调递增的，并且可以从零开始。因此，对于每一个$0<i\leq l$, $\mathit{PO}(x_{i}, y)\geq i$。因此，由于存在$d\leq d_y$，因此 
+$\mathit{PO}(x_{d}, y)\geq d_y$。这一点，加上上面的第二个Kademlia连接标准，意味着$x_d=y$和$k=d$或$y$连接到$x_d$，因此我们可以选择$x_{d+1}=y$和$k=d+1\leq d_y+1$。
 
-\begin{theorem}{In graphs with Kademlia topology, any two points are connected and traversal path can be constructed based on local Kademlia tables where the path length upper bound is logarithmic in the number of nodes.}
+\begin{theorem}{在具有Kademlia拓扑的图中，任意两点都可以连通，并且可以根据路径长度上界为节点数对数的局部Kademlia表来构造遍历路径。}
 
 \begin{proof}
 
@@ -116,12 +116,12 @@ $\mathit{PO}(x_{d}, y)\geq d_y$. This, together with the second Kademlia connect
 \end{proof}
 \end{theorem}
 
-\section{Constructing kademlia topology \statusred}
+\section{构建kademlia拓扑}
 
-\section{Complexity of filling up a postage stamp batch \statusgreen}\label{sec:complexity-filling}
+\section{填写邮票批次\statusgreen的复杂性}\label{sec:complexity-filling}
 
-A postage batch is utilised optimally when each of its collision slots are filled. Although hashes are uniform, due to variance one cannot guarantee that $2^d$ independent hashes will always map to the collision slots of a batch of depth $d$.
-We have presented various ways of mining chunks: by (1) choosing the nonce of a trojan chunk (see \ref{sec:trojan}), (2) choosing the encryption key (see \ref{sec:postage-stamps}), or (3) choosing the index of a single owner chunk (see \ref{sec:addressed-envelopes}). Whichever way we are mining the chunks, we may calculate in the same manner the chance of finding an address that takes the $i$-th collision slot of the stamp, i.e.
+当每个碰撞槽都被填满时，邮资批会被最优地利用。虽然哈希是均匀的，但由于方差，我们不能保证$2^d$独立的哈希总是映射到一批深度$d$的碰撞槽。
+我们提出了各种挖掘块的方法:通过(1)选择木马块的nonce(见\ref{sec:trojan})，(2)选择加密密钥(见\ref{sec:postage-stamps})，或(3)选择单个所有者块的索引(见\ref{sec:addressed-envelopes})。无论我们以何种方式挖掘数据块，我们都可以用相同的方式计算找到接受印章的$i$-th冲突槽的地址的几率，即。
 
 
 \begin{equation}
@@ -130,14 +130,14 @@ We have presented various ways of mining chunks: by (1) choosing the nonce of a 
 \text{ for }0\leq i\leq  2^D.
 \end{equation}
 
-If a user wishes to always fill their postage stamp batch before using another one, for each new chunk there is one less choice to pick a free collision slot. Let the probabilistic variable $X^n_i$ denote  the number of trials one needed to find a slot when $i$ out of $n$ slots are free. The probability that we will require at least 1 trial is $\frac{n-i}{n}$, and in general:
+如果用户希望在使用另一个邮票之前总是填满他们的邮票批次，对于每一个新块，就少一个选择来选择一个自由碰撞槽。让概率变量$X^n_i$表示当$n$插槽中的$i$空闲时，寻找插槽所需的试验次数。我们需要至少一次试验的概率为$\frac{n-i}{n}$，一般情况下:
 
 
 \begin{equation}\label{eq:conditional}
 \mathit{P}(X^n_i\geq j+1|X^n_i\geq j)=\frac{n-i}{n}\\
 \end{equation}
 
-Therefore, the expected number of trials for the $i$-th chunk is: 
+因此，$i$-th块的预期试验次数为: 
 
  \begin{subequations}   \begin{align}
 \mathit{E}(X^n_i)&=\sum^\infty_{j=1}j\mathit{P}(X^n_i=j)\\
@@ -145,7 +145,7 @@ Therefore, the expected number of trials for the $i$-th chunk is:
 &= \mathit{P}(X^n_i\geq 1)+\mathit{P}(X^n_i\geq 2)+\ldots
 \end{align} \end{subequations}
 
-Multiplying both sides with $\frac{n-i}{n}$, then using  the equivalence defined in  \ref{eq:conditional} we get:
+两边乘以$\frac{n-i}{n}$，然后使用\ref{eq:conditional}中定义的等价性，得到:
 
  \begin{subequations}   \begin{align}
 \mathit{E}(X^n_i)\frac{n-i}{n}&=\mathit{P}(X^n_i\geq 1)\mathit{P}(X^n_i\geq 2|X^n_i\geq 1)+\mathit{P}(X^n_i\geq 2)\mathit{P}(X^n_i\geq 3|X^n_i\geq 2)+\ldots\\
@@ -154,17 +154,17 @@ Multiplying both sides with $\frac{n-i}{n}$, then using  the equivalence defined
 &=\mathit{E}(X^n_i)-\frac{n-i}{n}
 \end{align} \end{subequations}
 
-From this, we solve to $\mathit{E}(X^n_i)$:
+由此，我们解决到ededd:
 
  \begin{subequations}   \begin{align}
 \mathit{E}(X^n_i)(1-\frac{n-i}{n})&=1\\
 \mathit{E}(X^n_i)&=\frac{n}{i}
 \end{align} \end{subequations}
 
-Averaging for the whole batch ($n=2^D$) gives%
+整个批次的平均值($n=2^D$)给出%
 %
-\footnote{see harmonic series 
-\url{https://en.wikipedia.org/wiki/Harmonic\_series\_(mathematics)\#Rate\_of\_divergence}.}
+\footnote{看到调和级数 
+\url{https://en.wikipedia.org/wiki/Harmonic\_series\_(mathematics)\#Rate\_of\_divergence}。}
 
  \begin{subequations}   \begin{align}
 \sum_{i=1}^{2^D}\frac{2^D}{i}\frac{1}{2^D}
@@ -174,24 +174,24 @@ Averaging for the whole batch ($n=2^D$) gives%
 &=D*0.6931+1
 \end{align} \end{subequations}
 
-\section{Average hop count for chunk retrieval  \statusred}
+\section{块检索的平均跳数}
 
-This section gives a formal estimation of the expected hop count for a random non-cached chunk.  
-Hop-count in traditional kademlia has already been  analysed \cite{roos2013comprehending, roos2015determining}.
+本节给出了随机非缓存块的预期跳数的正式估计。  
+\cite{roos2013comprehending, roos2015determining}已经分析了传统卡德米亚的跳数。
 
-\section{Distribution of requests \statusred}
+\section{分发请求}
 
-In this section we derive the distribution of requests per PO bin that an average node experiences.
+在本节中，我们推导出一个平均节点所经历的每个PO bin请求的分布。
 
-\section{Epoch-based feeds \statusgreen}\label{sec:epoch-based-feeds-appendix}
-\subsection*{Update example \statusgreen}
+\section{Epoch-based提要\statusgreen}\label{sec:epoch-based-feeds-appendix}
+\subsection*{更新示例\statusgreen}
  
-Let's say that we want to update our resource 5 minutes later. The Unix Time is now $1534093015$.
-We calculate $\mathit{epochBaseTime}(1534093015, 25) = 1509949440$.
-This results in the same epoch as before $\langle  1534093015, 25\rangle$. Therefore, we decrease the level and calculate again:
-$\mathit{epochBaseTime}(1534093015, 24) = 1526726656$. Thus, the next update will be located at $\langle  1526726656, 24\rangle$
+假设我们想在5分钟后更新资源。Unix Time现在是$1534093015$。
+我们计算$\mathit{epochBaseTime}(1534093015, 25) = 1509949440$。
+这与$\langle  1534093015, 25\rangle$之前的时代相同。因此，我们降低水平，再次计算:
+$\mathit{epochBaseTime}(1534093015, 24) = 1526726656$。因此，下一次更新将位于$\langle  1526726656, 24\rangle$
 
-If the publisher keeps updating the resource exactly every 5 minutes, the epoch grid will look like this:
+如果发行商每5分钟更新一次资源，epoch网格将呈现如下:
 
 {\small
 \begin{tabular}{c|c}
@@ -246,11 +246,11 @@ update & timestamp & epoch representation\\
 \label{fig:feeds-update}
 \end{figure}
 
-If the publisher keeps updating every 5 minutes ($300s$), we can expect the updates to stay around level 8-9 ($2^8 = 256s$, $2^9 = 512s$). The publisher can however, at any time vary this update frequency or just update randomly. This does not affect the algorithm.
+如果发行商每5分钟更新一次内容($300s$)，我们就可以期待更新内容停留在第8-9个关卡($2^8 = 256s$, $2^9 = 512s$)。然而，发行商可以随时改变更新频率，或者只是随机更新。这并不影响算法。
 
-\subsection*{Parallel algorithm to look up the latest update \statusorange}\label{sec:feeds-lookup-algo}
+\subsection*{并行算法查找最新更新的\statusorange}\label{sec:feeds-lookup-algo}
 
-This section gives a walkthrough about the steps of the algorithm that finds the latest update of a epoch-based feed  (see \ref{sec:epoch-based-feeds}).
+本节介绍了查找基于纪元的提要的最新更新的算法步骤(请参阅\ref{sec:epoch-based-feeds})。
 
 \begin{figure}[htbp]
 \centering
@@ -264,28 +264,28 @@ This section gives a walkthrough about the steps of the algorithm that finds the
 \label{fig:feeds-lookup-1}
 \end{figure}
 
-The \gloss{lookahead area} indicates the area that will continue to be explored if R1 succeeds, while the \gloss{lookback area} highlights what will be continued to be explored if R1 fails to find an update at their location. After a short interval (configurable parameter \gloss{head start}) waiting for R1 to resolve, the algorithm sets out to explore both lookahead and lookback areas, headed by  $\langle  12, 2 \rangle$ and $\langle  4, 2 \rangle$ respectively. These two simultaneous lookups are labeled R2 in the figure below, and are active together with R1. Also, recursively, 4 more lookup areas (labeled LA2 and LB2) are defined that depend on the result of each instance of R2:
-Once R1 resolves we can prune one area or the other. This is implemented by recursively cancelling a context, which aborts all chunk retrievals associated with it. The found update U9 can then be used as a hint for future lookups
+\gloss{lookahead area}表示如果R1成功，将继续探索的区域，而\gloss{lookback area}强调如果R1未能在其位置找到更新，将继续探索的区域。经过一段等待R1解析的短时间(可配置参数\gloss{head start})后，算法开始探索前视区和后视区，分别由$\langle  12, 2 \rangle$和$\langle  4, 2 \rangle$牵头。这两个同时进行的查找在下面的图中被标记为R2，并且与R1一起活动。此外，还递归地定义了另外4个查找区域(标记为LA2和LB2)，它们取决于R2的每个实例的结果:
+一旦R1解决了，我们就可以对其中一个区域进行修剪。这是通过递归地取消上下文来实现的，这将中止与它关联的所有块检索。找到的更新U9可以用作将来查找的提示
 
-In our example, R1 returns update U6, therefore our status is as below. Note that U6 is now marked as "known" in yellow, thus we're certain that the area in dark red, while it could contain other updates, **does not contain the latest one**, which is the one we care about:
-
-
-Again, after a short head start, the algorithm proceeds to look up the lookback and lookahead headers $\langle  8, 2 \rangle$ and $\langle  14, 1 \rangle$, marked as active (purple), with the label R3 below. These come, recursively, with their own lookahead and lookback areas, labeled LA3 and LB3:
-
-In our example, R2 finally resolves, finding update U8. This means we can cancel lookback area LB2 as we are now sure the last update can't be there:
+在我们的例子中，R1返回update U6，因此我们的状态如下所示。注意，U6现在被标记为黄色的“known”，因此我们确定该区域是暗红色的，虽然它可能包含其他更新，但**不包含最新的**，这是我们关心的:
 
 
-To shorten up the example, if R3 resolved immediately with no update found ($\langle  14, 1 \rangle$ did not contain an update), that would cancel LA3 family of lookups, while LB3 continues (now marked as R4):
+同样，在短暂的提前开始之后，算法继续查找向后和向前的头$\langle  8, 2 \rangle$和$\langle  14, 1 \rangle$，标记为active(紫色)，下面的标签是R3。递归地，它们有自己的前视区和后视区，标记为LA3和LB3:
+
+在我们的示例中，R2最终解析，找到更新U8。这意味着我们可以取消回看区域LB2，因为我们现在确定最后的更新不在那里:
 
 
-Although not drawn above, it is easy to see the pattern: LA4 and LB5 would then be scanned as R5 and R6 respectively, and in this case, fail, thus leaving $\langle  12, 1 \rangle$ (U9), as the found update:
+为了简化示例，如果R3立即解析而没有发现更新($\langle  14, 1 \rangle$没有包含更新)，那么将取消LA3族的查找，而LB3继续(现在标记为R4):
 
 
-.
+虽然上面没有画，但很容易看到模式:LA4和LB5将分别被扫描为R5和R6，在这种情况下，失败，从而留下$\langle  12, 1 \rangle$ (U9)，作为发现的更新:
 
-This example is simplified -- with the current algorithm parameters, there can potentially be around 30 lookups taking place concurrently, exploring the search space for updates and pruning entire branches recursively once a better path is found. This can be configured by adjusting the lookup timeout and headstart times.
 
-If the algorithm failed to find an update (i.e.\ if U3-U9 did not actually exist), then the hint in $\langle  0, 3 \rangle$ (U2) would be challenged for validity: In this situation if the hint actually contains an update, that is then returned the last update and we're done. If the hint, however, is proven false then the algorithm restarts without a hint at that point.
+．
+
+这个示例被简化了——使用当前的算法参数，可能会有大约30个查找并发进行，探索搜索空间以获取更新，并在找到更好的路径后递归地修剪整个分支。这可以通过调整查找超时和领先启动时间来配置。
+
+如果算法没有找到更新(即\if U3-U9 did not actually exist), then the hint in$\langle  0, 3 \rangle$ (U2))，则会质疑其有效性:在这种情况下，如果提示实际上包含一个更新，则会返回最后一个更新，这样就完成了。然而，如果提示被证明为假，那么算法将在没有提示的情况下重新启动。
 
 
 % \chapter{Implementers' guide}\label{sec:implementor-guide}

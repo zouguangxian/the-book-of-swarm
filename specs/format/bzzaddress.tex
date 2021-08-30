@@ -1,6 +1,6 @@
-\subsection{Overlay address \statusyellow}
+\subsection{包裹地址\statusyellow}
 
-Swarm's overlay network uses 32-byte addresses. In order to help  uniform utilisation of the address space,  these addresses must be derived using a hash function. A Swarm node must be associated a \gloss{Swarm base account} or \gloss{bzz account}, which is an Ethereum account that the node (operator) must possess the private key for. The node's overlay address is derived the public key of this account. 
+Swarm的覆盖网络使用32字节的地址。为了帮助地址空间的统一利用，这些地址必须使用哈希函数派生。群集节点必须关联\gloss{Swarm base account}或\gloss{bzz account}, \gloss{Swarm base account}或\gloss{bzz account}是一个节点(操作符)必须拥有其私钥的以太坊帐户。节点的覆盖地址由该帐户的公钥派生。 
 
 \begin{definition}[Swarm overlay address of node A]\label{def:overlay}
 \begin{equation}
@@ -18,11 +18,11 @@ where
 \end{itemize}
 \end{definition}
 
-In a way, deriving the node address from a public key means the overlay address space is not freely available: to occupy an address you must possess the private key of the address which other nodes need to verify. Such authentication is easy using a digital signature of a shared consensual piece of text, see \ref{spec:format:bzzaddress}.
+从某种程度上说，从公钥获得节点地址意味着覆盖地址空间不是免费可用的:要占用一个地址，必须拥有其他节点需要验证的地址的私钥。使用共享的共识文本块的数字签名，这样的身份验证很容易，参见\ref{spec:format:bzzaddress}。
 
-\subsection{Underlay address \statusyellow}
+\subsection{衬底地址\statusyellow}
 
-To enable peers to locate the a node on the network, the overlay address is paired with an underlay address. The underlay address is a string representation of the node's network location on the underlying transport layer. It is used by nodes to dial other nodes to establish keep-alive peer to peer connections. 
+为了使对等点定位网络上的一个节点，覆盖地址与一个底层地址配对。底层地址是节点在底层传输层上的网络位置的字符串表示形式。节点使用它来拨号其他节点来建立peer - to - peer连接。 
 
 \begin{definition}[Swarm underlay multiaddress]\label{def:underlay}
 \begin{lstlisting}[]
@@ -31,9 +31,9 @@ To enable peers to locate the a node on the network, the overlay address is pair
 \end{definition}
 
 
-\subsection{BZZ address \statusyellow}
+\subsection{BZZ地址\statusyellow}
 
-Bzz address is functionally the pairing of overlay and underlay addresses. In order to ensure that an overlay address is derived from an account the node possesses as well as verifiably attest to an underlay address a node can be called on, bzz addresses are communicated in the following transfer format:
+Bzz地址在功能上是覆盖地址和底层地址的配对。为了确保覆盖地址来自于节点拥有的帐户，以及可验证地证明一个节点可以被调用的底层地址，bzz地址以以下传输格式通信:
 
 \begin{definition}[Swarm bzz address transfer format]\label{def:bzz-address}
 \begin{lstlisting}[]
@@ -49,7 +49,7 @@ message BzzAddress {
 \end{lstlisting}
 \end{definition}
 
-Here the signature is attesting to the association of an overlay and an underlay address for a network. 
+在这里，签名是为了证明一个网络的覆盖层和一个底层地址的关联。 
 
 \begin{definition}[Signed underlay address of node A]\label{def:signed-underlay}
 \begin{equation}
@@ -58,7 +58,7 @@ Here the signature is attesting to the association of an overlay and an underlay
 \end{equation}
 \end{definition}
 
-of the underlay with overlay and bzz network ID appended as plaintext and hashes the resulting public key together with the bzz network ID. 
+使用明文附加的覆盖层和bzz网络ID，并将生成的公钥与bzz网络ID散列。 
 
 \begin{definition}[Node addresses: overlay, underlay,  bzz address]\label{def:bzz-types}
 \begin{lstlisting}[language=buzz1]

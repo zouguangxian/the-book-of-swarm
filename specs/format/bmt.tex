@@ -1,19 +1,19 @@
-The hashing method used to obtain the address of the default content addressed chunk is called the \gloss{binary Merkle tree hash}, or \gloss{BMT hash} for short. 
+用于获取默认内容寻址块地址的散列方法称为\gloss{binary Merkle tree hash}，或简称为\gloss{BMT hash}。 
 
-\subsubsection{Calculating the BMT hash}
+\subsubsection{计算BMT哈希值}
 
-The base segments of the binary tree are subsequences of the chunk content data. 
-The size of segments is 32  bytes, which is the digest size of the \emph{base hash} used to construct the tree. 
-Given the Swarm hash tree used to represent files (see \ref{spec:format:files}) assumes that intermediate chunks package references to other chunks. 
+二叉树的基段是块内容数据的子序列。 
+段的大小是32字节，这是用于构造树的\emph{基地哈希}的摘要大小。 
+给定用于表示文件的Swarm哈希树(参见afaed)，假设中间块包括了对其他块的引用。 
 
-Obtaining the BMT hash of a sequence involves the following steps:
+获取序列的BMT哈希包括以下步骤:
 
 \begin{enumerate}
-\item \emph{padding} - If the content is shorter than the maximum chunk Size  (4096 bytes, \ref{sec:content-addressed-chunks}), it is padded with zeros up to chunk size. Note that this zero padding is only for hashing and does not impact chunk data sizes.
-\item \emph{chunk data layer} - Calculate the base hash of \emph{pairs of segments} in the padded chunk, i.e., segment size ($2 * 32$) units of data and concatenate the results.
-\item \emph{building the tree} - Repeat previous step on the result until the result is just one section.
-\item \emph{calculate span} - Calculate the span of the data, i.e., the size of the data that is subsumed under the chunk represented by the unpadded data as a 64-bit little-endian integer value (see  \ref{spec:format:files}).            
-\item \emph{integrity protection} - Prepend the span to the root hash of the binary tree and calculate the \emph{base hash} of the data.
+\item \emph{填充} -如果内容小于最大块大小(4096字节，\ref{sec:content-addressed-chunks})，则用0填充直到块大小。注意，这个零填充仅用于哈希，不会影响块数据大小。
+\item \emph{块数据层} -计算填充块中\emph{双段}的基哈希值，即数据的段大小($2 * 32$)单元，并将结果连接起来。
+\item \emph{构建树} -对结果重复上一步，直到结果只是一个部分。
+\item \emph{计算跨度} -计算数据的跨度，即包含在由未填充数据表示为64位小端整数值(参见afaed)的块下的数据的大小。            
+\item \emph{完整性保护} -将span添加到二叉树的根哈希中，并计算数据的\emph{基地哈希}。
 \end{enumerate}
 
 \begin{definition}[BMT hash]\label{def:bmt-hash}
@@ -41,9 +41,9 @@ as
 \end{lstlisting}
 \end{definition}
 
-\subsubsection{Inclusion proofs}
+\subsubsection{包含证明}
 
-Having the segments align with the hashes packaged in these chunks one can extend the notion of inclusion proofs to files.
-The BMT hash enables compact 3rd party verifiable segment inclusion proofs.
+将片段与这些块中打包的哈希对齐，可以将包含证明的概念扩展到文件中。
+BMT哈希支持紧凑的第三方可验证的段包含证明。
 
-\red{to be specified}
+\red{指定}

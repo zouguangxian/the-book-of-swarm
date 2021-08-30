@@ -1,63 +1,63 @@
 
-\subsection{Underlay network \statusgreen}
+\subsection{衬底网络\statusgreen}
 
-The \lstinline{libp2p} networking stack provides all required properties for the swarm underlay network laid out in \ref{sec:underlay-transport}.
+\lstinline{libp2p}网络堆栈为\ref{sec:underlay-transport}中布局的群底层网络提供了所有必需的属性。
 
 \begin{enumerate}
-\item Addressing is provided in the form of so called \emph{multi address} for every node, which is referred here as the underlay address. Every node can have multiple underlay addresses depending on transports and network listening addresses that are configured.
-\item Dialing is provided over \lstinline{libp2p} supported network transports.
-\item Listening is provided by \lstinline{libp2p} supported network transports.
-\item Live connections are established between two peers and kept open for accepting or sending messages.
-\item Channel security is provided with \lstinline{TLS} and \lstinline{libp2p secio} stream security transport.
-\item Protocol multiplexing is provided by \lstinline{libp2p mplex} stream multiplexer protocol.
-\item Delivery guarantees are provided by using \lstinline{libp2p} bidirectional streams to validate the response from the peer on sent message.
-\item Serialization is not enforced by \lstinline{libp2p}, as it provides byte streams allowing flexibility for every protocol to choose the most appropriate serialization. The recommended serialization is \lstinline{Protobuf} with \lstinline{varint} delimited messages in streams.
+\item 以\emph{多地址}的形式为每个节点提供寻址，这里称为底层地址。每个节点可以有多个底层地址，这取决于配置的传输和网络侦听地址。
+\item 拨号是通过\lstinline{libp2p}支持的网络传输提供的。
+\item 监听由\lstinline{libp2p}支持的网络传输提供。
+\item 在两个对等体之间建立实时连接，并保持打开状态以接受或发送消息。
+\item 通过\lstinline{TLS}和\lstinline{libp2p secio}流安全传输提供信道安全。
+\item 协议复用是由\lstinline{libp2p mplex}流复用协议提供的。
+\item 通过使用\lstinline{libp2p}双向流来验证对等端对发送消息的响应，可以提供交付保证。
+\item \lstinline{libp2p}并不强制序列化，因为它提供了字节流，允许每个协议灵活地选择最合适的序列化。推荐的序列化方式是\lstinline{Protobuf}，在流中使用\lstinline{varint}分隔的消息。
 \end{enumerate}
 
-\subsection{Protocols and streams \statusgreen}
+\subsection{协议和流\statusgreen}
 
-Communication between peers is organised in protocols as logical units under a unique name that may define one or more \emph{streams}. \lstinline{libp2p} provides streams as the basic channel for communication. Streams are full-duplex channels of bytes, multiplexed over a singe connection between two peers.
+对等点之间的通信是在协议中组织的，在一个唯一名称下的逻辑单元，可以定义一个或多个\emph{流}。\lstinline{libp2p}提供流作为通信的基本通道。流是字节的全双工通道，在两个对等体之间的单个连接上多路复用。
 
-Every stream defines:
+每一个流程定义:
 
 \begin{itemize}
-\item a version that follows semantic versioning in semver form
-\item data serialization definitions
-\item sequence of data passing between peers over a full-duplex stream
+\item 以semver形式遵循语义版本控制的版本
+\item 数据序列化的定义
+\item 通过全双工流在对等体之间传递的数据序列
 \end{itemize}
 
-Streams are identified by \lstinline{libp2p} case-sensitive protocol IDs. The following convention is used construct stream identifiers:
+流由\lstinline{libp2p}区分大小写的协议id标识。以下约定用于构造流标识符:
 
 \begin{lstlisting}
 /swarm/ProtocolName/ProtocolVersion/StreamName
 \end{lstlisting}
 
 \begin{itemize}
-\item All stream IDs are prefixed with \lstinline{/swarm}.
-\item \lstinline{ProtocolName} is an arbitrary string that identifies the protocol.
-\item \lstinline{ProtocolVersion} is a string in semver form that is used to specify compatibility between protocol implementations over time.
-\item \lstinline{StreamName} is an arbitrary string that identifies a stream defined as part of the protocol.
+\item 所有流id都以\lstinline{/swarm}为前缀。
+\item \lstinline{ProtocolName}是标识协议的任意字符串。
+\item \lstinline{ProtocolVersion}是一个semver形式的字符串，用于指定协议实现之间随时间的兼容性。
+\item \lstinline{StreamName}是一个任意字符串，用于标识定义为协议一部分的流。
 \end{itemize}
 
-\subsection{Data exchange sequences \statusgreen}
+\subsection{数据交换序列\statusgreen}
 
-A data passing sequence must be synchronous under one opened stream. Multiple streams can be opened at the same time that are multiplexed over the same connection exchanging data independently and asynchronously. Streams may use different data exchange sequences such as:
+在一个打开的流下，数据传递序列必须是同步的。可以同时打开多个流，这些流在同一连接上进行多路复用，独立和异步地交换数据。流可以使用不同的数据交换序列，如:
 
 \begin{itemize}
-\item \emph{single message sending} - not waiting for the response by the peer if it is not needed before closing the stream.
-\item \emph{multiple message sending} - a series of data that is sent to a peer without reading from it before closing the stream.
-\item \emph{request/response} - requires a single response for a single request before closing the stream.
-\item \emph{multiple requests/response cycles} - require a synchronous response after every request before closing the stream.
-\item \emph{exact message sequence} -  requires multiple message types over a single stream in an exact order (see the handshake protocol in \ref{spec:protocol:hive}).
+\item \emph{单独的消息发送} -在关闭流之前不等待对等体的响应，如果它不需要。
+\item \emph{多个消息发送}—在关闭流之前不从对等端读取而发送到对等端的一系列数据。
+\item \emph{请求/响应}—在关闭流之前需要对单个请求的单个响应。
+\item \emph{多个请求/响应周期}——在每个请求之后关闭流之前都需要一个同步响应。
+\item \ref{spec:protocol:hive} -需要在单个流上以精确的顺序(参见\ref{spec:protocol:hive}中的握手协议)使用多种消息类型。
 \end{itemize}
 
-Streams have predefined sequences that are kept as simple as possible for a single purpose. For complex message exchanges, multiple streams should be used.
+流有预定义的序列，为了一个目的尽可能地保持简单。对于复杂的消息交换，应该使用多个流。
 
-Streams may be short lived for immediate data exchange or communication, or long lived for notifications if needed.
+对于即时的数据交换或通信，流的生命周期可能很短;如果需要，流的生命周期可能很长。
 
-\subsection{Stream headers}
+\subsection{流头}
 
-A Swarm specific requirement for all libp2p streams is to exchange Header protobuf messages on every stream initialization between two peers. This message encapsulates a stream scoped information that needs to be exchanged before any stream specific data or messages are exchanged. Headers are sequences of key value pairs, where keys are arbitrary strings and values are byte arrays that do not impose any specific encoding. Every key may use appropriate encoding for the data that it relates to.
+所有libp2p流的一个Swarm特定要求是在两个对等体之间的每个流初始化时交换Header protobuf消息。此消息封装了在交换任何特定于流的数据或消息之前需要交换的流作用域信息。标头是键值对的序列，其中键是任意字符串，值是不强加任何特定编码的字节数组。每个键都可以对它所关联的数据使用适当的编码。
 
 \begin{definition}[Header message]\label{def:headers-message}
 
@@ -77,15 +77,15 @@ message Header {
 \end{lstlisting}
 \end{definition}
 
-On every stream initialization, the peer that creates it, is sending Headers message regardless if it contains header values or not. The receiving node must read this message and respond with response header using the same message type. This makes the header exchange sequence finished and any other stream data can be transmitted depending on the protocol.
+在每个流初始化时，创建它的对等端都发送报头消息，不管它是否包含报头值。接收节点必须读取此消息并使用使用相同消息类型的响应头进行响应。这使得报头交换序列完成，任何其他流数据都可以根据协议传输。
 
-Standard header key names are defined here:
+标准头键名定义在这里:
 
 \begin{enumerate}
 \item tracing-span-context
 \end{enumerate}
 
 
-\subsection{Encapsulation of context for tracing \statusgreen}
+\subsection{用于跟踪\statusgreen的上下文的封装}
 
-P2P Stream scoped tracing span context is exchanged by using stream headers. Header key "tracing-span-context" is reserved for binary encoded tracing span context data. This context should be used in tracing messages. The stream initiator node should provide tracing span context to the responding node. This context is optional and all nodes must function the same as span context is provided by other nodes or not regardless if the node has tracing configured or not.
+使用流头来交换P2P流作用域的跟踪跨度上下文。头键" trace -span-context"保留用于二进制编码的跟踪span上下文数据。该上下文应该用于跟踪消息。流启动器节点应该向响应节点提供跟踪跨上下文。该上下文是可选的，所有节点的功能必须与其他节点提供的span上下文相同，无论该节点是否配置了跟踪。

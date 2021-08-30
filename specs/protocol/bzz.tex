@@ -1,8 +1,8 @@
 
 
-The bzz handshake protocol is the protocol that is always run after two peers are connected and before any other protocols are established. It communicates information about the  peer's address, network ID and light node capability.
+bzz握手协议是在两个对等体建立连接之后以及在任何其他协议建立之前运行的协议。它传递有关对等体地址、网络ID和轻节点能力的信息。
 
-The handshake protocol defines only one stream and three messages:
+握手协议只定义了一个流和三个消息:
 
 \begin{definition}[Bzz handshake protocol  messages]\label{def:bzz-messages}
 
@@ -36,22 +36,22 @@ message BzzAddress {
 \end{lstlisting}
 \end{definition}
 
-This message sequence is inspired by the TCP three way handshake to ensure message deliverability.
+这个消息序列是受TCP三次握手的启发，以确保消息的可传递性。
 
-Upon connection, requesting peer constructs a new handshake stream and sends a \lstinline{Syn} message with the remotely observed Underlay address of the peer it is performing the handshake with. After that it waits for \lstinline{SynAck} response message from the responding peer. In  the  \lstinline{SynAck} message responder sends it own \lstinline{Syn} message as well, together with the acknowledgement message which should include it's correctly signed BzzAddress. The received observed address can be used and compared with locally known addresses in order to send the better advertisable address (Underlay) in the acknowledgement. After the requesting peer receives the \lstinline{SynAck} message from the responding peer and validates that the received \lstinline{Ack} information in it is correct, it sends an \lstinline{Ack} message itself as a confirmation to the responding peer. The stream is closed by the responding peer after it receives the \lstinline{Ack} message.
+在连接时，请求的对等体构造一个新的握手流，并发送一个\lstinline{Syn}消息，该消息带有远程观察到的与之进行握手的对等体的底层地址。之后，它等待来自响应对等体的\lstinline{SynAck}响应消息。在\lstinline{SynAck}消息中，响应器也发送它自己的\lstinline{Syn}消息，以及确认消息，确认消息应该包括它正确签名的BzzAddress。接收到的观测地址可以用来与本地已知的地址进行比较，以便在确认中发送更好的可广告地址(Underlay)。请求端从响应端接收到\lstinline{SynAck}消息，并确认接收到的\lstinline{Ack}信息是正确的后，向响应端发送一条\lstinline{Ack}消息作为确认。流在收到\lstinline{Ack}消息后被响应的对等体关闭。
 
-The connection must be terminated if network IDs are do not match or if the exact order of messages is not followed.
+如果网络id不匹配，或者没有遵循消息的确切顺序，则必须终止连接。
 
-The bzz address is verified and overlay, underlay and signature are extracted.
-light is a boolean field indicating whether the node is operating as a light (as opposed to full) node.
+验证bzz地址，提取覆盖层、底层和签名。
+Light是一个布尔字段，指示节点是否作为一个Light(而不是完整)节点运行。
 
-After the handshake,  each peer should remember the following data about the other:
+握手后，每个对等体需要记住对方的以下数据:
 
 \begin{itemize}
-    \item the overlay address - used in forwarding  (see  \ref{spec:strategy:forwarding}),
-    \item the underlay address - used for dialing, passed to the underlay network protocol when the connectivity driver needs to connect to the peer (see \ref{spec:strategy:connection}),
-    \item the bzz address signature - needed by the hive protocol to pass information about the node to other peers (see \ref{spec:protocol:hive}),
-    \item whether the peer is a light node.
+    \item 覆盖地址-用于转发(参见\ref{spec:strategy:forwarding})，
+    \item 底层地址——用于拨号，当连接驱动程序需要连接到对等体时传递给底层网络协议(参见\ref{spec:strategy:connection})，
+    \item bzz地址签名——hive协议需要将该节点的信息传递给其他对等体(参见\ref{spec:protocol:hive})，
+    \item 对端是否是轻节点。
 \end{itemize}
 
 % \subsection{Encapsulation of price information \statusred}

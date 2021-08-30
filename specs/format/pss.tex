@@ -1,6 +1,6 @@
-\subsection{Direct pss message with trojan chunk}
+\subsection{直接pss消息与木马块}
 
-Pss has two fundamental types, a message and a trojan chunk structure which wraps the encrypted serialised message and contains a nonce that is mined to make the resulting chunk's content address (BMT hash) to match the targets.
+Pss有两种基本类型，一个消息和一个木马块结构，它封装加密的序列化消息，并包含一个nonce，该nonce被挖掘来使结果块的内容地址(BMT哈希)匹配目标。
 
 
 \begin{definition}[Basic types: topic, targets, recipient, message and trojan]\label{def:pss-message}
@@ -25,7 +25,7 @@ define type trojan
 \end{definition}
 
 
-The message is encoded in a way that allows integrity checking and at the same time obfuscates the topic. The operation to package the payload with a topic is called \emph{sealing}
+消息的编码方式允许完整性检查，同时模糊了主题。将有效负载与主题打包的操作称为\emph{密封}
 
 
 \begin{definition}[Sealing/unsealing the message]\label{def:pss-sealing}
@@ -50,8 +50,8 @@ as
 \end{lstlisting}
 \end{definition}
 
-Functions \lstinline{wrap/unwrap} transform between message and trojan chunk. \lstinline{wrap} takes an optional recipient public key to asymmetrically encrypt the message.
-The targets are a list of overlay address prefixes derived from overlay addresses of recipients, with length specified to guarantee that a chunk matching it will end up with the recipient solely as a result if  push-syncing.   
+函数在消息和木马块之间进行\lstinline{wrap/unwrap}转换。\lstinline{wrap}接受一个可选的接收方公钥来对消息进行非对称加密。
+目标是一个覆盖地址前缀列表，它是从接收者的覆盖地址派生出来的，指定长度以保证匹配它的块在推送同步时只会以接收者作为结果。   
 
 \begin{definition}[Wrapping/unwrapping]\label{def:wrap}
 \begin{lstlisting}[language=buzz1]
@@ -79,8 +79,8 @@ as
 \end{lstlisting}
 \end{definition}
 
-When a chunk arrives at the node,  \lstinline{pss/deliver} is called as a hook by the storage component.
-First the message is unwrapped using the recipient private key and unsealed with all the topics API clients subscribed to. If the unsealing is successful, message integrity as well as topic matching is proven so the payload is written into the stream registered for the topic in question.
+当数据块到达节点时，存储组件将\lstinline{pss/deliver}作为钩子调用。
+首先，使用接收方私钥对消息进行拆封，并使用所有订阅的主题API客户端对消息进行拆封。如果解封成功，则验证消息完整性和主题匹配，因此将有效负载写入为相关主题注册的流中。
 
 \begin{definition}[Incoming message handling]\label{def:delivery}
 \begin{lstlisting}[language=buzz1]
@@ -148,7 +148,7 @@ as
 \end{lstlisting}
 \end{definition}
 
-\subsection{Envelopes}
+\subsection{信封}
 
 \begin{definition}[Envelope]\label{def:pss-envelope}
 \begin{lstlisting}[language=buzz1]

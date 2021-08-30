@@ -1,17 +1,17 @@
 
-All new (previously not known) peers found in the \lstinline{Peers} message received from either of the two streams as well as newly connected peers that dialled in should be automatically broadcast to all connected peers that are closer  to them than the node's base overlay address. Formally, 
-node $s$ (sender) notifies an existing peer $r$ (recipient) about peer $p$ if $\mathit{PO}(s, r) = \mathit{PO}(s, p)$. 
+从两个流中的任何一个接收到的\lstinline{Peers}消息中发现的所有新的(以前不知道的)对等体以及新连接的拨号的对等体应该自动广播到比节点的基本覆盖地址更接近它们的所有连接的对等体。在形式上, 
+节点$s$(发送方)通知现有的对等体$r$(接收方)关于对等体$p$，如果$\mathit{PO}(s, r) = \mathit{PO}(s, p)$。 
 
-\subsection{Connectivity and its constraints}
+\subsection{连通性及其约束}
 
-Without resource constraints the optimal connectivity for a proper storer node is full  connectivity, i.e. when a node has all other nodes in the network as their peer. The chequebook contract also prefers a small number of peer connections to be maintained and other network overhead costs for keepalive connections or network socket shortage also implicates that 
-above a certain network size full connectivity is prohibitive.
+在没有资源约束的情况下，一个合适的存储节点的最佳连接是完全连接，即当一个节点将网络中的所有其他节点作为其对等节点时。支票簿契约也倾向于维护少量的对等连接，为保持连接或网络套接字短缺而产生的其他网络开销也暗示了这一点 
+超过一定的网络规模，完全连接是禁止的。
 
-The relative gain is maximised if throughput on all keepalive connections are maximised. If network contention prevents a node from forwarding to a peer insantaneously, another peer must to be chosen. 
-Assuming uniformity in the network 
+如果使所有keepalive连接的吞吐量最大化，则相对增益也会最大化。如果网络竞争使一个节点不能立即转发给另一个对等体，则必须选择另一个对等体。 
+假设网络中的一致性 
 %(see appendix \ref{sec:distribution}) 
-throughput maximisation in the context of limited number of peer connections can be achieved with a connectivity pattern where each kademlia bin has a constant cardinality of $2^b$ and peers in the bin are balanced, i.e., match each distinct bit prefix of length $b$.
-Therefore, connectivity strategy can be formulated as follows:
+在对等连接数量有限的上下文中，吞吐量最大化可以通过以下连接模式实现:每个kademlia bin具有$2^b$的恒定基数，并且bin中的对等节点是平衡的，即匹配长度为$b$的每个不同的位前缀。
+因此，互联互通策略可制定为:
 
 
 
@@ -19,11 +19,11 @@ Therefore, connectivity strategy can be formulated as follows:
 
 
 
-\subsection{Light node connection strategy}
+\subsection{轻节点连接策略}
 
-Light nodes in the context of connection topology are nodes that do not have kademlia connectivity. In the extreme case, a light node should be able to get away with a single connection. The lack of full connectivity is indicated to the node's peers so that no retrieve requests or  push sync requests are sent to them. Note that if a node falsely indicates its status, that should cause minimal disruption. 
+在连接拓扑的上下文中，轻节点是没有kademlia连接的节点。在极端情况下，轻节点应该能够通过单个连接逃脱。如果节点的对等节点没有完全连接，则不会向它们发送检索请求或推送同步请求。注意，如果一个节点错误地指示了它的状态，应该会造成最小的破坏。 
 
-A lightnode wants to identify its neighboorhood so that it connects to at least one of the $R$ storer nodes closest to it (where $R$ is the redundancy parameter determining the minimum neighbourhood size).
+一个lightnode想要识别它的邻居，以便它连接到至少一个最接近它的$R$存储节点(其中$R$是确定最小邻居大小的冗余参数)。
 
 
 

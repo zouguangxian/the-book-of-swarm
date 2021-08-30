@@ -1,26 +1,26 @@
-Garbage collection is the glorified name for the process of purging the local chunk store of the node. 
-Here the assumption is that storage is s scarce resource and with time nodes will experience capacity shortage and face the problem  of deciding which   existing chunks to remove to make space for new arrivals. 
+垃圾收集是清除节点的本地块存储过程的美化名称。 
+这里的假设是，存储是稀缺资源，随着时间的推移，节点将经历容量短缺，并面临决定删除哪些现有的块，以便为新到达的块腾出空间的问题。 
 
-The garbage collection strategy must reflect the economic potential of chunks, i.e., it should ideally maximise the profit the node makes on storage compensation. Deriving high-level behaviour of Swarm as a network from the assumption that nodes employ a particular strategy is only valid if said strategy align best with the incentive design.
+垃圾收集策略必须反映块的经济潜力，也就是说，它应该使节点在存储补偿上获得的利润最大化。从节点采用特定策略的假设中推导出Swarm作为网络的高级行为，只有当该策略与激励设计最佳匹配时才有效。
 
-If only Swap is operational only a very simple garbage collection strategy is sufficient. Every time a chunk is retrieved, the node serving it earns SWAP revenue. Ideally, then, those chunks that are retrieved more often should be preferred to those retrieved rarely.
+如果只有Swap是可操作的，那么一个非常简单的垃圾收集策略就足够了。每当一个块被检索时，服务它的节点就会获得SWAP收入。因此，理想情况下，那些经常检索的块应该优先于那些很少检索的块。
 
-The best predictor for number of accesses is number of accesses in the past. For chunks that exist and been retrieved, these models work well, but they are only optimal for making distinctions among popular, not among the rarely accessed content. A priori estimation for new chunks can instead rely on the postage value, which directly  map onto guaranteed revenue.  
+访问次数的最好预测器是过去的访问次数。对于存在和检索的块，这些模型工作得很好，但它们只适合区分流行的内容，而不是很少访问的内容。新区块的先验估计可以依赖于邮资价值，它直接映射到保证的收入。  
 
 
-available, value consistent storage
+可用，取值一致的存储
 
-indexing by per-chunk balance
+按块平衡进行索引
 
-updating postage stamp value 
+更新邮票价值 
 
-combining swap profit 
+结合交换利润 
 
-Let's  index  the epochs with negative integers with an ordering respecting recency, i.e., the current epoch is 0, the most recent $-1$, the previous one $-2$, etc. 
-Let $n$ be the cutoff memory size for past epochs.
-Let $\mathit{Hits}(e)$ denote the number of hits a chunk is served during epoch $e$. 
+让我们按照最近的顺序用负整数索引纪元，例如，当前纪元是0，最近的$-1$，前一个$-2$，等等。 
+让$n$为过去时代的截止内存大小。
+让$\mathit{Hits}(e)$表示在epoch $e$期间为块提供的命中次数。 
 
-Let's build a popularity predictive model based on past observations using the assumption of exponential decay with time in predictive power. 
+让我们根据过去的观察建立一个流行预测模型，使用预测能力随时间呈指数衰减的假设。 
 
 \begin{equation}
     \mathit{Hits}(0) \defeq \frac{\sum_{e=0}^n \frac{\mathit{Hits}(e)}{c^e}}{c^{n-1}}

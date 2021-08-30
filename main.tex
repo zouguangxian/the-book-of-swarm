@@ -20,38 +20,38 @@
 \usepackage{listings-protobuf} % import this package after listings
 % \usepackage{listings-golang} % import this package after listings
 % \usepackage[labelfont=bf]{caption} % bold captions for images
-\interfootnotelinepenalty=10000 %% Completely prevent breaking of footnotes
+\interfootnotelinepenalty = 10000%% Completely prevent breaking of footnotes
 \usepackage{csquotes}
 
 \lstdefinestyle{bos}{
 %   frame=lines,
-  xleftmargin=\parindent,
-  belowcaptionskip=1\baselineskip,
-  backgroundcolor=\color{proto_background},
+  xleftmargin = \parindent,
+  belowcaptionskip \baselineskip = 1,
+  写成backgroundcolor = \color{proto_background},
 %   basicstyle=\color{proto_basic}\footnotesize\ttfamily,
-	keywordstyle=[1]\color{orange}\bfseries,
-	keywordstyle=[2]\color{red},
-	keywordstyle=[3]\color{black}\bfseries,
+	keywordstyle = [1] \color{橙色}\bfseries,
+	keywordstyle = [2] \color{红色的},
+	keywordstyle = [3] \color{黑色的}\bfseries,
 % 	keywordstyle=[1]\color{proto_keyword},
 % 	keywordstyle=[2]\color{proto_type},
 % 	keywordstyle=[3]\color{zproto_options},
-	commentstyle=\color{gray}\itshape,
+	commentstyle = \color{灰色的}\itshape,
 % 		commentstyle=\color{proto_comment},
-	stringstyle=\color{purple}\bfseries,
-  numberstyle=\color{proto_number}\small,
-  identifierstyle=\color{proto_ident},
-	numbers=right,
-	numbersep=5pt,
-	breaklines=true,
-	showstringspaces=false,
-	tabsize=2,
+	stringstyle = \color{紫色的}\bfseries,
+  numberstyle = \color{proto_number}\small,
+  identifierstyle = \color{proto_ident},
+	数量=,
+	numbersep = 5 pt,
+	破裂线= true,
+	showstringspaces = false,
+	tabsize = 2,
 }
 \lstset{
-  language=protobuf3,
-  basicstyle=\fontencoding{T1}\normalsize\ttfamily\color{black},
-  style=bos,
-	numbers=right,
-	numberstyle=\small
+  语言= protobuf3,
+  basicstyle = \fontencoding{T1}\normalsize\ttfamily\color{黑色的},
+  风格= bos,
+	数量=,
+	numberstyle = \small
 }
 
 
@@ -59,13 +59,13 @@
 \usepackage{multirow}
 \usepackage{csquotes}
 \usepackage{tikz}
-\usetikzlibrary{matrix,arrows.meta,fit,positioning,shapes,automata}
+\usetikzlibrary{矩阵,arrows.meta,健康,定位、形状、自动机}
 \usepackage{forest}
 
 \usepackage{breakcites} % splits long citations to several lines
 
 \makeglossaries
-\let\headheight=\baselineskip
+\let\headheight = \baselineskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % centered verbatim command
@@ -73,7 +73,7 @@
 \newenvironment{centerverbatim}{%
   \par
   \centering
-  \varwidth{\linewidth}%
+  \varwidth{\linewidth} %
   \verbatim
 }{%
   \endverbatim
@@ -98,8 +98,8 @@
 
 % disable hyperlink if link count is greater than 1:
 \renewcommand*{\glslinkpresetkeys}{%
- \ifnum\GlsXtrLinkCounterValue{\glslabel}>1
-  \setkeys{glslink}{hyper=false}%
+ \ifnum\GlsXtrLinkCounterValue{\glslabel} > 1
+  \setkeys{glslink}{hyper=false} %
  \fi
 }
 
@@ -185,7 +185,7 @@
 \newcommand\Keys{\mathcal{K}}
 \newcommand\nil{\varnothing}
 \newcommand\swip[1]{\url[SWIP-#1]{https://github.com/ethersphere/SWIPs/blob/master/SWIPs/swip-#1.md}}
-\newcommand\defeq{\overset{\textrm{\tiny  def}}{=}}
+\newcommand\defeq{\overset{\textrm{\tiny def}}{＝}}
 \providecommand{\xor}{\veebar}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % new math environments
@@ -198,9 +198,9 @@ spaceabove=6pt, spacebelow=6pt,headfont=\normalfont\bfseries,notefont=\mdseries,
 %\newtheorem{definition}{Definition}%[section]
 
 \makeatletter
-\def\ll@definition{%
-  \protect\numberline{\csname the\thmt@envname\endcsname}%
-  \ifx\@empty\thmt@shortoptarg
+\def\l@definition{%
+  \protect\numberline{\csname the\thmt@envname\endcsname} %
+  \ifx \@empty\thmt@shortoptarg
     \thmt@thmname
   \else
     \thmt@shortoptarg
@@ -222,15 +222,15 @@ spaceabove=6pt, spacebelow=6pt,headfont=\normalfont\bfseries,notefont=\mdseries,
 %\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
 \DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
 \makeatother
-\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{L}{> {\raggedright\arraybackslash}X}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % the book of swarm
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{\Huge\sc the book of Swarm\\
-\Large storage and communication infrastructure for self-sovereign digital society\\
-back-end stack for the decentralised web}
-\author{Viktor Trón}
-\date{v1.0 pre-release 8 - worked on \today}
+\title{\Huge\sc蜂群的书
+\Large存储和通信基础设施的自我主权数字社会\\
+面向去中心化网络的后端堆栈}
+\author{维克多•特隆}
+\date{v1.0预发布8 -在\today上工作}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -242,18 +242,18 @@ back-end stack for the decentralised web}
 % instructions for versioning & deployment
 % they are hidden automatically if draft is FALSE when compiling
 \ifdraft
-Instructions for compiling and distributing.
+编译和分发的说明。
 
-These are hidden if conditional text is not shown (when publishing a version).
+如果不显示条件文本(在发布版本时)，则隐藏这些选项。
 
 \begin{enumerate}
-    \item any version being worked on should be named "Version vX - worked on";
-    \item when publishing, "worked on" should be removed; 
-    \item drafttrue line should be commented out removing conditional text upon compilation;
-    \item PDF should be generated, saved and pushed to Github repo \\ (https://github.com/ethersphere/publish-bookofswarm/tree/master/pdfs); \item verify that last commit was autodeployed to Swarm \\ (https://swarm-gateways.net/bzz:/latest.bookofswarm.eth/the-book-of-swarm-viktor-tron.pdf);
-    \item PDF commit in Github repo should be named with version number;
-    \item version number in Latex should be bumped up and "worked on" note added: "Version v(X+1) - worked on";
-    \item Goto 1.
+    \item 任何正在工作的版本应该被命名为“版本vX -工作”;
+    \item 在出版时，“曾工作过”应删除; 
+    \item Drafttrue line应该注释掉，在编译时删除条件文本;
+    \item PDF应该生成，保存和推到Github repo \\ (https://github.com/ethersphere/publish-bookofswarm/tree/master/pdfs); \item 验证上次提交是自动部署到Swarm \\ (https://swarm-gateways.net/bzz:/latest.bookofswarm.eth/the-book-of-swarm-viktor-tron.pdf);
+    \item 在Github repo中的PDF提交应该以版本号命名;
+    \item Latex中的版本号应该被提升，“已完成”注释添加:“版本v(X+1) -已完成”;
+    \item 转到1。
 \end{enumerate}
 \fi
 
@@ -266,24 +266,24 @@ These are hidden if conditional text is not shown (when publishing a version).
 \input{acknowledgements.tex} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
-\part{Prelude} \label{part:preface}
+\part{前奏} \label{part:preface}
 \input{intro.tex}
-\part{Design and architecture} \label{part:designarchitecture}
+caad \label{part:designarchitecture}
 \input{body.tex}
-\part{Specifications}
+\part{规范}
 \label{part:specifications}
 \input{specs.tex}
 %%%%%%%%%%%%%%%%%%%%%%
 \phantomsection 
-\addcontentsline{toc}{chapter}{Bibliography}
+\addcontentsline{toc}{章}{参考书目}
 \bibliography{refs.bib}
 %%%%%%%%%%%%%%%%%%%%%
 \appendix
-\part{Appendix}\label{part:appendix}
+\part{附录}\label{part:appendix}
 \input{appendix.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
-\part{Indexes \statusorange}
+\part{索引\statusorange}
 % main glossary with explanations
 % NOTE: cannot find a non-hierarchical style that works well
 % maybe we don't need hierarchy in its current form (defined by parent)

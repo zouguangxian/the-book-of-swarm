@@ -1,8 +1,6 @@
 
-\begin{apiRoute}{POST}{/pss/send/\param{topic}(?targets=\param{targets}\&recipient=\param{recipient})}{Send private message with topic to targets, encrypted for recipient, see \ref{def:send}}
-{
-}
-{ }
+\begin{apiRoute}{POST}{/pss/send/\param{topic}(?targets=\param{targets}\&recipient=\param{recipient})}{Send private message with topic to targets, encrypted for recipient, see \ref{def:send}}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{topic}{string}
@@ -24,10 +22,8 @@
 
 
 
-\begin{apiRoute}{POST}{/pss/subscribe/\param{topic}/(?on=\param{channel})}{Subscribe to messages with topic to be delivered on given channel, see \ref{def:receive}}
-{
-}
-{ }
+\begin{apiRoute}{POST}{/pss/subscribe/\param{topic}/(?on=\param{channel})}{Subscribe to messages with topic to be delivered on given channel, see \ref{def:receive}}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{topic}{string}
@@ -41,10 +37,8 @@
 \end{apiRoute}
 
  
-\begin{apiRoute}{DELETE}{/pss/subscribe/\param{topic}/(?on=\param{channel})}{Unsubscribe for topic on channel, see \ref{def:receive}}
-{
-}
-{ }
+\begin{apiRoute}{DELETE}{/pss/subscribe/\param{topic}/(?on=\param{channel})}{Unsubscribe for topic on channel, see \ref{def:receive}}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{topic}{string}

@@ -1,18 +1,18 @@
-Forwarding strategy refers to the process a node follows pertaining to relayed messages and responses in Forwarding Kademlia as relevant for chunk retrieval and upload.
+转发策略是指节点在转发Kademlia中对转发的消息和响应所遵循的与块检索和上传相关的处理过程。
 
-Note that for retrieval as well as push-syncing, the protocol does not specify just allows forwarding of retrieve requests and chunk deliveries, respectively.
-Whether a node forwards an incoming message and where it forwards them, should be guided by the incentives in order to attain stability.
+注意，对于检索和推同步，协议并没有指定只允许转发检索请求和块传递。
+为了获得稳定性，节点是否转发传入消息以及将消息转发到何处，应该由激励机制引导。
 
-As described in \ref{sec:pricing}, nodes  formulate and  advertise their prices for each PO bin separately. 
-The optimal pricing strategy will reflect the PO bins in that the prices for closer bins will monotonically decrease. 
+如\ref{sec:pricing}所述，节点分别制定并公布每个PO仓的价格。 
+最优定价策略将反映PO箱，因为更接近的箱的价格将单调下降。 
 
-With sufficiently 
+有足够的 
     
  
-\subsubsection{Retries}
+\subsubsection{重试}
 %disconnection
 
-Both push-sync and retrieval messages are using backwarding (i.e., pass-back responses), and the compensation for forwarding only gets accounted for once the response is sent. This incentivises nodes to watch on peer connections where the downstream message was sent. In particular, if downstream peer disconnects  before the response in received, the forwarding should be repeated and tried on another peer.
+推同步和检索消息都使用了反向保护(即传递回响应)，转发补偿仅在响应发送后才被计算在内。这将激励节点监视发送下游消息的对等连接。特别是，如果下游对等体在收到响应之前断开连接，则应该重复转发并在另一个对等体上尝试。
 
 
 %price-driven strategy

@@ -1,52 +1,52 @@
 
-The Swarm specification is presented in four chapters. Chapter \ref{spec:convention} enlists all the conventions relating data types, formats and algorithms using the \lstinline{buzz} language as pseudo-code.
-Chapter \ref{spec:protocol} ( Protocols) specifies the wire protocols: message formats, serialisation and encapsulation are hard requirements that are crucial for  cross client compatibility. This chapter benefits from \lstinline{protobuf},%
+Swarm规范分为四章。第\ref{spec:convention}章列举了使用cc聋子语言作为伪代码的所有与数据类型、格式和算法相关的约定。
+\ref{spec:protocol}(协议)章指定了连接协议:消息格式、序列化和封装是对跨客户端兼容性至关重要的硬性要求。本章受益于\lstinline{protobuf}
 %
 \footnote{\url{https://developers.google.com/protocol-buffers}}
 %
-which is a generic language-neutral, platform-neutral, extensible mechanism for serializing structured data.
-The chapter on Strategies (\ref{spec:strategy}) is meant to present recommended incentive-aligned behaviour.
-APIs (\ref{spec:api}) gives a formal specification of the high level interfaces of Swarm. Different client implementations are  to be tested against a standard suite of API tests. The API specifications benefit from \lstinline{OpenAPI},%
+它是一种通用的、与语言无关的、与平台无关的、用于序列化结构化数据的可扩展机制。
+关于策略(\ref{spec:strategy})的一章旨在提出推荐的激励一致行为。
+api (\ref{spec:api})给出了Swarm高级接口的正式规范。不同的客户端实现将根据标准的API测试套件进行测试。API规范受益于\lstinline{OpenAPI}，%
 %
 \footnote{\url{https://swagger.io/}}
 %
-which is an API description format for REST APIs.
+是REST API的API描述格式。
 
 \newpage\phantomsection 
-\addcontentsline{toc}{chapter}{List of definitions}
-\listoftheorems[ignoreall,show={definition}]
+\addcontentsline{toc}{章}{定义列表}
+\listoftheorems[ignoreall,显示= {定义}]
 
-\chapter{Data types and algorithms}\label{spec:convention}
+\chapter{数据类型和算法}\label{spec:convention}
 
 \orange{}
 
-\section{Built-in primitives \statusyellow}\label{spec:format:builtin}
+\section{内置的原语\statusyellow}\label{spec:format:builtin}
 \input{specs/format/builtin.tex}
 
 \section{Bzz address\statusgreen}\label{spec:format:bzzaddress}
 \input{specs/format/bzzaddress.tex}
 
-\section{Chunks, encryption and addressing\statusyellow}
-\subsection{Content addressed chunks \statusgreen}\label{spec:format:chunks}
+\section{块，加密和寻址\statusyellow}
+\subsection{内容处理块\statusgreen}\label{spec:format:chunks}
 \input{specs/format/chunks.tex}
-\subsection{Single owner chunk \statusgreen}\label{spec:format:soc}
+\subsection{单所有者块\statusgreen}\label{spec:format:soc}
 \input{specs/format/soc.tex}
-\subsection{Binary Merkle Tree Hash \statusyellow}\label{spec:format:bmt}
+\subsection{二进制默克尔树哈希\statusyellow}\label{spec:format:bmt}
 \input{specs/format/bmt.tex}
-\subsection{Encryption \statusyellow}\label{spec:format:encryption}
+\subsection{加密\statusyellow}\label{spec:format:encryption}
 \input{specs/format/encryption.tex}
 
-\section{Files, manifests and data structures\statusyellow}\label{spec:format:data-structures}
-\subsection{Files and the Swarm hash \statusyellow}\label{spec:format:files}
+\section{文件，清单和数据结构\statusyellow}\label{spec:format:data-structures}
+\subsection{文件和群集哈希\statusyellow}\label{spec:format:files}
 \input{specs/format/files.tex}
-\subsection{Manifests \statusyellow}\label{spec:format:manifests}
+\subsection{体现\statusyellow}\label{spec:format:manifests}
 \input{specs/format/manifests.tex}
 % \section{Entanglement coding \statusred}\label{spec:format:entanglements}
 %\input{specs/format/entanglement.tex}
 % composite api, resolver, tags
 \input{specs/format/storage.tex}
 
-\section{Access Control \statusgreen}\label{spec:format:access-control}
+\section{访问控制\statusgreen}\label{spec:format:access-control}
 \input{specs/format/access-control.tex}
 
 \section{PSS \statusyellow}
@@ -54,74 +54,74 @@ which is an API description format for REST APIs.
 \subsection{PSS message\statusgreen}
 \label{spec:format:pss-messsage}
 \input{specs/format/pss.tex}
-\subsection{Update notifications \statusred}\label{spec:format:update-notifications}
+\subsection{更新通知\statusred}\label{spec:format:update-notifications}
 %\input{specs/format/update-notifications.tex}
 
-\subsection{Chunk recovery  \statusyellow}\label{spec:format:recovery}
+\subsection{大部分复苏\statusyellow}\label{spec:format:recovery}
 \input{specs/format/recovery.tex}
 
-\section{Postage stamps \statusorange}\label{spec:format:postage-stamps}
+\section{邮票\statusorange}\label{spec:format:postage-stamps}
 \input{specs/format/postage-stamps.tex}
 % \section{Honey token and multi-chain support}\label{spec:format:honey}
 %\input{specs/format/honey.tex}
 
 
-\chapter{Protocols}\label{spec:protocol}
+\chapter{协议}\label{spec:protocol}
 
-\section{Introduction \statusorange}\label{spec:protocol:intro}
+\section{介绍\statusorange}\label{spec:protocol:intro}
 \input{specs/protocol/protocols.tex}
 
 % \section{Swarm protocol basics\statusgreen}\label{spec:protocol:basics}
-\section{Bzz handshake protocol \statusgreen}\label{spec:protocol:bzz}
+\section{Bzz握手协议}\label{spec:protocol:bzz}
 \input{specs/protocol/bzz.tex}
 
-\section{Hive discovery  \statusgreen}\label{spec:protocol:hive}
+\section{蜂巢发现\statusgreen}\label{spec:protocol:hive}
 \input{specs/protocol/hive.tex}
 
-\section{Retrieval  \statusorange}\label{spec:protocol:retrieval}
+\section{检索\statusorange}\label{spec:protocol:retrieval}
 \input{specs/protocol/retrieval.tex}
 
-\section{Push-syncing  \statusorange}\label{spec:protocol:push-sync}
+\section{Push-syncing \statusorange}\label{spec:protocol:push-sync}
 \input{specs/protocol/push-sync.tex}
 
 \section{Pull-syncing \statusorange}\label{spec:protocol:pull-sync}
 \input{specs/protocol/pull-sync.tex}
 
-\section{SWAP settlement protocol \statusorange}\label{spec:protocol:swap}
+\section{SWAP结算协议\statusorange}\label{spec:protocol:swap}
 
 
-\chapter{Strategies \statusorange}\label{spec:strategy}
+\chapter{策略\statusorange}\label{spec:strategy}
 
 
-The strategies clients follow will have a fundamental effect on the behaviour of the network and if they end up going against the preconceived design, the project may very well fail to suit user expectations. Such scenarios can easily turn fatal to the project, which is why it is instructive to err on the side of caution when change (or initially suggest) strategies for node behaviour.
-The scope of strategies are defined as those aspects of the intended 'protocol' which cannot be directly observed or easily verified. As an example contrast the very act of forwarding an incoming retrieve request (strategy) with the act of using correctly formatted and serialised messages when doing so (protocol constraint). The latter can be immediately detected and be responded to by disconnecting and blacklisting offenders. In contrast, whether a node does forwarding in a way conducive to the desired network outcome is subtle to detect. 
+客户遵循的策略将对网络的行为产生根本性的影响，如果他们最终违背了预先的设计，项目很可能无法满足用户的期望。这样的场景很容易对项目造成致命的影响，这就是为什么在改变(或最初建议)节点行为策略时，宁可谨慎行事。
+策略的范围被定义为预期的“方案”中不能直接观察或容易验证的那些方面。举个例子，将转发传入的检索请求(策略)与使用正确格式化和序列化的消息(协议约束)进行对比。后者可以立即被发现，并通过断开连接和列入黑名单的方式做出回应。相比之下，一个节点是否以有利于预期网络结果的方式进行转发是很难检测的。 
 
-Since we choose to work with the narrowest possible assumption of profit-maximising node operators, the choice of strategies ought to be course grained enough to evaluate the consequences of the options. In particular we must not allow for scenarios when even vaguely rational deviations from the recommended strategy have catastrophic effects.
+由于我们选择使用利润最大化节点操作符这一最狭窄的可能假设，策略的选择应该具有足够的过程粒度，以评估选项的结果。特别是，我们不能考虑到即使是对推荐策略的模糊理性偏差也会产生灾难性影响的情况。
 
-In general incentives should be in place to guarantee that behaviour that is detrimental to the service incurs a risk of subsequent loss, deterrent upfront cost or opens up reciprocal  vulnerability. 
+一般来说，应制定激励措施，以确保有害于服务的行为会导致随后损失的风险、威慑预付费用或造成相互的脆弱性。 
 
-The constraints put on strategic choice are crucial in terms of rendering the game theory feasible to simulations and experiments or express them with simple enough analytical models to aid reasoning. 
+在使博弈论对模拟和实验可行或用足够简单的分析模型来帮助推理方面，对策略选择施加的约束是至关重要的。 
 
-\section{Connection  \statusorange}\label{spec:strategy:connection}
+\section{连接\statusorange}\label{spec:strategy:connection}
 \input{specs/strategy/connection.tex}
 
-\section{Forwarding  \statusorange}\label{spec:strategy:forwarding}
+\section{转发\statusorange}\label{spec:strategy:forwarding}
 \input{specs/strategy/forwarding.tex}
 
 %peer selection and pricing
-\section{Pricing  \statusorange}\label{spec:strategy:pricing}
+\section{定价\statusorange}\label{spec:strategy:pricing}
 \input{specs/strategy/pricing-retrieval.tex}
 
-\section{Accounting and settlement  \statusorange}\label{spec:strategy:swap}
+\section{会计和结算}\label{spec:strategy:swap}
 \input{specs/strategy/swap.tex}
 
-\section{Push-syncing  \statusorange}\label{spec:strategy:push-sync}
+\section{Push-syncing \statusorange}\label{spec:strategy:push-sync}
 \input{specs/strategy/push-sync.tex}
 
-\section{Pull-syncing  \statusorange}\label{spec:strategy:pull-sync}
+\section{Pull-syncing \statusorange}\label{spec:strategy:pull-sync}
 \input{specs/strategy/pull-sync.tex}
 
-\section{Garbage collection \statusorange}\label{spec:strategy:garbage-collection}
+\section{垃圾收集\statusorange}\label{spec:strategy:garbage-collection}
 \input{specs/strategy/garbage-collection.tex}
 
 \chapter{API-s}\label{spec:api}
@@ -180,42 +180,42 @@ Payload size exceeds maximum chunk size or span given (chunk API)
 \end{definition}
 
 
-\section{External API requirements\statusorange}\label{spec:api:external}
+\section{外部API requirements\statusorange}\label{spec:api:external}
 \input{specs/api/external.tex}
 
 
-\section{Storage API \statusyellow}\label{spec:api:storage}
+\section{存储API \statusyellow}\label{spec:api:storage}
 \input{specs/api/storage.tex}
 
 
-\subsection{Tags \statusyellow}\label{spec:api:tags}
+\subsection{标签\statusyellow}\label{spec:api:tags}
 \input{specs/api/tags.tex}
 
-\subsection{Pinning
+\subsection{锁住
 \statusyellow}\label{spec:api:pinning}
 \input{specs/api/pinning.tex}
 
-\subsection{Swap and chequebook\statusorange}\label{spec:api:swap}
+\subsection{交换和chequebook\statusorange}\label{spec:api:swap}
 \input{specs/api/swap.tex}
 
-\subsection{Postage stamps \statusorange}\label{spec:api:postage}
+\subsection{邮票\statusorange}\label{spec:api:postage}
 \input{specs/api/postage.tex}
 
 
-\subsection{Access Control  \statusgreen}\label{spec:api:access-control}
+\subsection{访问控制\statusgreen}\label{spec:api:access-control}
 \input{specs/api/access-control.tex}
 
 
 % \subsection{Recovery\statusorange}\label{spec:api:recovery}
 
-\section{Communications  \statusorange}\label{spec:api:communications}
+\section{通信\statusorange}\label{spec:api:communications}
 \input{specs/api/comms.tex}
 
 \subsection{PSS \statusyellow}\label{spec:api:trojan}
 \input{specs/api/pss.tex}
 
 
-\subsection{Feeds \statusorange}\label{spec:api:feeds}
+\subsection{提要\statusorange}\label{spec:api:feeds}
 
 
 

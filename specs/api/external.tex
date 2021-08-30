@@ -1,12 +1,10 @@
 
-\subsection{Signer}\label{spec:api:signer}
+\subsection{签名者}\label{spec:api:signer}
 % \input{specs/api/signer.tex}
 
 % \UseRawInputEncoding
-\begin{apiRoute}{GET}{/sign/\param{id}/\param{document}}{ECDSA signature}
- {
-}
-{ }
+\begin{apiRoute}{GET}{/sign/\param{id}/\param{document}}{ECDSA signature}{
+}{ }
 \begin{routeParameter} \routeParamItem{id}{hex string - eth address}
 \routeParamItem{document}{(hex) string -  document to sign (is prefixed and hashed before signing)}
 \end{routeParameter} \begin{routeResponse}{application/json}
@@ -16,10 +14,8 @@
 \end{routeResponse} 
 \end{apiRoute}
 
-\begin{apiRoute}{GET}{/dh/\param{id}/\param{pubkey}}{Diffie-Hellman shared secret}
- {
-}
-{ }
+\begin{apiRoute}{GET}{/dh/\param{id}/\param{pubkey}}{Diffie-Hellman shared secret}{
+}{ }
 \begin{routeParameter} \routeParamItem{id}{hex string - eth address}
 \routeParamItem{pubkey}{hex string - represents the remote party in the shared secret arrangement}
 \end{routeParameter} \begin{routeResponse}{application/json}
@@ -28,14 +24,11 @@
 \end{routeResponse} \end{apiRoute}
 
 
-\subsection{Blockchain \statusgreen}\label{spec:api:blockchain}
+\subsection{区块链\statusgreen}\label{spec:api:blockchain}
 % \input{specs/api/blockchain.tex}
 
-\begin{apiRoute}{GET}{/eth/\param{contract}/\param{function}/\param{args}}
-{ethereum API call}
- {
-}
-{ }
+\begin{apiRoute}{GET}{/eth/\param{contract}/\param{function}/\param{args}}{ethereum API call}{
+}{ }
 \begin{routeParameter}
 \routeParamItem{contract}{hex string, eth address of contract}
 \routeParamItem{function}{endpoint within contract}
@@ -45,11 +38,8 @@
 \responseItem{404}{Not Found}{unknown contract or function endpoint} \responseItem{422}{Unprocessable entity}{incorrect ABI,  error by eth API}
 \end{routeResponse} \end{apiRoute}
 
-\begin{apiRoute}{POST}{/eth/\param{contract}/\param{function}/\param{args}}
-{ethereum API send transaction}
- {
-}
-{ }
+\begin{apiRoute}{POST}{/eth/\param{contract}/\param{function}/\param{args}}{ethereum API send transaction}{
+}{ }
 \begin{routeParameter}
 \routeParamItem{contract}{hex string, eth address of contract}
 \routeParamItem{function}{endpoint within contract}
@@ -63,13 +53,11 @@
 \end{routeResponse} \end{apiRoute}
 
 
-\subsection{User input}\label{spec:api:input}
+\subsection{用户输入}\label{spec:api:input}
 
 
-\begin{apiRoute}{GET}{/input/\param{id}}
- {
-}
-{ }
+\begin{apiRoute}{GET}{/input/\param{id}}{
+}{ }
 \begin{routeParameter}
 \routeParamItem{id}{hex string - eth address of the persona the input is expected from}
 \routeParamItem{note}{the question to be answered or instruction to select}

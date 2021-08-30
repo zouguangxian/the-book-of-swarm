@@ -1,8 +1,6 @@
 
-\begin{apiRoute}{POST}{/tags}{Create new tag}
-{
-}
-{ }
+\begin{apiRoute}{POST}{/tags}{Create new tag}{
+}{ }
 
 \begin{routeResponse}{application/json}
 \responseItem{201}{Created}{ID in response body}
@@ -12,10 +10,8 @@
 
 
 
-\begin{apiRoute}{GET}{/tags?offset=\param{offset}\&length=\param{length}}{Get all tags}
-{
-}
-{ }
+\begin{apiRoute}{GET}{/tags?offset=\param{offset}\&length=\param{length}}{Get all tags}{
+}{ }
 \begin{queryParameter} 
 \queryParamItem{offset}{integer}
 \queryParamItem{length}{integer}
@@ -29,10 +25,8 @@
 
 
 
-\begin{apiRoute}{GET}{/tags/\param{id}}{View details tag with given ID}
-{
-}
-{ }
+\begin{apiRoute}{GET}{/tags/\param{id}}{View details tag with given ID}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{id}{string}
@@ -46,10 +40,8 @@
 
 
 
-\begin{apiRoute}{DELETE}{/tags/\param{id}}{Path description}
-{
-}
-{ }
+\begin{apiRoute}{DELETE}{/tags/\param{id}}{Path description}{
+}{ }
 
 \begin{routeParameter} 
 \routeParamItem{id}{string}
