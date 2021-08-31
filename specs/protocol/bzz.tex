@@ -42,13 +42,13 @@ message BzzAddress {
 
 如果网络id不匹配，或者没有遵循消息的确切顺序，则必须终止连接。
 
-验证bzz地址，提取覆盖层、底层和签名。
+验证bzz地址，提取Overlay层、底层和签名。
 Light是一个布尔字段，指示节点是否作为一个Light(而不是完整)节点运行。
 
 握手后，每个对等体需要记住对方的以下数据:
 
 \begin{itemize}
-    \item 覆盖地址-用于转发(参见\ref{spec:strategy:forwarding})，
+    \item Overlay地址-用于转发(参见\ref{spec:strategy:forwarding})，
     \item 底层地址——用于拨号，当连接驱动程序需要连接到对等体时传递给底层网络协议(参见\ref{spec:strategy:connection})，
     \item bzz地址签名——hive协议需要将该节点的信息传递给其他对等体(参见\ref{spec:protocol:hive})，
     \item 对端是否是轻节点。

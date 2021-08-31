@@ -1,4 +1,4 @@
-清单表示字符串到引用的映射(参见\ref{sec:collections})。其主要目的是实现文件集合(网站)的群集，并支持基于url的内容寻址。本节定义与清单相关的数据结构，以及实现清单API的查找和更新算法(参见\ref{sec:manifests-ux}和\ref{spec:api:manifest})。
+清单表示字符串到引用的映射(参见\ref{sec:collections})。其主要目的是实现文件集合(网站)的Swarm，并支持基于url的内容寻址。本节定义与清单相关的数据结构，以及实现清单API的查找和更新算法(参见\ref{sec:manifests-ux}和\ref{spec:api:manifest})。
 
 清单条目可以被理解为关于文件的元数据，该文件指向该文件并可通过其引用进行检索(参见afaed)。元数据是相当多样化,从访问控制所需信息,类似于一个给定的文件系统、文件信息擦除编码所需的信息(见\ref{sec:headers}和\ref{spec:format:erasure} \ref{sec:erasure}),浏览器的信息,也就是说,响应头如内容类型(MIME信息)和最重要的是对文件的引用。访问控制举例说明了将清单用作简单的键值存储(请参阅\ref{sec:access-control}、\ref{sec:access-control-ux}进行讨论，并参阅\ref{spec:format:access-control}和\ref{spec:api:access-control}了解规范)。
 

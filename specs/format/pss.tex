@@ -51,7 +51,7 @@ as
 \end{definition}
 
 函数在消息和木马块之间进行\lstinline{wrap/unwrap}转换。\lstinline{wrap}接受一个可选的接收方公钥来对消息进行非对称加密。
-目标是一个覆盖地址前缀列表，它是从接收者的覆盖地址派生出来的，指定长度以保证匹配它的块在推送同步时只会以接收者作为结果。   
+目标是一个Overlay地址前缀列表，它是从接收者的Overlay地址派生出来的，指定长度以保证匹配它的块在推送同步时只会以接收者作为结果。   
 
 \begin{definition}[Wrapping/unwrapping]\label{def:wrap}
 \begin{lstlisting}[language=buzz1]

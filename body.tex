@@ -1,12 +1,12 @@
 
 \green{}
 
-Swarm项目旨在为未来独立的数字社会建立无许可存储和通信基础设施。从开发者的角度来看，Swarm是一个公共基础设施，为\gloss{Web 2.0}时代的实时交互式web应用程序提供动力。它为原语提供了一个低级的API，原语作为复杂应用程序的构建块，以及基于swarm的\gloss{Web 3.0}开发堆栈的工具和库的基础。API和工具的设计初衷是允许从任何传统浏览器访问Swarm网络，因此Swarm可以立即提供一个私有和分散的替代今天的\gloss{World Wide Web} (\gloss{WWW})。
+Swarm项目旨在为未来自主的数字社会建立无须许可的存储和通信基础设施。从开发者的角度来看，Swarm是一个公共基础设施，为\gloss{Web 2.0}时代的实时交互式web应用程序提供动力。它为原语提供了一个低级的API，原语作为复杂应用程序的构建块，以及基于swarm的\gloss{Web 3.0}开发堆栈的工具和库的基础。API和工具的设计初衷是允许从任何传统浏览器访问Swarm网络，因此Swarm可以立即提供一个私有和去中心化的方案替代今天的\gloss{World Wide Web} (\gloss{WWW})。
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.8\textwidth]{fig/swarm-layered-design.pdf}
-  \caption[Swarm的分层设计\statusgreen]{群的分层设计}
+    \includegraphics[width=0.8\textwidth]{fig/Swarm-layered-design.pdf}
+  \caption[Swarm的分层设计\statusgreen]{Swarm的分层设计}
 \label{fig:Swarm-layered-design}
 \end{figure}
 
@@ -14,48 +14,48 @@ Swarm项目旨在为未来独立的数字社会建立无许可存储和通信基
 
 \begin{itemize}
 \item (1) \emph{作为底层传输的点对点网络协议，}
-\item (2) \emph{一个覆盖网络，它的协议支持\glossplural{chunk}(固定大小的数据块)的分布式不可变存储，}
+\item (2) \emph{Overlay网络层，它的协议支持\glossplural{chunk}(固定大小的数据块)的分布式不可变存储，}
 \item (3) \emph{提供高级数据访问和为基础层特性定义api的组件}
-\item (4) \emph{定义标准的应用层，并为更精细的用例概述最佳实践。}
+\item (4) \emph{应用层定义标准，为更精细的用例概述最佳实践。}
 \end{itemize}
 
 我们将(2)和(3)作为Swarm的核心。由于网络层依赖于它，我们也将制定(1)的要求，但我们考虑(1)和(4)的详细处理超出了本书的范围。
 
 
-以设计为中心，在\ref{sec:network}章节讨论了群覆盖网络(图\ref{fig:Swarm-layered-design}中的第二层)的架构，并在\ref{sec:incentivisation}章节进行了补充，描述了使群能够自我维持的经济激励系统。\ref{sec:high-level-functionality}章,我们介绍了算法和约定允许群概念地图数据块层启用高级功能为存储和通信,特别是数据结构,如文件系统和数据库,\gloss{access control}索引\gloss{feeds}和直接通讯,占群的第三层。
+以设计为中心，在\ref{sec:network}章节讨论了Swarm overlay network(图\ref{fig:Swarm-layered-design}中的第二层)的架构，并在\ref{sec:incentivisation}章节进行了补充，描述了使Swarm能够自我维持的经济激励系统。\ref{sec:high-level-functionality}章,我们介绍了允许Swarm将数据概念映射到chunk层的算法和约定，以实现存储和通信的高级功能，特别是数据结构，如文件系统和数据库、访问控制\gloss{access control}、索引种子\gloss{feeds}和直接消息传递，这些构成了Swarm的第三层。
 在\ref{sec:persistence}章节中，我们提出了防止垃圾收集块从网络中消失的方法，包括:\glossplural{erasure code}、\gloss{pinning}和保险，并提供了使用丢失块通知和保险挑战来监控、恢复和重新上传它们的方法。
 最后，在\ref{sec:ux}章节中，我们将从用户体验的角度来研究功能。
 
 \chapter{网络}\label{sec:network}
 
-本章讲述了群集覆盖网络如何建立在\gloss{peer-to-peer}网络协议之上，形成允许在节点之间路由消息的拓扑结构(\ref{sec:topology-routing})。在\ref{sec:kademlia-storage}中，我们描述了这样一个网络如何作为数据块(\ref{sec:chunks})的可扩展\gloss{distributed storage}解决方案，并给出了支持检索/下载和同步/上传协议(\ref{sec:push-and-pull})的逻辑。
+本章讲述了Swarm Overlay网络如何建立在\gloss{peer-to-peer}网络协议之上，形成允许在节点之间路由消息的拓扑结构(\ref{sec:topology-routing})。在\ref{sec:kademlia-storage}中，我们描述了这样一个网络如何作为数据块(\ref{sec:chunks})的可扩展\gloss{distributed storage}解决方案，并给出了支持检索/下载和同步/上传协议(\ref{sec:push-and-pull})的逻辑。
 
 \section{拓扑和路由\statusgreen}\label{sec:topology-routing}
 
-本节通过明确关于底层网络(第1层)的假设，为Swarm的\gloss{overlay network}(第2层)设置场景(\ref{sec:underlay-transport})。\ref{sec:overlay-addressing}介绍了\gloss{overlay address space}并解释了节点如何分配地址。在\ref{sec:kademlia-routing}中，我们提出了\gloss{Kademlia} \gloss{overlay topology}(连接模式)，并解释了它如何解决节点之间的路由。在\ref{sec:bootstrapping}中，我们展示了运行Swarm客户端的节点如何发现彼此，引导并维护覆盖拓扑。
+本节通过明确关于底层网络(第1层)的假设，为Swarm的\gloss{overlay network}(第2层)设置场景(\ref{sec:underlay-transport})。\ref{sec:overlay-addressing}介绍了\gloss{overlay address space}并解释了节点如何分配地址。在\ref{sec:kademlia-routing}中，我们提出了\gloss{Kademlia} \gloss{overlay topology}(连接模式)，并解释了它如何解决节点之间的路由。在\ref{sec:bootstrapping}中，我们展示了运行Swarm客户端的节点如何发现彼此，引导并维护Overlay拓扑。
 
 \subsection{底层网络的要求\statusyellow}\label{sec:underlay-transport} 
 
 \yellow{}
 
-Swarm是一个由用户运营的网络。网络中的每个节点都应该运行一个符合协议规范的客户机。在最低层，网络中的节点使用点对点网络协议作为它们的传输层进行连接。这个叫做\gloss{underlay network}。
-在它的总体设计中，Swarm是不知道特定的底层传输所使用的，只要它满足以下要求。
+Swarm是一个由用户运营的网络。网络中的每个节点都应该运行一个符合协议规范的客户端。在最低层，网络中的节点使用点对点网络协议作为它们的传输层进行连接。这个叫做\gloss{underlay network}。
+在它的总体设计中，Swarm与所使用的特定底层传输方式无关，只要它满足以下要求，就可以使用特定的底层传输。
 
 \begin{enumerate}
-    \item \emph{寻址}—节点通过其\gloss{underlay address}进行识别。
-    \item \emph{拨号}—节点可以发起一个直接连接到一个peer通过拨号他们的底层地址。
-    \item \emph{听}——节点可以侦听其他节点拨号，并可以接受传入连接。不接受传入连接的节点称为\glossplural{light node}。
-    \item \emph{现场连接}——节点连接建立一个通信通道，该通道在显式断开连接之前保持活动，因此连接的存在意味着远程对等端在线并接受消息。
-    \item \emph{通道安全}——
+    \item \emph{addressing}—节点通过其\gloss{underlay address}进行识别。
+    \item \emph{dialling}—节点可以发起一个直接连接到一个peer通过拨号他们的底层地址。
+    \item \emph{listening}——节点可以侦听其他节点拨号，并可以接受传入连接。不接受传入连接的节点称为\glossplural{light node}。
+    \item \emph{live connection}——节点连接建立一个通信通道，该通道在显式断开连接之前保持活动，因此连接的存在意味着远程对等端在线并接受消息。
+    \item \emph{channel security}——
 该信道提供身份验证，实现加密认证传输，抵御中间人攻击。
-    \item \emph{协议多路复用}——
+    \item \emph{protocol multiplexing}——
 底层网络服务可以容纳在同一连接上运行的多个协议。对等体用它们实现的名称和版本通信协议，底层服务识别兼容协议，并在每个匹配的协议上启动对等体连接。 
-    \item \emph{交付担保}——
+    \item \emph{delivery guarantees}——
 协议消息具有\gloss{guaranteed delivery}，即由于网络问题导致的传递失败导致直接错误响应。
 保证每个协议中消息的传递顺序。
 理想情况下，底层协议提供优先级。
-如果协议多路复用在同一个传输通道上，这很可能意味着帧，这样长消息就不会阻塞高优先级消息。
-    \item \emph{连载}——
+如果协议多路复用在同一个传输通道上，这很可能意味着成帧，这样长消息就不会阻塞高优先级消息。
+    \item \emph{serialisation}——
 协议消息构造支持任意数据结构序列化约定。
     
 \end{enumerate}
@@ -64,16 +64,16 @@ Swarm是一个由用户运营的网络。网络中的每个节点都应该运行
 %
 \footnote{Swarm目前的golang实现使用以太坊的\gloss{devp2p}/rlpx，它满足上述标准，并使用TCP/IP和自定义加密技术来保证安全性。devp2p使用的底层网络地址使用\gloss{enode URL scheme}表示。Devp2p根据协议的消息ID进行消息调度。它使用了RLP序列化，该序列化是用更高级别的数据类型表示约定扩展的。为了提供对以太坊1的支持。我们可以提供一个瘦的devp2p节点，它将查询代理到一个基于libp2p的Swarm客户端，或者仅仅使用它的API。否则，我们希望devp2p网络支持停止。}
 
-\subsection{覆盖addressing\statusgreen}\label{sec:overlay-addressing} 
+\subsection{Overlay addressing\statusgreen}\label{sec:overlay-addressing} 
 \green{}
 
-当客户端使用\gloss{underlay address}来建立与对等点的连接时，每个运行Swarm的节点都被额外标识为\gloss{overlay address}。正是这个地址决定了节点将连接到哪些对等点，并指导消息的转发方式。覆盖地址被认为是稳定的，因为它定义了节点跨会话的身份，并最终影响哪些内容最值得存储在节点的本地存储中。
+当客户端使用\gloss{underlay address}来建立与对等点的连接时，每个运行Swarm的节点都被额外标识为\gloss{overlay address}。正是这个地址决定了节点将连接到哪些对等点，并指导消息的转发方式。Overlay地址被认为是稳定的，因为它定义了节点跨会话的身份，并最终影响哪些内容最值得存储在节点的本地存储中。
 
-该节点的\gloss{overlay address}来自以太坊账户，通过使用256位kecak算法(参见\ref{spec:format:bzzaddress})，将相应的椭圆曲线公钥与\gloss{BZZ network ID}哈希。包含BZZ网络ID的原因是可能存在许多群网络(例如\ test net, main net, or private Swarms). Including the BZZ network ID makes it impossible to use the same address across networks. Assuming any sample of base accounts independently selected, the resulting overlay addresses are expected to have a uniform distribution in the address space of 256-bit integers. This is important to deriving the address from a public key as it allows the nodes to issue commitments associated with an overlay location using cryptographic signatures which are verifiable by 3rd parties. 
+该节点的\gloss{overlay address}来自以太坊账户，通过使用256位kecak算法(参见\ref{spec:format:bzzaddress})，将相应的椭圆曲线公钥与\gloss{BZZ network ID}哈希。包含BZZ网络ID的原因是可能存在许多群网络(例如\ test net, main net, or private Swarms)。 包括BZZ网络ID使得不可能跨网络使用相同的地址。假设任何独立选择的基础账户样本，所产生的Overlay地址有望在256位整数的地址空间中具有均匀分布。这对从公钥推导出地址很重要，因为它允许节点使用可由第三方验证的加密签名，发布与Overlay位置相关的承诺。 
 
-Using the long-lived communication channels of the\gloss{underlay network}，群节点通过\emph{长年缠身}对等连接形成网络)。由此产生的连通性图可以实现在地址空间上定义的特定拓扑。所选的\gloss{overlay topology}称为\gloss{Kademlia}:它提供了一种策略，仅使用底层对等连接来中继消息，从而实现群网络中任意两个任意节点之间的通信。\ref{spec:protocol:hive}中描述了节点如何彼此共享关于自己和其他对等体的信息，称为“Hive”。在\ref{sec:bootstrapping}中讨论了节点如何使用该协议引导\gloss{overlay topology}。\gloss{Kademlia topology}的理论基础在\ref{sec:kademlia-connectivity}中得到了严格的形式化。
+使用\gloss{underlay network}的长效通信通道，Swarm节点通过\emph{quasi-permanent}对等连接形成网络)。由此产生的连通性图可以实现在地址空间上定义的特定拓扑。所选的\gloss{overlay topology}称为\gloss{Kademlia}:它提供了一种策略，仅使用底层对等连接来中继消息，从而实现群网络中任意两个任意节点之间的通信。\ref{spec:protocol:hive}中描述了节点如何彼此共享关于自己和其他对等体的信息，称为“Hive”。在\ref{sec:bootstrapping}中讨论了节点如何使用该协议bootstrap \gloss{overlay topology}。\gloss{Kademlia topology}的理论基础在\ref{sec:kademlia-connectivity}中得到了严格的形式化证明。
 
-关键的是，覆盖地址空间都是256位整数。群的核心是\gloss{proximity order} (\gloss{PO})的概念，它在离散尺度上量化两个地址的相关性。%
+至关重要的是，Overlay地址空间都是256位整数。Swarm的核心是\gloss{proximity order} (\gloss{PO})的概念，它在离散尺度上量化两个地址的相关性。%
 %
 \footnote{接近顺序是离散对数尺度的接近，反过来，是标准化的异或距离的倒数。参见\ref{sec:proximity}的正式定义。}
 %
@@ -82,9 +82,9 @@ Using the long-lived communication channels of the\gloss{underlay network}，群
 \subsection{Kademlia路由\statusgreen}\label{sec:kademlia-routing}
 \yellow{与附录一起返工}
 
-\glossupper{Kademlia topology}可以使用覆盖寻址在网络中的节点之间路由消息。它有很好的可扩展性，因为它允许通用路由，这样(1)跳数和(2)对等连接数总是对网络大小的对数。
+\glossupper{Kademlia topology}可以使用Overlay寻址在网络中的节点之间路由消息。它有很好的可扩展性，因为它允许通用路由，这样(1)跳数和(2)对等连接数总是对网络大小的对数。
 
-在接下来的内容中，我们将展示两种常见的路由方式:\emph{迭代/缩放}和\emph{递归/转发}。蜂群的设计关键在于选择后者，即前进的味道。然而，这是不寻常的，而且，由于迭代风格在许多点对点文献中占主导地位，而且大多数其他实现都使用迭代路由(参见\cite{maymounkov2002kademlia,baumgart2007s,lua2005survey})，我们认为让读者了解这两种方法是很有用的，以便揭示它们的特性。
+在接下来的内容中，我们将展示两种常见的路由方式:\emph{iterative/zooming}和\emph{recursive/forwarding}。Swarm的设计关键在于选择了后者，即forwarding。然而，这是不寻常的，而且，由于recursive风格在许多P2P文献中占主导地位，而且大多数其他实现都使用recursive路由(参见\cite{maymounkov2002kademlia,baumgart2007s,lua2005survey})，我们认为让读者了解这两种方法是很有用的，以便揭示它们的特性。
 
 \subsubsection{迭代和转发Kademlia}
 
@@ -99,7 +99,7 @@ Using the long-lived communication channels of the\gloss{underlay network}，群
     % \includegraphics[width=0.7\textwidth]{fig/kademlia-2.pdf}
     % \includegraphics[width=0.8\textwidth]{fig/kademlia-3.pdf}
     \includegraphics[width=.88\textwidth]{fig/kademlia-35.pdf}
-   \caption[从覆盖地址空间到Kademlia表\statusgreen]{从覆盖地址空间到Kademlia表。\textbf{Top}:覆盖地址空间用二叉树表示，有颜色的叶子是实际的节点。主节点(+)的路径用较粗的线表示。枢轴节点的节点通过从枢轴测量的异或距离的位来显示。这里0表示与主元匹配的位，1表示不同的位。叶节点按照与主节点(最左边的节点)的xor距离排序。枢轴的Kademlia表:从左侧的枢轴路径分支出来的子树显示为表的行，以递增的顺序表示邻近顺序容器。}
+   \caption[从Overlay地址空间到Kademlia表\statusgreen]{从Overlay地址空间到Kademlia表。\textbf{Top}:Overlay地址空间用二叉树表示，有颜色的叶子是实际的节点。主节点(+)的路径用较粗的线表示。枢轴节点的节点通过从枢轴测量的异或距离的位来显示。这里0表示与主元匹配的位，1表示不同的位。叶节点按照与主节点(最左边的节点)的xor距离排序。枢轴的Kademlia表:从左侧的枢轴路径分支出来的子树显示为表的行，以递增的顺序表示邻近顺序容器。}
    \label{fig:kademlia-table}
 \end{figure}
 
@@ -112,7 +112,7 @@ Using the long-lived communication channels of the\gloss{underlay network}，群
    \label{fig:bin-density}
 \end{figure}
 
-设$R$为“已知”关系:$y$为“$x$”，如果$x$同时具有$y$的覆盖和底层寻址信息。
+设$R$为“已知”关系:$y$为“$x$”，如果$x$同时具有$y$的Overlay和底层寻址信息。
 在迭代的Kademlia路由中，\gloss{requestor node}迭代地扩展了已知的节点图。使用它们的\gloss{underlay address}，请求者节点将联系它们知道的距离较远的对等点的目标地址最近的对等点(通常使用UDP)，在每次后续迭代中，对等点至少变得离目标更近一个顺序(参见图\ref{fig:iterative-forwarding-kademlia})。由于Kademlia标准，请求者最终将发现目标节点的底层地址，然后可以与它建立直接通信。这种迭代策略%
 %
 \footnote{迭代协议等价于\cite{maymounkov2002kademlia}中描述的原始Kademlia路由。
@@ -137,7 +137,7 @@ Swarm使用了Kademlia路由的另一种风格，这在\cite{heep2010r}中首次
 通过这种方式，Swarm的底层传输提供了准稳定的TCP对等连接，通信通道保持活跃。然后可以将这些打开的连接用作$R$来定义\gloss{peer}的另一个概念。群的两个标准的健康\gloss{Kademlia connectivity}翻译为:为每个节点$x$,存在一个\gloss{neighbourhood depth} $d_x$这样(1)节点$x$开放与至少一个节点为每个\gloss{proximity order bin}但不包括$d_x$和(2)连接到所有的网络节点至少像$d_x$附近。如果网络中的每个节点都有一个饱和的节点卡德米亚表，那么该网络就被称为具有\gloss{Kademlia topology}。由于已连接的对等点保证是在线的，因此递归步骤只包括将消息转发到严格接近目的地的已连接的对等点。我们可以称之为\gloss{forwarding Kademlia}。
 
 
-在\gloss{forwarding Kademlia}网络中，如果存在一条从发送方到目的地的路径，消息就被称为\emph{可路由的}。在使用\gloss{Kademlia topology}的成熟子网中，每条消息都是可路由的。
+在\gloss{forwarding Kademlia}网络中，如果存在一条从发送方到目的地的路径，消息就被称为\emph{routable}。在使用\gloss{Kademlia topology}的成熟子网中，每条消息都是可路由的。
 
 如果所有对等连接都稳定在线，则\gloss{thin Kademlia table}(即$d$之前的每个bin的\ a single\gloss{peer})就足以保证节点之间的路由。然而在现实中，网络受到\gloss{churn}，即\ nodes may be expected to go offline regularly. In order to ensure\gloss{routability}的影响，在面临搅乱时，网络需要维护\gloss{Kademlia topology}。这意味着每个单独的节点在任何时候都需要有一个\gloss{saturated Kademlia table}。通过在每个\gloss{proximity order bin}中保持几个连接的对等点，节点可以确保节点退出不会破坏其Kademlia表的饱和。给定一个节点退出模型，我们可以计算每个bin所需的最小对等点数量，以保证节点以任意接近1的概率饱和。节点在特定的接近顺序bin中保留的对等点越多，消息目标地址和对等点拥有更长的匹配前缀的可能性就越大。作为将消息转发到该对等体的结果，\gloss{proximity order}增加得更快，并且消息最终更接近目的地，而每个容器中的对等体更少(参见图\ref{fig:bindensity})。
 
@@ -164,7 +164,7 @@ Swarm使用了Kademlia路由的另一种风格，这在\cite{heep2010r}中首次
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=\textwidth]{fig/bindensity.pdf}
-   \caption[本密度\statusgreen]{仓密度:对于以位$0$开始的覆盖地址的节点，PO仓$0$的饱和类型。\textbf{Top left}:具有单个对等点的“瘦”bin对搅拌没有弹性，只在一跳中增加$1$的PO。\textbf{Top right:}至少需要两个对等体来维护Kademlia拓扑;两个对等体不平衡时不能保证多阶跃。\textbf{Bottom left:}两个对等体均衡，保证一跳增加2个PO-s。\textbf{Bottom right:}均衡时四个对等体可以保证单跳增加$3$ PO-s。}
+   \caption[本密度\statusgreen]{仓密度:对于以位$0$开始的Overlay地址的节点，PO仓$0$的饱和类型。\textbf{Top left}:具有单个对等点的“瘦”bin对搅拌没有弹性，只在一跳中增加$1$的PO。\textbf{Top right:}至少需要两个对等体来维护Kademlia拓扑;两个对等体不平衡时不能保证多阶跃。\textbf{Bottom left:}两个对等体均衡，保证一跳增加2个PO-s。\textbf{Bottom right:}均衡时四个对等体可以保证单跳增加$3$ PO-s。}
    \label{fig:bindensity}
 \end{figure}
 
@@ -180,7 +180,7 @@ Swarm使用了Kademlia路由的另一种风格，这在\cite{heep2010r}中首次
 
 \subsubsection{Bootnodes}
 
-Swarm对引导节点没有不同的节点类型或操作模式。这意味着普通节点应该能够连接到网络上的任何节点，并引导它们所需的连接。为了不覆盖任何单个节点，应该避免指定一个特定的节点作为初始连接，并且引导节点相对于新幼稚节点的角色应该在参与节点之间实现理想的平衡。这是通过一个邀请系统或一个集中化的引导节点服务来实现的，该服务运行一个公共网关，通过在线对等点中随机选择的节点的bzz地址来响应一个API调用。
+Swarm对引导节点没有不同的节点类型或操作模式。这意味着普通节点应该能够连接到网络上的任何节点，并引导它们所需的连接。为了不Overlay任何单个节点，应该避免指定一个特定的节点作为初始连接，并且引导节点相对于新幼稚节点的角色应该在参与节点之间实现理想的平衡。这是通过一个邀请系统或一个集中化的引导节点服务来实现的，该服务运行一个公共网关，通过在线对等点中随机选择的节点的bzz地址来响应一个API调用。
 
 一旦连接到网络中的一个节点，hive协议将开始生效，而幼稚节点将了解其他节点的bzz地址，并可以开始引导其连接。
 
@@ -212,7 +212,7 @@ Swarm对引导节点没有不同的节点类型或操作模式。这意味着普
 
 \subsection{用于的分布式不可变存储chunks\statusgreen}\label{sec:disc}
  
-在本节中，我们将讨论使用Kademlia覆盖路由的网络如何成为使用\glossplural{distributed hash table} (\glossplural{DHT})实现无服务器存储解决方案的合适基础。然后我们介绍\gloss{DISC}%
+在本节中，我们将讨论使用KademliaOverlay路由的网络如何成为使用\glossplural{distributed hash table} (\glossplural{DHT})实现无服务器存储解决方案的合适基础。然后我们介绍\gloss{DISC}%
 %
 \footnote{盘是\gloss{distributed immutable store for chunks}。在早期的工作中，我们将这个组件称为“分布式原映像归档”(DPA)，然而，这个短语变得容易误导人，因为我们现在也允许不是其地址的原映像的块。}
 % 
@@ -232,10 +232,10 @@ Swarm对引导节点没有不同的节点类型或操作模式。这意味着普
 \end{itemize}
  
 \subsubsection{从DHT到DISC}
-Swarm的\gloss{DISC}与我们更熟悉的\glossplural{distributed hash table}有许多相似之处。最重要的区别是，Swarm并不保留一个将要找到的\emph{在哪里}文件列表，而是直接使用最接近的节点\emph{存储文件本身的片段}。
+Swarm的\gloss{DISC}与我们更熟悉的\glossplural{distributed hash table}有许多相似之处。最重要的区别是，Swarm并不保留一个将要找到的\emph{where}文件列表，而是直接使用最接近的节点\emph{存储文件本身的片段}。
 在接下来的内容中，我们将回顾dht，并更详细地探讨与DISC的相似和不同之处。 
  
-\glossupperplural{distributed hash table}使用覆盖网络实现分布在节点上的键值容器(参见图\ref{fig:DHT})。其基本思想是，将键空间映射到覆盖地址空间，并且容器中的键的值将通过其地址接近该键的节点找到。在最简单的情况下，假设这是与存储该值的键最近的单个节点。在一个具有Kademlia连接的网络中，任何节点都可以路由到其地址最接近密钥的节点，因此是一个\emph{查找}(即\ looking up the value belonging to a key) is reduced simply to routing a request.\begin{figure}[htbp]
+\glossupperplural{distributed hash table}使用Overlay网络实现分布在节点上的键值容器(参见图\ref{fig:DHT})。其基本思想是，将键空间映射到Overlay地址空间，并且容器中的键的值将通过其地址接近该键的节点找到。在最简单的情况下，假设这是与存储该值的键最近的单个节点。在一个具有Kademlia连接的网络中，任何节点都可以路由到其地址最接近密钥的节点，因此是一个\emph{lookup}(即\ looking up the value belonging to a key) is reduced simply to routing a request.\begin{figure}[htbp]
    \centering
    \includegraphics[width=0.7\textwidth]{fig/dht.pdf}
    \caption[分布式哈希表(dht) \statusgreen]{用于存储的分布式哈希表(DHTs):节点$D$(下载器)在步长$1$中使用Kademlia路由查询块地址附近的节点，在步长$2$中检索种子器信息。播种器信息用于直接联系节点$S$(播种器)，以请求块并在步骤$3$和$4$中交付它。}
@@ -256,10 +256,10 @@ Swarm的\gloss{DISC}与我们更熟悉的\glossplural{distributed hash table}有
 \gloss{DISC}存储模型对哪个节点存储什么内容有自己的看法，这意味着以下限制: 
 
 \begin{enumerate}
-    \item \emph{固定大小的块}——节点之间需要内容的负载均衡，通过将内容分割成大小相等的称为\glossplural{chunk}的单元(参见\ref{sec:chunks})来实现。
-    \item \emph{同步}——无论哪个节点上传块，块都必须到达它们应该存储的位置(参见\ref{sec:push-syncing})。
-    \item \emph{似是而非的推诿}—由于节点对其存储的内容没有发言权，因此应该采用一些措施作为法律保护的基础，让节点操作符貌似合理地否认知道(甚至能够知道)任何关于块内容的内容(参见\ref{sec:chunk-encryption})。
-    \item \emph{垃圾收集}——由于节点提交存储任何接近它们的内容，因此需要有一种策略来选择在存在存储空间约束的情况下哪些块被保留，哪些块被丢弃(参见\ref{spec:strategy:garbage-collection})。 
+    \item \emph{fixed-size chunks}——节点之间需要内容的负载均衡，通过将内容分割成大小相等的称为\glossplural{chunk}的单元(参见\ref{sec:chunks})来实现。
+    \item \emph{syncing}——必须有一个进程，无论哪个节点上传块，块都会到达它们应该存储的位置(参见\ref{sec:push-syncing})。
+    \item \emph{plausible deniability}——由于节点对其存储的内容没有发言权，因此应该采取措施，作为法律保护的基础，让节点运营商合理地否认知道(甚至能够知道)任何关于块内容的内容(参见\ref{sec:chunk-encryption})。
+    \item \emph{garbage collection}——由于节点提交存储任何接近它们的内容，因此需要一个策略来选择在存在存储空间约束的情况下保留哪些块，丢弃哪些块(参见\ref{spec:strategy:garbage-collection})。 
 \end{enumerate}
 
 \subsubsection{块}\label{sec:chunks}
@@ -268,14 +268,14 @@ Swarm的\gloss{DISC}与我们更熟悉的\glossplural{distributed hash table}有
 
 当检索块时，下载器必须能够验证给定地址的内容的正确性。这种完整性意味着保证与地址相关联的内容的唯一性。为了防止不必要的网络流量，第三方\glossplural{forwarding node}应该能够仅使用节点可用的本地信息来验证块的完整性。
 
-寻址的确定性和无冲突性质意味着块作为键值关联是唯一的:如果存在一个带有地址的块，那么其他有效块不能有相同的地址;这个假设是至关重要的，因为它使块存储\gloss{immutable}，即\ there is no replace/update operation on chunks. Immutability is beneficial in the context of relaying chunks as nodes can negotiate information about the possession of chunks simply by checking their addresses. This plays an important role in the stream protocol (see\ref{sec:pull-syncing})，并证明DISC分辨率为\emph{块的分布式不可变存储}。
+寻址的确定性和无冲突性质意味着块作为键值关联是唯一的:如果存在一个带有地址的块，那么其他有效块不能有相同的地址;这个假设是至关重要的，因为它使块存储\gloss{immutable}，即\ there is no replace/update operation on chunks. Immutability is beneficial in the context of relaying chunks as nodes can negotiate information about the possession of chunks simply by checking their addresses. This plays an important role in the stream protocol (see\ref{sec:pull-syncing})，并证明DISC分辨率为\emph{distributed immutable store for chunks}。
 
 综上所述，块寻址需要满足以下要求:
 
 \begin{enumerate}
-    \item \emph{确定的}—启用本地验证。
-    \item \emph{碰撞自由}——提供完整性保证。
-    \item \emph{均匀分布}——提供负载均衡。
+    \item \emph{deterministic}——启用本地验证。
+    \item \emph{collision free}——诚信保证。
+    \item \emph{uniformly distributed}——提供负载平衡。
 \end{enumerate}
 
 在当前的Swarm版本中，我们支持两种类型的chunk: \glossplural{content addressed chunk}和\glossplural{single owner chunk}。 
@@ -294,7 +294,14 @@ Swarm的\gloss{DISC}与我们更熟悉的\glossplural{distributed hash table}有
 \subsubsection{二进制默克尔树哈希}
 
 Swarm中的规范内容处理块称为\gloss{binary Merkle tree chunk} (\gloss{BMT chunk})。
-BMT块的地址使用\ref{spec:format:bmt}中描述的\gloss{binary Merkle tree hash}算法(\gloss{BMT hash})计算。\gloss{BMT}中使用的基哈希是kecak256，其均匀性、不可逆性和抗碰撞性等属性都保留到\gloss{BMT hash}算法中。由于均匀性，一组随机的分块内容将生成均匀分布在地址空间中的地址，即\ imposing storage requirements balanced among nodes.dbdaa
+BMT块的地址使用\ref{spec:format:bmt}中描述的\gloss{binary Merkle tree hash}算法(\gloss{BMT hash})计算。\gloss{BMT}中使用的基哈希是kecak256，其均匀性、不可逆性和抗碰撞性等属性都保留到\gloss{BMT hash}算法中。由于均匀性，一组随机的分块内容将生成均匀分布在地址空间中的地址，即\ imposing storage requirements balanced among nodes.
+\begin{figure}[htbp]
+   \centering
+   \resizebox{1\textwidth}{!}{
+   \input{fig/bmthash.tex}}
+   \caption[BMT: Binary Merkle Tree hash used as chunk hash in Swarm \statusgreen]{BMT (Binary Merkle Tree) chunk hash in Swarm: the 1337 bytes of chunk data is segmented into 32 byte segments. Zero padding is used to fill up the rest up to 4 kilobytes. Pairs of segments are hashed together using Keccak256 to build up the binary tree. On level 8, the binary Merkle root is prepended with the 8 byte span and hashed to yield the BMT chunk hash.`}
+   \label{fig:BMT}
+\end{figure}
 
 BMT块地址是8字节跨度的散列和构建在底层数据的32字节段上的\gloss{binary Merkle tree} (\gloss{BMT})的根散列(参见图\ref{fig:BMT})。如果块内容小于4k，则计算散列，就像用最大4096字节的所有零填充了块一样。
 
@@ -311,14 +318,14 @@ BMT块地址是8字节跨度的散列和构建在底层数据的32字节段上�
 使用\glossplural{single owner chunk}，用户可以将任意数据分配到一个地址，并使用其数字签名验证块的完整性。地址被计算为\gloss{identifier}和\gloss{owner}的哈希值。块内容显示在一个结构中，该结构由标识符、\gloss{payload}和验证标识符和有效负载关联的签名组成(参见图\ref{fig:single-owner-chunks})。
 
 \begin{itemize}
-    \item \emph{内容}:
+    \item \emph{content}: 
 \begin{itemize}
-    \item \emph{标识符}—32字节任意标识符， 
-    \item \emph{签名}—一个EC签名的65字节$\langle r,s,v \rangle$表示(32+32+1字节)，
-    \item \emph{跨度}—8字节小端二进制的uint64块跨度，
-    \item 最大4096字节的规则块数据。
+    \item \emph{identifier}—32字节任意标识符， 
+    \item \emph{signature}—一个EC签名的65字节$\langle r,s,v \rangle$表示(32+32+1字节)，
+    \item \emph{span}—8字节小端二进制的uint64块跨度，
+    \item \emph{payload}——最大4096字节的常规块数据。
 \end{itemize}
-    \item \emph{地址}——标识符+所有者帐户的kecak256哈希值。
+    \item \emph{address}——kecak256哈希标识符+所有者帐户。
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -344,7 +351,7 @@ BMT块地址是8字节跨度的散列和构建在底层数据的32字节段上�
 
 需要注意的是，对于单个所有者块来说，完整性的概念比内容处理块的完整性要弱一些:毕竟，原则上可以将任何有效负载分配给标识符并进行签名。尽管如此，鉴于块只能由单个所有者(签名所需的私钥的所有者)创建这一事实，期望唯一性保证是合理的，因为我们希望节点希望遵守应用程序协议以获得所需的结果。然而，如果私钥所有者用相同的标识符签署两个不同的有效负载，并将两个块上传到Swarm，网络的行为是不可预测的。可以在第(3)层采取措施来缓解这一问题，稍后将在\ref{sec:feed-integrity}中详细讨论。
 
-对于两种类型的块，完整性被链接到无冲突的散列摘要，这些散列摘要要么来自单个所有者，要么来自由签名验证的任意标识符，或者直接来自内容。这证明了DISC首字母缩写为\emph{通过签名或内容地址实现数据完整性}的决议是合理的。
+对于两种类型的块，完整性被链接到无冲突的散列摘要，这些散列摘要要么来自单个所有者，要么来自由签名验证的任意标识符，或者直接来自内容。这证明了DISC缩写为\emph{data integrity through signing or content address}的分辨率是合理的。
 
 \subsection{块encryption\statusgreen}\label{sec:chunk-encryption}
 
@@ -380,7 +387,7 @@ BMT块地址是8字节跨度的散列和构建在底层数据的32字节段上�
 
 
 
-对于特定的冗余，完全连通邻域的面积定义了\gloss{area of responsibility}。职责区域的接近顺序边界为节点定义了一个\gloss{radius of responsibility}。如果块地址在节点的责任范围内，则存储节点被称为\emph{负责任的}(存储)块。
+对于特定的冗余，完全连通邻域的面积定义了\gloss{area of responsibility}。职责区域的接近顺序边界为节点定义了一个\gloss{radius of responsibility}。如果块地址在节点的责任范围内，则存储节点为(存储)块的\emph{responsible}。
 
 在这一点上，展示社区及其结构已经具有指导意义，见图\ref{fig:nearest-neighbours}。 
 
@@ -466,7 +473,7 @@ BMT块地址是8字节跨度的散列和构建在底层数据的32字节段上�
 
 \subsubsection{Rerequesting}
 
-有很大一部分群集节点可能无法始终稳定在线。如此高的生产情况是有问题的,如果我们使用的天真的策略将请求转发给任何一个接近节点:如果路径上的节点离线交付之前完成,然后请求-响应往返坏了,有效地呈现请求的块无法复原。如果与被请求的对等端连接被中断，承诺为一个块支付将被认为是无效的，因此从另一个节点重新请求该块没有害处(参见\ref{spec:strategy:forwarding})。
+有很大一部分Swarm节点可能无法始终稳定在线。如此高的生产情况是有问题的,如果我们使用的天真的策略将请求转发给任何一个接近节点:如果路径上的节点离线交付之前完成,然后请求-响应往返坏了,有效地呈现请求的块无法复原。如果与被请求的对等端连接被中断，承诺为一个块支付将被认为是无效的，因此从另一个节点重新请求该块没有害处(参见\ref{spec:strategy:forwarding})。
 
 
 \subsubsection{超时vs未找到}
@@ -486,10 +493,10 @@ BMT块地址是8字节跨度的散列和构建在底层数据的32字节段上�
  
 \subsection{推动syncing\statusgreen}\label{sec:push-syncing}
  
-在前几节中，我们介绍了如何将维护Kademlia覆盖拓扑的节点网络用作分布式块存储，以及如何使用转发Kademlia路由来定义检索块的协议。
+在前几节中，我们介绍了如何将维护KademliaOverlay拓扑的节点网络用作分布式块存储，以及如何使用转发Kademlia路由来定义检索块的协议。
 在讨论检索时，我们假设块位于与其地址最接近的节点上。本节描述负责实现这个假设的协议:确保在将数据块上传到任意节点后，将其交付到指定的存储器。
 
-这个网络协议称为\gloss{push syncing}，类似于块检索:首先，块通过与检索请求相同的路由被转发到最接近块地址的节点，然后作为响应，\gloss{statement of custody receipt}沿着相同的路径传递回来(参见图\ref{fig:push-syncing})。存储器向\gloss{uploader}发回的托管声明表明，块已到达可普遍检索的邻近区域。通过跟踪上传的每个组成块的这些响应，上传者可以在共享或发布上传地址之前，确保他们的上传被网络中的任何节点完全检索。保持这些块的计数和接收作为\emph{进度条}的后端，\emph{进度条}可以显示给上传者，对它们的数据在网络上的成功传播给出积极反馈(参见\ref{sec:upload}和\ref{spec:api:tags})。
+这个网络协议称为\gloss{push syncing}，类似于块检索:首先，块通过与检索请求相同的路由被转发到最接近块地址的节点，然后作为响应，\gloss{statement of custody receipt}沿着相同的路径传递回来(参见图\ref{fig:push-syncing})。存储器向\gloss{uploader}发回的托管声明表明，块已到达可普遍检索的邻近区域。通过跟踪上传的每个组成块的这些响应，上传者可以在共享或发布上传地址之前，确保他们的上传被网络中的任何节点完全检索。保持这些数据块的计数和接收作为\emph{progress bar}的后端，\emph{progress bar}可以显示给上传者，对它们的数据在网络上的成功传播给出积极反馈(参见\ref{sec:upload}和\ref{spec:api:tags})。
 
 
 \begin{figure}[htbp]
@@ -511,13 +518,13 @@ BMT块地址是8字节跨度的散列和构建在底层数据的32字节段上�
 \glossupper{pull syncing}协议负责以下两个属性: 
 
 \begin{itemize}
-    \item \emph{最终一致性}——当拓扑因节点变动或新节点加入而发生变化时，同步相邻节点。
-    \item \emph{最大的资源利用率}—节点可以从它们的对等节点中提取块来填充它们的剩余存储。%
+    \item \emph{eventual consistency}——当拓扑因节点变动或新节点加入而发生变化时，同步相邻节点。
+    \item \emph{maximum resource utilisation}—节点可以从它们的对等节点中提取块来填充它们的剩余存储。%
 ％
 \footnote{从节点的盈利能力来看，最大的存储利用率可能不是最佳的。换句话说，存储节点具有最优存储容量，这取决于从它们请求内容的频率。这意味着，在实践中，为了最大化利用存储容量，需要操作人员运行多个节点实例。}
 \end{itemize}
 
-拉同步是以节点为中心的，而不是以块为中心的，例如，它确保一个节点的存储被填满，以及在邻近区域内同步块。当两个节点连接时，它们将开始双向同步，以便在每个对等连接上都有双向块流量。两个方向的同步由不同和独立的\emph{流}(参见\ref{spec:protocol:pull-sync})管理。在流的上下文中，流的消费者被称为\gloss{downstream peer}或客户端，而提供者被称为\gloss{upstream peer}或服务器。
+拉同步是以节点为中心的，而不是以块为中心的，例如，它确保一个节点的存储被填满，以及在邻近区域内同步块。当两个节点连接时，它们将开始双向同步，以便在每个对等连接上都有双向块流量。两个方向的同步由不同和独立的\emph{streams}(参见\ref{spec:protocol:pull-sync})管理。在流的上下文中，流的消费者被称为\gloss{downstream peer}或客户端，而提供者被称为\gloss{upstream peer}或服务器。 
 
 当两个节点连接并参与\gloss{chunk synchronisation}时，上游对等端提供它在每个邻近顺序bin的数据流中本地存储的所有块。为了接收更接近下游对等体而不是上游对等体的块，下游对等体可以订阅上游对等体在其Kademlia表中所属的邻近顺序bin的块流。如果对端连接在最近邻居深度$d$内，客户端将订阅接近顺序为bin $d$或更大的所有流。结果，同事们最终复制了属于他们职责范围的所有部分。
 
@@ -531,7 +538,7 @@ BMT块地址是8字节跨度的散列和构建在底层数据的32字节段上�
    \label{fig:pull-syncing}
 \end{figure}
 
-在对等连接的上下文中，如果客户机已经同步了上游对等的所有块，那么它就被称为\emph{同步}。注意，由于磁盘容量的限制，节点必须设置一个值截断，因此“所有块”读取为“所有值大于$v$的块”的简写($v$是一个常数排序函数，其起源将在\ref{sec:capacity-pressure}中稍后讨论)。为了让一个节点保证存储所有大于$v$值的块，它的所有邻居必须存储所有大于$v$值的块。换句话说，同步的节点从它们的存储节点中继承这个值的最大值。
+在对等连接的上下文中，如果一个客户机已经同步了上游对等的所有块，那么它就被称为\emph{synced}。注意，由于磁盘容量的限制，节点必须设置一个值截断，因此“所有块”读取为“所有值大于$v$的块”的简写($v$是一个常数排序函数，其起源将在\ref{sec:capacity-pressure}中稍后讨论)。为了让一个节点保证存储所有大于$v$值的块，它的所有邻居必须存储所有大于$v$值的块。换句话说，同步的节点从它们的存储节点中继承这个值的最大值。 
 
 如果块是按照存储的顺序同步的，这可能不会导致节点总是拥有最有利可图(最常被请求的)块。因此，根据上游对等体从最流行的块开始同步块，并在达到存储容量时完成同步，可能是明智的。通过这种方式，节点有限的存储空间将得到优化。同步和垃圾收集将在\ref{sec:postage-stamps}和\ref{sec:capacity-pressure}中进一步讨论，并在\ref{spec:strategy:pull-sync}中指定统一的客户端策略。
 
@@ -687,7 +694,7 @@ BMT块地址是8字节跨度的散列和构建在底层数据的32字节段上�
 节点每次服务一个区块都会获得奖励，因此区块的盈利能力与它的受欢迎程度成正比:请求区块的频率越高，相对于每个时间单元的固定存储成本，奖励就越高。当节点达到存储容量限制，并决定删除哪些块时，理性利润最大化代理的最优策略是删除盈利能力最低的块。一个合理的%
 %
 \footnote{将继续确定和开发比最后请求年龄更能预测大块盈利能力的指标(另见\ref{spec:strategy:garbage-collection})}。
-最好的预测器是最后一次请求的时间。为了使可供选择的区块集最大化，节点会利用机会缓存它们所传递的数据以及它们同步的区块。这将导致流行的块被更广泛地分布和更快地服务，使整个群成为一个自动伸缩和自动平衡的\emph{内容分发网络}。
+最好的预测器是最后一次请求的时间。为了使可供选择的区块集最大化，节点会利用机会缓存它们所传递的数据以及它们同步的区块。这将导致流行块被更广泛地分布和更快地服务，使整个群成为一个自动伸缩和自动平衡的\emph{content distribution network}。
 
 
 \subsubsection{缓存节点}
@@ -745,10 +752,10 @@ Push-syncing(参见\ref{sec:push-syncing})是一种协议，它确保上传到�
 \cite{ethersphere2016sw3}引入了一个点对点计费协议，称为\gloss{swap}。Swap是一种以牙还牙的会计方案，可以衡量微交易(参见\ref{spec:protocol:swap})。该方案允许直接连接的对等方交换支付或支付承诺。系统的主要特性被以不同的字母缩略词SWAP的助记符分辨率捕获:
 
 \begin{itemize}
-    \item \emph{需要和提供的服务}的eddcd——用于服务交换的帐户服务。
-    \item \emph{自动付款结算}——超过\gloss{payment threshold}时发送\gloss{cheque}。
-    \item 债务可以以未兑现支票的价值被免除。 
-    \item \emph{白手起家}和\emph{用对等体发送}——通过单向互换支持零现金入账。
+    \item \emph{Swarm accounting protocol} for \emph{service wanted and provided}—用于服务交换的帐户服务。
+    \item \emph{settle with automated payments}——当超过\gloss{payment threshold}时发送\gloss{cheque}。
+    \item \emph{send waiver as payment}——债务可以以未兑现支票的价值被免除。 
+    \item \emph{start without a penny}和\emph{send with a peer}——通过单向互换支持零现金入账。
 \end{itemize}
 
 \subsubsection{服务服务}
@@ -769,7 +776,7 @@ debt向它的对等端发送一个\gloss{cheque}，如果它到达afdef，欠债
 
 \subsubsection{结算与支付}
 
-在服务消费存在高度差异或不平等的情况下，平衡最终将显著地向一个对等体倾斜。在这种情况下，负债方向债权人支付款项以将名义余额归零。这个过程是自动的，并将交换定义为becfe(参见图\ref{fig:swap})。这些支付可以只是承诺。
+在服务消费存在高度差异或不平等的情况下，平衡最终将显著地向一个对等体倾斜。在这种情况下，负债方向债权人支付款项以将名义余额归零。这个过程是自动的，并将swap定义为\emph{settle (the balance) with automated payments}(参见图\ref{fig:swap})。这些支付可以只是承诺。
 
 
 \subsubsection{付款的阈值}
@@ -797,9 +804,9 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 
 \subsubsection{支票本合同}
 
-\cite{ethersphere2016sw3}引入了一个非常简单的智能合约，允许受益人选择何时处理付款。这个\gloss{chequebook contract}是一个可以处理其所有者发出的\glossplural{cheque}的钱包。这些支票与传统金融交易中使用的支票类似:发行方签署\emph{支票}，指定\emph{受益人}、\emph{日期}和\emph{量}，并将其作为在稍后日期支付的承诺令牌交给接收方。智能合约扮演着银行的角色。当接收者希望得到报酬时，他们通过将支票提交给智能合约来“兑现支票”。在确认支票上的签名、日期和金额后，合同将金额转移到受益人的账户(见\ref{fig:swap-chequebook}图)。类似于拿着支票去银行兑现的人，任何人都可以在交易中将数字支票发送到所有者的支票簿账户，从而触发转账。
+\cite{ethersphere2016sw3}引入了一个非常简单的智能合约，允许受益人选择何时处理付款。这个\gloss{chequebook contract}是一个可以处理其所有者发出的\glossplural{cheque}的钱包。这些支票与传统金融交易中使用的支票类似:发行方签署\emph{cheque}，指定\emph{beneficiary}、\emph{date}和\emph{amount}，并将其作为在稍后日期支付的承诺令牌交给接收方。智能合约扮演着银行的角色。当接收者希望得到报酬时，他们通过将支票提交给智能合约来“兑现支票”。在确认支票上的签名、日期和金额后，合同将金额转移到受益人的账户(见\ref{fig:swap-chequebook}图)。类似于拿着支票去银行兑现的人，任何人都可以在交易中将数字支票发送到所有者的支票簿账户，从而触发转账。 
 
-交换协议规定，当超过\emph{付款阈值}时，债权人对等端将发送一张支票。这样的支票可以立即被兑现，通过发送到发行人的支票簿合同。或者，支票也可以持有。持有支票实际上是一种信用贷款，可以使交易双方节省交易成本。
+swap协议指定，当超过\emph{payment threshold}时，债权人对等方将发送一张支票。这样的支票可以立即被兑现，通过发送到发行人的支票簿合同。或者，支票也可以持有。持有支票实际上是一种信用贷款，可以使交易双方节省交易成本。 
 
 存入支票本(\gloss{global balance})的金额作为支票的抵押品。它集中在所有未偿付支票的受益人身上。在这种最简单的形式下，支票簿具有与真实支票相同的担保:无担保。由于资金可以在任何时候自由地从支票簿钱包中取出，兑现时的偿付能力永远无法得到保证:如果支票簿上的余额少于提交给它的支票批准的金额，支票就会被退回。这是交易成本和结算失败风险之间的权衡。
 
@@ -818,7 +825,7 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 
 由于这些数字支票是文件，因此可以复制，因此必须小心，同一支票不能被兑现两次。为了防止这种“双重兑现”，可以为每张发给特定受益人的支票指定一个序列号，在支票兑现时合同将储存该序列号。然后，支票簿合同可以依靠序列号来确保支票按顺序兑现，因此只需为每个受益人存储一个序列号。
 
-当向同一受益人重复支付款项时，防止重复兑现的另一种策略是，支票中包含曾经贷给受益人的联邦、商业和商业补助金总额。已兑现的全部金额存储在每个受益人的合同中。当提交新的支票时，合同忽略金额等于或少于存储总额的支票，但如果收到总额高于存储总额的支票，合同将转移差额。
+当向同一受益人重复付款时，防止重复兑现的另一种策略是，支票中包含曾经记入受益人名下的\emph{cumulative}总额。已兑现的全部金额存储在每个受益人的合同中。当提交新的支票时，合同忽略金额等于或少于存储总额的支票，但如果收到总额高于存储总额的支票，合同将转移差额。
 
 
 这个简单的技巧也使得批量兑现支票成为可能，因为只需要处理当前的“最后一张支票”。这就实现了上面提到的交易成本的降低。
@@ -833,7 +840,7 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 
 这样的过程是可能的，但它需要在支票簿合同中进行某些重要的更改。特别是，兑现支票不再是立即的，必须引起安全延迟，这是其他支付通道实现中常见的概念。
 
-让我们设想一个类似于支票返还给发行方的系统。假设同业$A$向$B$发行支票，余额为零。后来天平向$A$倾斜，但从$A$到$B$的支票没有兑现。在传统金融世界中，用户B可以简单地将最后一张支票归还给$A$，也可以将其销毁。在我们的情况下，事情没有这么简单;我们需要一些其他的机制，$B$ \emph{承诺不兑现}这个特殊的支票。这种承诺可以采取几种形式;它可以实现通过$B$签署消息允许$A$发行一个新的“去年支票”,累计总额低于之前,或者$B$可以发行某种“消极”的支票的支票簿,好像一个支票相同数量的影响已经支付。
+让我们设想一个类似于支票返还给发行方的系统。假设同业$A$向$B$发行支票，余额为零。后来天平向$A$倾斜，但从$A$到$B$的支票没有兑现。在传统金融世界中，用户B可以简单地将最后一张支票归还给$A$，也可以将其销毁。在我们的情况下，事情没有这么简单;我们需要一些其他的机制，$B$ \emph{commits not to cash}的特殊支票。这种承诺可以采取几种形式;它可以实现通过$B$签署消息允许$A$发行一个新的“去年支票”,累计总额低于之前,或者$B$可以发行某种“消极”的支票的支票簿,好像一个支票相同数量的影响已经支付。 
 
 所有这些实现的共同之处在于支票簿不再允许支票的即时兑现。在收到支票兑现请求时，合同必须等待，以便允许有问题的另一方提交有关已注销支票或减少的总额的潜在遗漏信息。为配合使用单一支票簿的(半)双向付款，我们作出以下修改:
 
@@ -855,7 +862,7 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 
 有了这些规则，就很容易看到支票注销将如何工作。假设用户defee向用户$B$签发了支票$c_0 \ldots c_n$，其累计总额为$t_0 \ldots t_n$。假设$B$兑现的最后一张支票是bccfcbb。支票本合同记载$B$已经收到$t_i$的付款，最后一张兑现的支票编号为$i$。
 
-让我们进一步假设天平开始向$A$倾斜一些$x$。如果$B$已经兑现了$c_n$支票，那么$B$现在必须使用$B$的支票簿作为来源，并指定defee为受益人，签发一张她自己的支票。然而，由于支票$c_{i+1} \ldots c_n$是未兑现的，$B$可以向defee发送一张支票，以defee的支票簿为来源，$B$为受益人，编号为$n+1$，累计总金额为$t_{n+1} = t_n - x$。根据上述规则，A将接受$B$支付的相当于$x$金额的款项。在这种情况下，$B$放弃了早先的部分权利，而不是向defee发送支票。这证明SWAP是\emph{发送弃权书作为付款}。
+让我们进一步假设天平开始向$A$倾斜一些$x$。如果$B$已经兑现了$c_n$支票，那么$B$现在必须使用$B$的支票簿作为来源，并指定defee为受益人，签发一张她自己的支票。然而，由于支票$c_{i+1} \ldots c_n$是未兑现的，$B$可以向defee发送一张支票，以defee的支票簿为来源，$B$为受益人，编号为$n+1$，累计总金额为$t_{n+1} = t_n - x$。根据上述规则，A将接受$B$支付的相当于$x$金额的款项。在这种情况下，$B$放弃了早先的部分权利，而不是向defee发送支票。这证明SWAP是\emph{send waiver as payment}。
 
 这个过程可以重复多次，直到累积的总数被带回$t_i$。此时，所有未偿债务已被有效地注销，任何进一步的支付必须以从$B$的支票簿到defee的适当支票的形式进行(见图\ref{fig:waivers-diagram})。
 
@@ -868,7 +875,7 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 
 互换会计也只能在一个方向上工作。如果一方以零流动资本(\gloss{newcomer})进入系统，但以资金(\gloss{insider})与另一方连接，则新来者可以开始提供服务(而且不使用任何服务)，以赚取正的掉期余额。
 
-如果内部人士有支票簿，他们可以直接用支票支付给新来的人。然而，这有一个警告:新来者将能够从提供的服务中赚取支票，但没有办法兑现它们。兑现支票需要向区块链发送交易，因此需要gas，除非节点能够说服它的一个对等节点为它们发送交易。为了实现这一点，节点可以在它们想要发送的结构上签字，然后使用预处理步骤扩展Swap合同，从而触发支付给新来者的费用，包括交易的天然气成本和交易发送方的服务费。新来者的支票可以由任何内部人员兑现(见图\ref{fig:zero-cash-entry})。这个特性证明SWAP是defed。
+如果内部人士有支票簿，他们可以直接用支票支付给新来的人。然而，这有一个警告:新来者将能够从提供的服务中赚取支票，但没有办法兑现它们。兑现支票需要向区块链发送交易，因此需要gas，除非节点能够说服它的一个对等节点为它们发送交易。为了实现这一点，节点可以在它们想要发送的结构上签字，然后使用预处理步骤扩展Swap合同，从而触发支付给新来者的费用，包括交易的天然气成本和交易发送方的服务费。新来者的支票可以由任何内部人员兑现(见图\ref{fig:zero-cash-entry})。这个特性证明SWAP是\emph{start without a penny, send with a peer}。
 
 \begin{figure}[htbp]
 \centering
@@ -965,19 +972,19 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 当交易被发送到其创建端点时，中央邮费智能合约会创建这些批，同时还会创建一定量的BZZ令牌和以下交易数据:
 
 \begin{itemize}
-\item \emph{主人地址}—有权使用为标记块创建的批的所有者。
-\item \emph{的批次数量}—由此付款创建的批数。
-\item \emph{批处理深度}——可以在创建的每个批处理中盖章的块数量的对数。
+\item \emph{owner address}——有权使用为标记块创建的批的所有者。
+\item \emph{number of batches}——由此付款创建的批数。
+\item \emph{batch depth}——可以在创建的每个批处理中盖章的块数量的对数。
 \end{itemize}
 
 支付邮费后，会记录以下信息:
 
 \begin{itemize}
-\item \emph{付款参考ID}——生成的作为此支付参考的随机ID。
-\item \emph{每个块平衡}—由该付款创建的批次所涵盖的每个批次平均分配的总金额。
-\item \emph{主人地址}—有权使用为标记块创建的批的所有者。
-\item \emph{的批次数量}—由该付款创建的批数。
-\item \emph{批处理深度}——可以在创建的每个批处理中盖章的块数量的对数。
+\item \emph{payment reference ID}—生成的随机ID作为此支付的参考。
+\item \emph{per-chunk balance}—由该付款创建的批次所涵盖的每一块平均分配的总金额。
+\item \emph{owner address}——有权使用为标记块创建的批的所有者。
+\item \emph{number of batches}——由此付款创建的批数。
+\item \emph{batch depth}——可以在创建的每个批处理中盖章的块数量的对数。
 \end{itemize}
 
 
@@ -985,7 +992,7 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 
 生成一个随机标识符以提供对支付的引用。
 付款交易将创建多个批次，这些批次的数量在交易中指定。最终将分别记录每批的批深。每次付款都可以创建新的批次。
-该支付覆盖的块的数量可以计算为批大小的总和。初始批深度用于支付事务创建的所有批。然后，随着交易发送的BZZ令牌的数量被平均分配到支付覆盖的所有块，即令牌的总数量除以覆盖的块的数量，分配给支付ID，以代表批的每块余额。然后，任何人都可以选择在以后的日期充值这个余额。 
+该支付Overlay的块的数量可以计算为批大小的总和。初始批深度用于支付事务创建的所有批。然后，随着交易发送的BZZ令牌的数量被平均分配到支付Overlay的所有块，即令牌的总数量除以Overlay的块的数量，分配给支付ID，以代表批的每块余额。然后，任何人都可以选择在以后的日期充值这个余额。 
 
 
 \begin{figure}[htbp]
@@ -999,12 +1006,12 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 附在数据块上的邮票是一个包含以下字段的数据结构(参见图\ref{fig:postage-stamp}和abddac中的规范):
 
 \begin{itemize}
-    \item \emph{块地址}—贴邮票的地址。 
-    \item \emph{批处理标识符}——由支付标识符和批索引组成，可以用邮资智能合约检查批索引的有效性。
-    \item \emph{见证}——所有者的签名，将批标识符和所有者的地址连接起来。
+    \item \emph{chunk address}——贴邮票的地址。 
+    \item \emph{batch identifier}——由支付标识符和批索引组成，批索引的有效性可通过邮资智能合约进行检查。
+    \item \emph{witness}——所有者的签名，链接批标识符和所有者的地址。
 \end{itemize}
 
-邮票的\emph{价值}是与批关联的每块余额。
+邮票的\emph{value}是与批关联的每个块的余额。
 与用于邮政邮件的邮票类似，一块邮票上可以有多个邮票。在这种情况下，将多个有效邮票赋予该块的价值加起来构成总邮票价值。 
 
 \subsubsection{邮票有效期}
@@ -1012,9 +1019,9 @@ B向peer a发送一张支票，B保留这张支票并将掉期余额恢复为零
 检验邮票是否有效，须符合下列准则:
 
 \begin{itemize}
-\item \emph{真实的}——批标识符有效，即支付ID存在并已注册，批索引小于与支付ID关联的批数。
-\item fdeef—证人由指定的地址作为批的所有者签署。
-\item \emph{资助} -引用批次尚未耗尽其余额，并有足够的资金以覆盖至少一个存储周期的最新价格。
+\item \emph{authentic}——批标识符有效，即支付ID存在且已注册，批索引小于与支付ID关联的批次数量。
+\item \emph{authorised}—证人由指定为批处理所有者的地址签署。
+\item \emph{funded}——引用批尚未耗尽其余额，并且有足够的资金以覆盖至少一个存储周期的最新价格。
 \end{itemize}
 
 所有这些都可以被智能合约本身轻松地检查。验证其中包含的数据块小于批处理允许戳记的数据块总数是至关重要的。如果不采取进一步措施，就有可能发生超支攻击，即上传者在超过批大小的块上重用戳记，从而欺骗不知情的存储者，让他们承担报酬过低的额外工作。
@@ -1052,7 +1059,7 @@ In order for these collisions to be detectable, the batch size needs to be highe
 
 \subsubsection{使用加密挖掘块}
 
-完全填满\glossplural{postage batch}的一个整洁的解决方案依赖于\ref{sec:chunk-encryption}中暗示的洞察力:选择加密密钥允许我们将一个块\emph{我的}到一个特定的邮资批次。
+完全填充\glossplural{postage batch}的一个整洁的解决方案依赖于\ref{sec:chunk-encryption}中暗示的洞察力:选择加密密钥允许我们\emph{mine}一个块到一个特定的邮资批次。
 
 寻找加密密钥以生成靠近地址的内容散列的过程类似于在区块链中挖掘块。块需要32字节的密钥加密,扮演的角色目前在一块,那就是:它提供了足够的熵来保证一个是能够找到一个加密密钥,这样产生的哈希摘要加密块产生一个地址属于一个特定的槽内开放的邮资批。开采的难度是由分批深度决定的。
 
@@ -1086,8 +1093,8 @@ In order for these collisions to be detectable, the batch size needs to be highe
 
 \begin{enumerate}
 \item \emph{pre-committal}——节点通过发送价格报价来预先承诺抽奖挑战。作为有效的预提交事务的结果，定义了一组申请人。这一阶段的结束标志着证人批次的选择。
-\item \emph{提交}—节点发送由证人批指定的块列表和它们的监护权证明。作为有效索赔交易的结果，定义了一组索赔人。这一时期的结束以挑战的选择为标志。
-\item \emph{驳斥}—节点发送对挑战的反驳。由于有效的反驳，一组最终获奖的索赔人被确定。这一时期的结束标志着奖金的赢家。
+\item \emph{submission}—节点发送由证人批指定的块列表和它们的羁押证明。作为有效索赔交易的结果，定义了一组索赔人。这一时期的结束以挑战的选择为标志。
+\item 节点发送对挑战的反驳。由于有效的反驳，一组最终获奖的索赔人被确定。这一时期的结束标志着奖金的赢家。
 \end{enumerate}
 
 最后一节结束后，新一轮抽奖活动开始。抽奖和它的阶段也可以用缩写词\gloss{race}来描述，当然，还有一个描述阶段的助记方法:\gloss{raffle--apply--claim--earn}。事件的时间轴如图\ref{fig:raffle-timeline}所示。
@@ -1095,7 +1102,7 @@ In order for these collisions to be detectable, the batch size needs to be highe
 
 \subsubsection{自动抽奖活动轮}
 
-RACE过程在抽奖阶段初始化。首先，将起始块的哈希值与从$0$到$n-1$的整数一起哈希，以获得$n$ \emph{中奖彩票} ($r_0, \ldots r_{n-1}$)，每个$n$ \emph{中奖彩票} ($r_0, \ldots r_{n-1}$)表示一个独立的\gloss{raffle draw}.%
+RACE过程在抽奖阶段初始化。首先，将起始块的哈希值与从$0$到$n-1$的整数一起哈希，以获得$n$ \emph{winning tickets} ($r_0, \ldots r_{n-1}$)，每个$n$ \emph{winning tickets} ($r_0, \ldots r_{n-1}$)表示一个独立的\gloss{raffle draw}.%
 %
 \footnote{每轮需要多次抽奖，以校准节点赢得抽奖的预期频率。随着网络的增长，通过增加$n$，存储服务补偿所需的预期时间可以保持不变。}。 
 %
@@ -1186,7 +1193,7 @@ RACE过程在抽奖阶段初始化。首先，将起始块的哈希值与从$0$�
 \footnote{实际上，只要记住哪些碰撞槽被填满了，达到了不断增长的网络可能达到的深度就足够了。在实践中，作为一种优化，深度$b' >b$的潜在碰撞槽可以使用长度$2^{b'-1}$的位向量记录}
 %
 
-请注意，主人可以选择支付一定的邮费，即使蜂群增长1000倍，余额也只会在一段时间后干涸。这在\gloss{upload and disappear}环境中变得很重要。
+请注意，主人可以选择支付一定的邮费，即使Swarm增长1000倍，余额也只会在一段时间后干涸。这在\gloss{upload and disappear}环境中变得很重要。
 这样的深度批处理需要相同的$O(\mathit{log}(n))$计算开销(参见\ref{sec:complexity-filling})。这实际上意味着需要大量购买/使用的折扣。
 
 
@@ -1208,13 +1215,13 @@ RACE过程在抽奖阶段初始化。首先，将起始块的哈希值与从$0$�
 \begin{itemize}
 \item afed，否则抽奖就没机会了。
 \item 与他们的邻居保持完全同步。否则，索赔可能是不完整的，而体积调整会使节点拥有更少。
-\item \emph{有一个完全索引的本地商店}——为了能够列出批处理中的所有块，节点需要保存邮票并保留一组相关的块地址。 
-\item \emph{执行值一致的垃圾回收}——为了判断节点是否在本地存储了批处理中所有先前接收到的块，它们必须执行垃圾收集值一致，%
+\item \emph{have a fully indexed local store}——为了能够列出批处理中的所有块，节点需要保存邮票并保留一组相关的块地址。 
+\item \emph{perform value consistent garbage collection}——为了判断节点是否在本地存储了批处理中所有先前接收到的块，它们必须执行垃圾收集值一致，%
 ％
 \footnote{或者存储已删除块的索引，这是低效的}
 即接受的最小值与删除的最大值一致。
 ％
-\item 为了提供BMT证明，节点必须拥有块内容中的数据。%
+\item \emph{store the data}为了提供BMT证明，节点必须拥有块内容中的数据。%
 ％
 \footnote{在特殊情况下，邮寄地址已预付邮资的信封，在信封填好并寄出之前不能收取费用(见\ref{sec:addressed-envelopes})。}
 \end{itemize}
@@ -1225,7 +1232,7 @@ RACE过程在抽奖阶段初始化。首先，将起始块的哈希值与从$0$�
 \yellow{}
 
 \subsubsection{存储容量}
-Kademlia拓扑结构和冗余参数决定了节点的邻域深度(见\ref{sec:redundancy-by-local-replication})。邻里深度划定了责任范围。作为邮资彩票的结果，节点被激励拥有一个统一的社区大小。上传到该区域的块的数量与上传到Swarm $C$的所有块的数量成正比，与Swarm $N$中的节点数量成反比。一个节点存储的块数量平均为$CR/N$，其中$R$是邻域复制因子，度量冗余程度。这表示任意邻近区域的块密度。在给定特定连接和固定存储量的情况下，$C/N$捕获\emph{存储容量的压力}。
+Kademlia拓扑结构和冗余参数决定了节点的邻域深度(见\ref{sec:redundancy-by-local-replication})。邻里深度划定了责任范围。作为邮资彩票的结果，节点被激励拥有一个统一的社区大小。上传到该区域的块的数量与上传到Swarm $C$的所有块的数量成正比，与Swarm $N$中的节点数量成反比。一个节点存储的块数量平均为$CR/N$，其中$R$是邻域复制因子，度量冗余程度。这表示任意邻近区域的块密度。给定一个社区的特定连接性和固定的存储量，$C/N$捕获\emph{storage capacity pressure}。 
 
 如果我们假设块只被保存一段有限的时间，那么在一定的变化范围内，压力保持不变。换句话说，我们可以找到一个网络大小%
 %
@@ -1255,7 +1262,7 @@ Kademlia拓扑结构和冗余参数决定了节点的邻域深度(见\ref{sec:re
 %
 \footnote{为了避免检查区块链上的更新以确定支付率的变化，节点可能只希望将更新速率作为对彩票合同上记录的支付事件的响应。}
 %
-If there was a change, the chunk will need to be reinserted in the queue. 
+如果有更改，则需要将数据块重新插入队列中。 
 
 \subsubsection{结合检索流行度和邮资价值}
 
@@ -1290,7 +1297,7 @@ If there was a change, the chunk will need to be reinserted in the queue.
 
 不像带宽激励的情况下，检索是立即计算和解决的，长期存储保证是承诺的性质，它只能决定，如果承诺已在其有效性结束。在这些情况下，声誉的丧失不足以阻止恶意行为:由于必须允许新节点立即提供服务，骗子只能诉诸于新身份，继续兜售(空)存储承诺。
 
-我们需要威胁采取惩罚性措施，以确保遵守存储承诺。这些将使用\emph{沉积体系}工作。希望出售约定存储收据的节点在做出承诺时应该验证并锁定股权。这意味着节点必须提前注册并签订合同，并提供\gloss{security deposit}。注册后，节点可以出售其资金锁定期间的存储承诺。当他们的注册是有效的，如果他们被发现丢失了他们承诺覆盖的一块，他们将失去他们的押金。
+我们需要威胁采取惩罚性措施，以确保遵守存储承诺。这些将使用\emph{沉积体系}工作。希望出售约定存储收据的节点在做出承诺时应该验证并锁定股权。这意味着节点必须提前注册并签订合同，并提供\gloss{security deposit}。注册后，节点可以出售其资金锁定期间的存储承诺。当他们的注册是有效的，如果他们被发现丢失了他们承诺Overlay的一块，他们将失去他们的押金。
 
 \subsubsection{需求}
 
@@ -1317,7 +1324,7 @@ If there was a change, the chunk will need to be reinserted in the queue.
   节点与注册的节点保持准永久的长期联系。在这些连接中，对等点交换块和触发掉期会计的收据(见\ref{sec:accounting})。
   
 \item[\emph{发誓}]
-  在群集网络上注册的节点负责，如果在链上\gloss{litigation}过程中被发现违反了群集规则，将失去其押金。
+  在Swarm网络上注册的节点负责，如果在链上\gloss{litigation}过程中被发现违反了Swarm规则，将失去其押金。
 
 \item[\emph{诈骗}]
   节点监视其他节点，根据诉讼程序提交挑战，以检查它们是否遵守了承诺。
@@ -1336,7 +1343,7 @@ If there was a change, the chunk will need to be reinserted in the queue.
 
 \subsubsection{登记}
 
-在节点可以出售长期存储承诺之前，它必须首先通过区块链上的一个合同注册，我们称之为\gloss{SWEAR}合同。SWEAR合约允许节点注册他们的公钥，成为Swarm中负责任的参与者。注册是通过将保证金发送到SWEAR合同中完成的，如果注册节点“发誓”遵守的条款被违反(即节点没有遵守其存储承诺)，该合同将作为抵押品。\emph{登记}仅在设定的期限内有效，在该期限结束时，群节点有权获得其保证金。只要被授予注册身份，Swarm的用户就应该能够依靠存款的损失来抑制违规行为。因此，订金在注册期满前不得退还。因此，保险期的期满应包括一个最后期限，在此期间节点不允许发出新的收据，但仍可受到质疑。
+在节点可以出售长期存储承诺之前，它必须首先通过区块链上的一个合同注册，我们称之为\gloss{SWEAR}合同。SWEAR合约允许节点注册他们的公钥，成为Swarm中负责任的参与者。注册是通过将保证金发送到SWEAR合同中完成的，如果注册节点“发誓”遵守的条款被违反(即节点没有遵守其存储承诺)，该合同将作为抵押品。\emph{registration}仅在一定期限内有效，到期后群节点有权获得其存款。只要被授予注册身份，Swarm的用户就应该能够依靠存款的损失来抑制违规行为。因此，订金在注册期满前不得退还。因此，保险期的期满应包括一个最后期限，在此期间节点不允许发出新的收据，但仍可受到质疑。
 
 当一个已注册的保险节点收到一个存储最接近他们的数据块的请求时，它可以用签名的收据来确认它。正是这些签名收据用于对内容丢失实施惩罚。由于有锁定的抵押品支持，这些收据可以被视为存储和服务特定区块的有担保承诺。
 
@@ -1354,9 +1361,9 @@ If there was a change, the chunk will need to be reinserted in the queue.
 合同验证收据是否有效，即1)真实，2)有效，3)资金，通过检查以下条件:
 
 \begin{itemize}
-\item \emph{真实的}——收据是用注册节点的公钥签名的。
-\item \emph{活跃的}—收据的有效期未过。
-\item \emph{资助}——在被驳倒的情况下，将向其提供足够的资金，以补偿同行上传的部分内容。
+\item \emph{authentic}——收据是用注册节点的公钥签名的。
+\item \emph{active}—收据的有效期未过。
+\item \emph{funded}——在挑战被驳倒的情况下，将发送足够的资金以补偿同行上传数据块。
 \end{itemize}
 
 上面的最后一点旨在抑制无谓的诉讼，即用虚假的挑战轰炸区块链，并可能导致DoS攻击。
@@ -1384,9 +1391,9 @@ If there was a change, the chunk will need to be reinserted in the queue.
 
 如果在截止日期前对该质疑没有成功的反驳，则指控被视为已被证明，案件进入执行阶段。被证明丢失了块的节点将丢失其存储。由于存款被锁定在SWEAR合同中，因此保证了执行的成功。
 
-如果在诉讼中，发现有一大块(由收据覆盖的)丢失了，保证金必须至少有一部分是\emph{燃烧}。请注意，这是必要的，因为如果罚金作为对丢失区块收据持有人的补偿，它将通过“丢失”串通用户存放的虚假区块，为注册节点提供提前退出的途径。由于Swarm用户对他们的信息被可靠地存储感兴趣，他们保留收据的主要动机是保持Swarm这样做的动机，而不是在他们不这样做的情况下获得补偿的潜力。如果保证金是大量的，我们可以通过支付提起诉讼的赔偿而逃脱惩罚，但是我们必须烧掉大部分(比如95%)的保证金，以确保这条容易退出的路线仍然关闭。
+如果在诉讼中，发现有一大块(由收据Overlay的)丢失了，保证金必须至少有一部分是\emph{燃烧}。请注意，这是必要的，因为如果罚金作为对丢失区块收据持有人的补偿，它将通过“丢失”串通用户存放的虚假区块，为注册节点提供提前退出的途径。由于Swarm用户对他们的信息被可靠地存储感兴趣，他们保留收据的主要动机是保持Swarm这样做的动机，而不是在他们不这样做的情况下获得补偿的潜力。如果保证金是大量的，我们可以通过支付提起诉讼的赔偿而逃脱惩罚，但是我们必须烧掉大部分(比如95%)的保证金，以确保这条容易退出的路线仍然关闭。
 
-惩罚可以是\emph{悬架}，这意味着被发现有罪的节点不再被视为注册的集群节点。这样的节点只有在创建新身份并再次支付押金后才能恢复销售存储收据。注意，存储的块位于地址的附近，因此必须创建一个新标识也意味着要花费额外的带宽来补充存储。这是对违规节点造成的额外痛苦。
+惩罚可以是\emph{suspension}，这意味着被发现有罪的节点不再被视为已注册的Swarm节点。这样的节点只有在创建新身份并再次支付押金后才能恢复销售存储收据。注意，存储的块位于地址的附近，因此必须创建一个新标识也意味着要花费额外的带宽来补充存储。这是对违规节点造成的额外痛苦。
 
 
 \subsubsection{存款}
@@ -1441,7 +1448,7 @@ If there was a change, the chunk will need to be reinserted in the queue.
 
 \subsection{文件和Swarm hash\statusgreen}\label{sec:files}
 
-在本节中，我们将介绍\emph{群散列}，它是一种组合块以表示更大的结构化数据集(如文件)的方法。群散列算法背后的想法是,块等Merkle树可以安排连续的叶节点对应的块段的输入数据,而中间节点对应块的块引用的是由他们的孩子,包装在一起,形成另一个块(见\ref{fig:Swarm-hash})。 
+在本节中，我们将介绍\emph{Swarm hash}，它是一种组合块以表示更大的结构化数据集(如文件)的方法。群散列算法背后的想法是,块等Merkle树可以安排连续的叶节点对应的块段的输入数据,而中间节点对应块的块引用的是由他们的孩子,包装在一起,形成另一个块(见\ref{fig:Swarm-hash})。 
 
 
 
@@ -1472,7 +1479,7 @@ If there was a change, the chunk will need to be reinserted in the queue.
 
 包含在中间块下的数据长度称为\gloss{chunk span}。为了能够判断一个块是否是一个数据块，在64位小端二进制表示中，块跨度被添加到块数据之前。在计算块的BMT哈希值时，该span构成了元数据，需要将元数据加到BMT根前，并将其散列在一起以提供块地址。当组装一个文件从一个散列,一个可以告诉如果一个块是一个数据块或一个中间块仅仅通过观察跨度:如果跨度大于4 k,块是一个中间块及其内容需要被解释为一系列的散列的孩子;否则它就是一个数据块。
 
-理论上，如果文件的长度已经知道，那么中间块的跨度就没有必要了，因为我们可以计算树所需的中间层的数量。但是，使用span不允许将中间层恢复为数据层。这样，我们就强加了\emph{深度完整性}。 
+理论上，如果文件的长度已经知道，那么中间块的跨度就没有必要了，因为我们可以计算树所需的中间层的数量。但是，使用span不允许将中间层恢复为数据层。通过这种方式，我们使用\emph{integrity of the depth}。 
 
 \subsubsection{追加和恢复已中止的上传}
 
@@ -1480,7 +1487,7 @@ Swarm哈希具有一个有趣的特性，即与中间块对应的任何数据跨
 
 \subsubsection{随机存取}
 
-注意，文件中除了右边缘之外的所有块都被完全填满了。由于块的大小是固定的，对于任意的数据偏移，可以预先计算到达块的路径，包括在块内搜索的偏移量。因此，\emph{随机存取文件}立即得到了支持(参见图\ref{fig:random-access})。
+注意，文件中除了右边缘之外的所有块都被完全填满了。由于块的大小是固定的，对于任意的数据偏移，可以预先计算到达块的路径，包括在块内搜索的偏移量。正因为如此，\emph{random access to files}立即得到了支持(见图\ref{fig:random-access})。
 
 
 \begin{figure}[htbp]
@@ -1509,10 +1516,10 @@ Swarm哈希具有一个有趣的特性，即与中间块对应的任何数据跨
 在本节中，我们介绍了Swarm hash，这是一种基于块的数据结构，表示文件，它支持以下功能:
 
 \begin{itemize}
-    \item \emph{随机存取}——可以从任意偏移量读取文件，而不需要额外的成本。
-    \item \emph{附加}——支持没有复制的追加。 
-    \item \emph{长度保留编辑}——支持保留长度的编辑，而不重复未修改的部分。
-    \item \emph{契约包含证明}—允许包含证明，分辨率为32字节，文件大小为对数。
+    \item \emph{random access}——可以从任意偏移量读取文件，没有额外的成本。
+    \item \emph{append}——支持无重复的追加。 
+    \item \emph{length preserving edits}——支持保持长度的编辑，没有未修改部分的复制。
+    \item \emph{compact inclusion proofs}—允许包含证明，分辨率为32字节，文件大小为对数。
 \end{itemize}
 
 
@@ -1525,7 +1532,7 @@ Swarm哈希具有一个有趣的特性，即与中间块对应的任何数据跨
 %
 \footnote{看到\url{https://en.wikipedia.org/wiki/Trie}}
 %
-其中，单个的try节点被序列化为块(参见\ref{spec:format:manifests})。这些路径与至少指定\emph{参考}的\gloss{manifest entry}相关联。如果路径是集合中多个路径的公共前缀，则引用可以指向嵌入的清单，从而在try中实现分支，参见图\ref{fig:manifest-structure}。 
+其中，单个的try节点被序列化为块(参见\ref{spec:format:manifests})。这些路径与至少指定\emph{reference}的\gloss{manifest entry}相关联。如果路径是集合中多个路径的公共前缀，则引用可以指向嵌入的清单，从而在try中实现分支，参见图\ref{fig:manifest-structure}。 
 
 
 \begin{figure}[htbp]
@@ -1551,15 +1558,15 @@ Swarm哈希具有一个有趣的特性，即与中间块对应的任何数据跨
 
 \subsection{基于url的地址和名称resolution\statusgreen}\label{sec:urls}
 
-之前我们介绍了Swarm的底层网络组件，它是一个分布式的不可变块存储(DISC，参见\ref{sec:disc})。在前两节中，我们介绍了文件(\ref{sec:files})和集合(\ref{sec:collections})可以在Swarm中表示并使用块引用引用的方法。清单提供了一种方法来索引集合中的单个文档，这允许它们被认为是群集中托管的网站的代表。根清单作为群集上虚拟托管站点的入口点，因此类似于托管服务器。在当前web中，域名解析为主机服务器的IP地址，(静态站点的)URL路径根据它们相对于主机的文档根集的路径映射到目录树中的条目。
+之前我们介绍了Swarm的底层网络组件，它是一个分布式的不可变块存储(DISC，参见\ref{sec:disc})。在前两节中，我们介绍了文件(\ref{sec:files})和集合(\ref{sec:collections})可以在Swarm中表示并使用块引用引用的方法。清单提供了一种方法来索引集合中的单个文档，这允许它们被认为是Swarm中托管的网站的代表。根清单作为Swarm上虚拟托管站点的入口点，因此类似于托管服务器。在当前web中，域名解析为主机服务器的IP地址，(静态站点的)URL路径根据它们相对于主机的文档根集的路径映射到目录树中的条目。
 类似地，在Swarm中，域名解析为对根清单的引用，URL路径根据其路径映射到清单条目。
 
 当HTTP API提供URL时，执行以下步骤:
 
 \begin{enumerate}
-    \item \emph{域名解析}——Swarm将主机部分解析为对根清单的引用，
-    \item \emph{显化遍历}——沿着与URL路径匹配的路径递归地遍历嵌入的清单，以到达清单条目，
-    \item \emph{服务文件}——使用从清单条目的元数据中获取的头(特别是内容类型)在浏览器中检索并呈现清单条目中引用的文件。
+    \item \emph{domain name resolution}——Swarm将主机部分解析为对根清单的引用，
+    \item \emph{manifest traversal}——沿着与URL路径匹配的路径递归地遍历嵌入的清单，以到达清单条目，
+    \item \emph{serving the file}——使用从清单条目的元数据中获取的头(特别是内容类型)在浏览器中检索并呈现清单条目中引用的文件。
 \end{enumerate}
 
 Swarm支持使用\gloss{Ethereum Name Service} (\gloss{ENS})进行域名解析。\gloss{ENS}是一个系统，类似于旧网络的DNS，它将人类可读的名称转换为系统特定的标识符，例如，在Swarm.%的情况下是一个参考
@@ -1632,13 +1639,13 @@ ENS用户可以在区块链上注册域名，并设置域名解析为引用。�
 首先，\gloss{session key}是从提供的凭据派生出来的。在授予单个方访问权限的情况下，会话密钥直接用作访问密钥，参见图\ref{fig:access-control-single-party}。在多方参与的情况下，使用额外的机制将会话密钥转换为访问密钥。
 
 \subsubsection{密码}
-最简单的证书是\emph{密码}。会话密钥是通过使用\lstinline{scrypt}和在根访问元信息中指定的参数从密码短语派生出来的。crypt的输出是一个32字节的密钥，可以直接用于群加密和解密算法。
+最简单的证书是\emph{passphrase}。会话密钥是通过使用\lstinline{scrypt}和在根访问元信息中指定的参数从密码短语派生出来的。crypt的输出是一个32字节的密钥，可以直接用于群加密和解密算法。
 
 在典型的用例中，密码短语是通过带有足够安全措施的带外方式分发的，或者是亲自交换的。任何知道密钥来源的密码短语的用户都能够访问内容。
 
 \subsubsection{不对称的推导}
 
-更复杂的凭证是\emph{私钥}，与整个以太坊用于访问账户的凭证相同，即使用secp256k1的椭圆曲线。为了获得会话密钥，必须在内容发布者和被授权者之间执行一个\gloss{elliptic curve Diffie-Hellman} (\gloss{ECDH})密钥协议。由此产生的共享秘密被用盐搅碎在一起。\gloss{root access manifest}的元数据中包含内容发布者的公钥和salt。根据ECDH的标准假设，此会话密钥只能由发布者和受让人计算，而不能由其他任何人计算。
+更复杂的凭证是\emph{private key}，与整个以太坊用于访问账户的凭证相同，即使用secp256k1的椭圆曲线。为了获得会话密钥，必须在内容发布者和被授权者之间执行一个\gloss{elliptic curve Diffie-Hellman} (\gloss{ECDH})密钥协议。由此产生的共享秘密被用盐搅碎在一起。\gloss{root access manifest}的元数据中包含内容发布者的公钥和salt。根据ECDH的标准假设，此会话密钥只能由发布者和受让人计算，而不能由其他任何人计算。 
 同样，如果将访问权授予单个公钥，则以这种方式派生的会话密钥可以直接用作访问密钥，从而允许对加密引用进行解密。
 图\ref{fig:credentials-to-derive-session-key}总结了使用凭据来派生会话密钥。
 
@@ -1693,7 +1700,7 @@ ENS用户可以在区块链上注册域名，并设置域名解析为引用。�
 
 \green{}
 
-饲料是蜂群的一个独特特征。它们构成了单个所有者块的主要用例。提要可用于对可变资源的修订进行版本控制，为主题的连续更新建立索引，将部分发布到流，或在通信通道中发布连续消息。feed实现了持久的pull-messaging，也可以解释为发布-sub系统。
+饲料是Swarm的一个独特特征。它们构成了单个所有者块的主要用例。提要可用于对可变资源的修订进行版本控制，为主题的连续更新建立索引，将部分发布到流，或在通信通道中发布连续消息。feed实现了持久的pull-messaging，也可以解释为发布-sub系统。
 首先，在\ref{sec:feed-chunks}中，我们介绍了提要如何由带有索引方案的单个所有者块组成，我们将在\ref{sec:indexing-schemes}中讨论如何选择索引方案。在\ref{sec:feed-integrity}中，我们分析为什么饲料完整性是相关的，以及如何验证和执行。\ref{sec:epoch-based-feeds}描述了\gloss{epoch-based feeds}，它提供以接收零星更新为主题的提要，并提供一种搜索方式。最后，在\ref{sec:feed-as-channel}中，我们将展示如何将提要用作发件箱，以便在通信通道中发送和接收后续消息。
 
 
@@ -1728,7 +1735,7 @@ feed使Swarm用户能够表示一系列的内容更新。更新的内容是提�
 \subsubsection{更新的语义}
 
 提要的更新可以有三种不同的语义，定义三种提要子类型。
-修订或可变资源更新是\emph{代用的}，系列更新是\emph{替代}，分区更新是\emph{累计}。
+修订或可变资源更新是\emph{substitutive}，系列更新是\emph{alternative}，分区更新是\emph{accumulative}。 
 
 表示同一语义实体的修订的提要称为\gloss{mutable
 resource updates}。这些资源会发生变异，因为潜在的语义实体发生了变化，比如你的简历版本或资源描述变得更加复杂，比如维基百科上关于罗马皇帝的条目。用户通常会对这些资源的最新更新感兴趣，过去的版本只具有历史意义。
@@ -1778,7 +1785,7 @@ feed可以解释为\gloss{pub-sub systems}，具有持久性，支持异步拉�
 
 \subsection{完整性\statusyellow}\label{sec:feed-integrity}
 
-我们说一个feed有\emph{完整性}，如果它的每个更新都是完整的，即更新是明确的。在形式上，这意味着对于每个索引，各自的提要标识符只分配给单个有效负载。顺便说一下，这也意味着相应的提要块具有完整性。正如在\ref{sec:single-owner-chunks}中讨论的，这是一致检索的先决条件。
+如果一个feed的每个更新都是完整的，即更新是明确的，我们就说它有\emph{integrity}。在形式上，这意味着对于每个索引，各自的提要标识符只分配给单个有效负载。顺便说一下，这也意味着相应的提要块具有完整性。正如在\ref{sec:single-owner-chunks}中讨论的，这是一致检索的先决条件。 
 如果连续更新的有效负载被想象为区块链的块，那么完整性标准要求提要所有者不能分叉他们的链。
 
 事实上，提要的完整性只能由所有者来保证。但它能被检查或执行吗?用户可以通过在区块链上下注保证金来保证feed的完整性，如果发现他们在更新中重复签名，他们将失去这笔保证金。尽管这可能会强烈抑制为长期利益而分叉提要，但就其本身而言，它仍然无法为提要的消费者提供足够的完整性保证。因此，我们必须设计索引方案来加强这种完整性。
@@ -1796,7 +1803,7 @@ feed可以解释为\gloss{pub-sub systems}，具有持久性，支持异步拉�
 
 确定性索引提要支持\gloss{real-time integrity check}。在表示区块链(账本/侧链)的提要上下文中，完整性意味着非分叉和唯一的链承诺。实时执行此功能的能力允许快速和安全地定义事务结束性。
 
-我们用一个链下p2p支付网络的例子来说明这一点，其中每个节点的锁定资金被分配给一组固定的债权人(详见\cite{ethersphere2019swap})。节点的债权人需要检查重新分配的正确性，即总增加被复签减少所覆盖。
+我们用一个链下p2p支付网络的例子来说明这一点，其中每个节点的锁定资金被分配给一组固定的债权人(详见\cite{ethersphere2019swap})。节点的债权人需要检查重新分配的正确性，即总增加被复签减少所Overlay。
 如果债务人持续发布一份存款分配表，列出详尽的债权人名单，通过发行两种针对目标债权人的替代方案，债务人将能够安排双重支出。相反，这个分配表的唯一性的确定性允许债权人得出最终结论。
 
 我们声称，使用群馈源，这种唯一性约束可以实时检查。
@@ -1852,7 +1859,7 @@ feed可以解释为\gloss{pub-sub systems}，具有持久性，支持异步拉�
 
 当使用者检索提要时，他们通常要么想在特定时间查找提要的状态(历史查找)，要么想查找最新的更新。
 
-如果需要基于\emph{目标}时间的历史查找，则更新可以包含一个将时间戳映射到状态的数据结构。在这种情况下，找到比目标晚的任何更新都可以用来确定地查找更早时间的状态。
+如果需要基于\emph{target}时间的历史查找，则更新可以包含一个将时间戳映射到状态的数据结构。在这种情况下，找到比目标晚的任何更新都可以用来确定地查找更早时间的状态。 
 
 如果没有这样的索引可用，那么历史查找需要找到时间戳早于目标的最短填充历元。
 
@@ -1932,14 +1939,14 @@ feed可以解释为\gloss{pub-sub systems}，具有持久性，支持异步拉�
 其存在的功能和动机被这个词的其他决议戏谑地捕捉到:
 
 \begin{itemize}
-\item \emph{群集邮政服务}——如果收件人在线，则发送消息;如果收件人不在网上，则存储以供下载。
-\item \emph{PSS是BZZ低语}——除了与中国低语的关联，它肯定承载着以太坊低语的精神和抱负。%
-％
+\item \emph{postal service on Swarm}——如果收件人在线，则发送消息;如果收件人不在线，则存储以供下载。
+\item \emph{pss is bzz whispered}——除了与中国低语的联系，它肯定承载着以太坊低语的精神和抱负。%
+%
 \footnote{Whisper是一个基于流言的黑暗信息系统，现在已经没有开发了。由于缺乏可伸缩性，它从未被广泛采用。Whisper与Swarm和以太坊区块链一起，是三合一的通信组件，是以太坊web3最初愿景的基础。}
 ％
 Pss依附于Swarm的\gloss{distributed storage}，并因此继承了它们对传递和持久性的充分激励。同时，它借鉴了Whisper的加密、信封结构和API。
-\item \emph{pss !指令嘘/耳语}——唤起不向第三方披露信息的努力，这正是pss的口号:真正的零泄漏消息，除了匿名和机密性，消息的行为也是不可检测的。
-\item  \emph{发布/订阅系统}——API允许发布和订阅主题。
+\item \emph{pss! instruction to hush/whisper}——努力不向第三方披露信息，这正是pss的口号:真正的零泄漏消息，除了匿名和机密性，消息的行为也是不可检测的。
+\item  \emph{pub/sub system}——API允许发布和订阅主题。
 \end{itemize}
 
 首先，在\ref{sec:trojan}中，我们引入了特洛伊块(Trojan Chunks)，即向存储器发送伪装成块的消息，这些块的内容地址恰好落在目标接收者的附近。 
@@ -1954,14 +1961,14 @@ pss提供的用户体验将在稍后的\ref{sec:pss-ux}中讨论。
 我们将\gloss{Trojan chunk}定义为一个内容处理块，其内容具有固定的内部结构，参见图\ref{fig:trojan-chunk}:
 
 \begin{enumerate}
-    \item \emph{跨度}——8字节little endian uint64消息长度  
-    \item \emph{现时标志}—32字节任意时刻 
-    \item \emph{木马的信息}——4064字节非对称加密的消息密文，由底层明文组成
+    \item \emph{span}——8字节little endian uint64消息长度  
+    \item \emph{nonce}——32字节任意时刻 
+    \item \emph{Trojan message}——4064字节非对称加密消息密文，由底层明文组成
 \begin{enumerate}
-        \item \emph{长度}——以字节为单位的消息长度的2字节小端编码
-        \item $32$字节混淆的主题id   
-        \item \emph{有效载荷}——消息的$m$字节数 
-        \item \emph{填充}——$4030-m$随机字节。
+        \item \emph{length}——以字节为单位的消息长度的2字节小端编码，
+        \item \emph{topic}——$32$字节混淆的主题id   
+        \item \emph{payload}——消息的$m$字节数 
+        \item \emph{padding}——$4030-m$随机字节。
     \end{enumerate}
 \end{enumerate}
 
@@ -1979,9 +1986,9 @@ pss提供的用户体验将在稍后的\ref{sec:pss-ux}中讨论。
 \label{fig:trojan-chunk}
 \end{figure}
 
-发送方知道接收方的公开密钥后，将消息封装在一个木马消息中(即在消息前加上长度前缀，然后填充到4030字节)，然后使用接收方的公开密钥对其进行加密，通过非对称加密获得木马块的密文有效载荷。然后发送方找到一个随机的nonce，当它被添加到有效负载前时，块散列到一个以\gloss{destination target}前缀开始的地址。目标目标是表示地址空间中特定邻域的位序列。如果目标是作为接收者覆盖地址的前缀派生的部分地址，匹配目标意味着块落在接收者的邻近区域。如果只知道公钥，则假定它是收件人的bzz帐户，即他们的覆盖地址可以从它%计算
+发送方知道接收方的公开密钥后，将消息封装在一个木马消息中(即在消息前加上长度前缀，然后填充到4030字节)，然后使用接收方的公开密钥对其进行加密，通过非对称加密获得木马块的密文有效载荷。然后发送方找到一个随机的nonce，当它被添加到有效负载前时，块散列到一个以\gloss{destination target}前缀开始的地址。目标目标是表示地址空间中特定邻域的位序列。如果目标是作为接收者Overlay地址的前缀派生的部分地址，匹配目标意味着块落在接收者的邻近区域。如果只知道公钥，则假定它是收件人的bzz帐户，即他们的Overlay地址可以从它%计算
 %
-\footnote{可选覆盖可以与公钥相关联，特定地址上的节点可以监听多个公钥。}
+\footnote{可选Overlay可以与公钥相关联，特定地址上的节点可以监听多个公钥。}
 %
 (参见\ref{sec:overlay-addressing}和\ref{spec:format:bzzaddress})。然后，寄件人将这一区块上传至Swarm，并将其选择的邮票与收件人地址所在的社区进行同步。如果接收节点在线，只要匹配目标的位长大于接收节点的邻域深度，它们就一定会接收chunk。在实际应用中，目标应该是$n+c$位长，其中$n$为群中估计的平均深度，$c$为一个小整数。 
 
@@ -1993,7 +2000,7 @@ pss提供的用户体验将在稍后的\ref{sec:pss-ux}中讨论。
 
 \subsubsection{用于异步交付的邮件装箱}
 
-如果收件人不在网上，该邮件块将会像其他邮件块一样胜出，这取决于它所拥有的邮票。每当接收节点联机时，它从邻近的最接近它的块拉同步，其中所有的木马块，以及他们自己尚未收到的消息。换句话说，通过木马消息，pss自动提供异步\emph{邮箱}功能，即。
+如果收件人不在网上，该邮件块将会像其他邮件块一样胜出，这取决于它所拥有的邮票。每当接收节点联机时，它从邻近的最接近它的块拉同步，其中所有的木马块，以及他们自己尚未收到的消息。换句话说，通过木马消息pss自动提供异步\emph{mailboxing}功能，即。 
 发送方不需要采取任何进一步的行动，即使在通信方发送时它们处于离线状态，未发送的信息将被保存下来，并在它们在线时对接收方可用。邮筒的持续时间是由邮票控制的，其控制方式与块的存储方式完全相同，事实上，它是完全无法区分的。
 
 \subsubsection{开采接近}
@@ -2007,7 +2014,7 @@ pss提供的用户体验将在稍后的\ref{sec:pss-ux}中讨论。
 
 \subsubsection{匿名邮箱}
 
-如果邮票还没有过期，则保证对pss消息的异步访问。接收方只需要创建一个节点，该节点的覆盖地址与发布为接收方常驻地址的目的目标相对应。
+如果邮票还没有过期，则保证对pss消息的异步访问。接收方只需要创建一个节点，该节点的Overlay地址与发布为接收方常驻地址的目的目标相对应。
 
 可以简单地创建一个匿名邮箱。匿名邮箱可以代表客户端接收pss消息，然后在单独的私有提要上发布这些消息，以便预期的收件人可以在它们恢复在线时读取它们。
 
@@ -2019,12 +2026,12 @@ pss提供的用户体验将在稍后的\ref{sec:pss-ux}中讨论。
 \subsection{key exchange的初始联系人\statusgreen}\label{sec:pss-key-exchange}
 
 
-加密通信需要一次握手，以对作为对称密钥生成方案输入的初始参数达成一致。\gloss{extended triple Diffie--Hellmann key exchange} (\gloss{X3DH})就是这样一种协议\cite{marlinspike2016x3dh}，用于建立握手后通信协议的初始参数，如前面在提要一节中讨论的\emph{double-ratchet方案}(请参阅\ref{sec:feed-as-channel})。
+加密通信需要一次握手，以对作为对称密钥生成方案输入的初始参数达成一致。\gloss{extended triple Diffie--Hellmann key exchange} (\gloss{X3DH})就是这样一种协议\cite{marlinspike2016x3dh}，用于建立握手后通信协议的初始参数，如前面在提要一节中讨论的\emph{double-ratchet scheme}(请参阅\ref{sec:feed-as-channel})。
 在接下来的内容中，我们将描述如何在无服务器设置中使用pss实现X3DH协议。
 
 Swarm的X3DH使用与以太坊相同的原语，即secp256k椭圆曲线、kecak256哈希和EC公钥的64字节编码。
 
-Swarm X3DH协议允许双方建立一个共享的秘密，以形成用于确定握手后双向消息传递中使用的加密密钥的输入。\emph{引发剂}是发起与\emph{应答器}的双向通信的一方。响应者应该发布必要的信息，使响应者先前不知道的各方能够发起联系。零泄漏通信可以通过首先执行X3DH来建立双棘轮协议用于数据加密的种子密钥，以及所使用的提要索引方法来实现。这将使响应者能够检索发件箱提要的更新。
+Swarm X3DH协议允许双方建立一个共享的秘密，以形成用于确定握手后双向消息传递中使用的加密密钥的输入。\emph{initiator}是发起与\emph{应答器}的双向通信的一方。响应者应该发布必要的信息，使响应者先前不知道的各方能够发起联系。零泄漏通信可以通过首先执行X3DH来建立双棘轮协议用于数据加密的种子密钥，以及所使用的提要索引方法来实现。这将使响应者能够检索发件箱提要的更新。
 
 X3DH使用如下密钥:%
 %
@@ -2047,7 +2054,7 @@ X3DH使用如下密钥:%
 \end{figure}
 
 
-\gloss{pre-key bundle}包含启动器需要知道的关于响应器的所有信息。然而，这些信息不是存储在(通常是第三方)服务器上，而是存储在Swarm中。为了人性化的身份管理，可以选择使用ENS提供熟悉的基于用户名的身份。ENS解析器的所有者代表该人物的长期公共身份密钥，并被认为已经过身份验证。长期标识地址可以用来构造一个基于时代的提要，该提要的主题id表明它为将要对应的对象提供了预键包。当使用新身份启动通信时，发起者将检索来自提要的最新更新，其中包含当前\emph{居民主要}(又称\emph{签署pre-key})和当前\emph{居住地址}，即(可能有多个)覆盖目标目标，在这些目标中，角色希望她可以接收pss消息。提要更新块中的签名同时对常驻密钥(参见签名的预密钥)和目标目标进行签名。从该签名中恢复的公钥提供了长期身份公钥，参见图\ref{fig:prekey-bundle-feed-update}。
+\gloss{pre-key bundle}包含启动器需要知道的关于响应器的所有信息。然而，这些信息不是存储在(通常是第三方)服务器上，而是存储在Swarm中。为了人性化的身份管理，可以选择使用ENS提供熟悉的基于用户名的身份。ENS解析器的所有者代表该人物的长期公共身份密钥，并被认为已经过身份验证。长期标识地址可以用来构造一个基于时代的提要，该提要的主题id表明它为将要对应的对象提供了预键包。当使用新身份发起通信时，发起者将检索来自提要的最新更新，其中包含当前的\emph{resident key}(即\emph{signed pre-key})和当前的\emph{addresses of residence}，即(可能有多个)覆盖目标目标，其中角色希望她可以接收pss消息。提要更新块中的签名同时对常驻密钥(参见签名的预密钥)和目标目标进行签名。从该签名中恢复的公钥提供了长期身份公钥，参见图\ref{fig:prekey-bundle-feed-update}。
 
 
 \begin{figure}[htbp]
@@ -2078,16 +2085,16 @@ X3DH使用如下密钥:%
 
 \subsubsection{挖掘单个所有者块地址}
 
-问题马上就出现了，以某种方式挖掘单个所有者的大块是否有意义。由于本例中的地址是一个32字节标识符和一个20字节帐户地址的散列，因此id提供了足够的熵来挖掘地址，即使所有者帐户是固定的。因此，对于一个特定的帐户，如果我们发现一个id，这样产生的单个所有者块地址接近目标覆盖地址，块可以作为一个消息，类似于木马块的方式。然而，重要的是，由于地址可以在块内容与之关联之前被挖掘，因此该构造可以作为\gloss{addressed envelope}。
+问题马上就出现了，以某种方式挖掘单个所有者的大块是否有意义。由于本例中的地址是一个32字节标识符和一个20字节帐户地址的散列，因此id提供了足够的熵来挖掘地址，即使所有者帐户是固定的。因此，对于一个特定的帐户，如果我们发现一个id，这样产生的单个所有者块地址接近目标Overlay地址，块可以作为一个消息，类似于木马块的方式。然而，重要的是，由于地址可以在块内容与之关联之前被挖掘，因此该构造可以作为\gloss{addressed envelope}。
 
 让我们明确与这个结构相关的角色:
 
 \begin{itemize}
-\item \emph{发行人} ($I$)—通过挖掘地址来创建信封。 
-\item 将内容放入信封，并将其作为有效的单个所有者块发布到Swarm。
-\item \emph{老板} ($O$)—拥有地址的帐户部分的私钥，因此可以在有效负载与标识符的关联上签字。这实际上决定了信封的内容。
-\item \emph{目标} ($T$)——挖掘的约束:必须形成挖掘地址前缀的位序列。它表示覆盖地址空间中的一个邻居，信封将被发送到那里。目标序列的长度对应于挖掘的难度。这个目标越长，信封能够到达的范围就越小。
-\item \emph{收件人} ($R$)——其覆盖地址以目标序列作为前缀，因此是消息的目的地的一方
+\item \emph{issuer} ($I$)—通过挖掘地址来创建信封。 
+\item \emph{poster} ($P$)——将内容放入信封，并将其作为有效的单个所有者块发布到Swarm。
+\item \emph{owner} ($O$)—拥有地址的帐户部分的私钥，因此可以在有效负载与标识符的关联上签字。这实际上决定了信封的内容。
+\item \emph{target} ($T$) -挖掘的约束:必须形成挖掘地址前缀的位序列。它表示覆盖地址空间中的一个邻居，信封将被发送到那里。目标序列的长度对应于挖掘的难度。这个目标越长，信封能够到达的范围就越小。
+\item \emph{recipient} ($R$) -其覆盖地址以目标序列作为前缀，因此是消息的目的地的一方
 \end{itemize}
 
 信封可以被认为是开放的:因为发帖者也是响应单所有者块的所有者，他们能够控制将什么内容放入块中。通过构造这样的包络，发布者有效地允许发布者向目标发送任意消息，而不需要计算挖掘数据块。参见图\ref{fig:addressed-envelope-events}。 
@@ -2112,7 +2119,7 @@ X3DH使用如下密钥:%
 
 \subsubsection{预付邮资}
 
-这些块的行为方式与普通的木马消息相同，它们的隐私属性是相同的，即使不是更好，因为发布者/接收者可以将加密消息的随机公钥关联起来，甚至使用对称加密。如果预先支付了地址的邮资，然后把邮票交给某人稍后发布，他们可以使用push-sync将部分内容发送给目标用户，而不需要海报支付任何费用，因为\gloss{stamped addressed envelope}已经支付了相关费用。这种构造有效地实现了\emph{已付邮资的回邮信封}，并作为各种高级通信需求的底层解决方案:1)向订阅者推送更新通知，而不给发送者带来任何计算或财务负担;2)免费联系凭证;3)零延迟直接消息响应。  
+这些块的行为方式与普通的木马消息相同，它们的隐私属性是相同的，即使不是更好，因为发布者/接收者可以将加密消息的随机公钥关联起来，甚至使用对称加密。如果预先支付了地址的邮资，然后把邮票交给某人稍后发布，他们可以使用push-sync将部分内容发送给目标用户，而不需要海报支付任何费用，因为\gloss{stamped addressed envelope}已经支付了相关费用。这种构造有效地实现了\emph{addressed envelopes with pre-paid postage}，并可作为各种高层通信需求的底层解决方案:1)向订阅者推送更新通知，而不给发送者带来任何计算或财务负担;2)免费联系凭证;3)零延迟直接消息响应。  
 
 
 \subsubsection{发行贴上邮票、写好地址的信封}
@@ -2120,11 +2127,11 @@ X3DH使用如下密钥:%
 发行贴有邮票并写好地址的信封的程序如下:
 
 \begin{enumerate}
-\item \emph{假设}发行者$I$，潜在发帖者$P$和潜在接收者$R$，使用公钥$K_I, K_P, K_R$和覆盖地址$A_I, A_P, A_R$。
-\item \emph{我的}—$I$找到一个临时的$N_R$，这样当作为一个标识符来创建\gloss{single owner chunk}时，块的地址哈希到位于$A_R$最近邻的$H_R$。
-\item \emph{支付邮资}—$I$签署$H_R$以产生一个证人，以支付适当的邮资来产生$PS_R$邮票。
-\item \emph{封装}——封装$N_R$和$PS_R$，代表预先地址到收件人地址的预付信封，并用$K_P$加密，然后包装成一个木马块。
-\item \emph{我的}——找到一个即时$N_P$，使木马块哈希到$A_P$最近的邻居$H_P$。 
+\item \emph{assume}发行者$I$，预期海报发布者$P$，预期接收人$R$，其公钥为$K_I, K_P, K_R$，覆盖地址为$A_I, A_P, A_R$。
+\item \emph{mine}—$I$找到一个临时的$N_R$，当作为一个标识符来创建\gloss{single owner chunk}时，块的地址哈希到位于$A_R$最邻近的$H_R$。
+\item \emph{pay postage}—$I$签署$H_R$以产生一个证人，以支付适当的邮资来产生$PS_R$邮票。
+\item \emph{encapsulate}——封装$N_R$和$PS_R$，代表预先发送到收件人地址的预付信封，并用$K_P$加密，然后包装成一个木马块。
+\item 找到一个即时的$N_P$，使木马块哈希到$A_P$最近的邻居$H_P$。 
 \end{enumerate}
 
 
@@ -2135,10 +2142,10 @@ X3DH使用如下密钥:%
 一个潜在的海报$P$被假定收到一个由预付费信封$E$组成的木马消息。为了打开它，她执行了以下步骤:
 
 \begin{enumerate}
-    \item 带有属于$K_P$私钥的\emph{解密}消息
+    \item 带有属于$K_P$私钥的\emph{decrypt}消息
     \item \emph{deserialise}拆包识别$PS_R$和$N_R$，从$PS_R$中提取$H_R$
-    \item \emph{验证}邮票$PS_R$，并检查$N_R$是否与$K_P$的帐户散列结果为$H_R$，以确保相关地址实际上属于$P$。
-    \item \emph{商店} $N_R$和$PS_R$ 
+    \item \emph{verify}邮票$PS_R$，并检查$N_R$是否与$K_P$的帐户散列结果为$H_R$，以确保相关地址实际上属于$P$。
+    \item \emph{store} $N_R$和$PS_R$ 
 \end{enumerate}
 
 \subsubsection{邮寄贴好邮票、写好地址的信封}
@@ -2146,11 +2153,11 @@ X3DH使用如下密钥:%
 当发帖者想要使用信封向$R$发送任意消息$M$(发送者可能不知道接收方$R$)时，他们必须遵循以下步骤:
 
 \begin{enumerate}
-\item \emph{加密}消息内容$M$与$K_R$创建有效负载，并将其包装在木马消息$T$
-\item 加密木马消息导致$H_T$
-\item \emph{标志} $H_T$使用属于$K_P$的私钥对标识符$N_R$生成签名$W$
-\item \emph{封装}将$N_R$作为id，签名$W$和木马消息$T$作为地址为$H_R$的有效单个所有者块的有效载荷
-\item \emph{帖子}具有有效戳记$PS_R$的块
+\item 消息内容$M$与$K_R$创建一个有效负载，并将其包装在木马消息$T$
+\item \emph{hash}加密的木马消息，导致$H_T$
+\item 使用属于$K_P$的私钥对标识符$N_R$进行\emph{sign} $H_T$，生成签名$W$
+\item \emph{encapsulate}将$N_R$作为id，签名$W$和木马消息$T$作为地址为$H_R$的有效单个所有者块的有效载荷
+\item 使用有效戳记$PS_R$的块进行\emph{post}
 \end{enumerate}
 
 \subsubsection{收到贴好地址的信封}
@@ -2158,10 +2165,10 @@ X3DH使用如下密钥:%
 当$R$接收到地址为$H_R$的块时
 
 \begin{enumerate}
-\item \emph{验证}邮票$PS_R$，并验证块作为一个单独的所有者块与有效载荷$T$。
-\item \emph{解密} $T$，私钥属于$K_R$。
+\item \emph{verify}盖章$PS_R$，并使用有效载荷$T$验证块为单个所有者块。
+\item \emph{decrypt} $T$，私钥属于$K_R$。
 \item \emph{deserialise}将明文作为木马消息，识别消息有效载荷$M$并检查其完整性。
-\item \emph{消费} $M$。
+\item \emph{consume} $M$。
 \end{enumerate}
 
 \subsection{通知requests\statusgreen}\label{sec:notification-requests} 
@@ -2184,7 +2191,7 @@ X3DH使用如下密钥:%
    \label{fig:direct-notification}
 \end{figure}
 
-木马消息在其主题中指定它是一个通知，并使用公钥加密。当地址被挖掘到匹配一个足够长的前缀上的接收者覆盖地址时，消息最终被推同步到接收者的邻居。每当接收者上线并通过推同步接收数据块时，它就会检测到这是一条消息。它可以确定为通过解密块这样的内容与关键成功解决他们的广告,或如果收件人发出pre-addressed信封本身,只需查找记录的地址他们保存的时候发布。事件的时间轴见图\ref{fig:direct-notification-events}。
+木马消息在其主题中指定它是一个通知，并使用公钥加密。当地址被挖掘到匹配一个足够长的前缀上的接收者Overlay地址时，消息最终被推同步到接收者的邻居。每当接收者上线并通过推同步接收数据块时，它就会检测到这是一条消息。它可以确定为通过解密块这样的内容与关键成功解决他们的广告,或如果收件人发出pre-addressed信封本身,只需查找记录的地址他们保存的时候发布。事件的时间轴见图\ref{fig:direct-notification-events}。
 
 
 \begin{figure}[htbp]
@@ -2199,7 +2206,7 @@ X3DH使用如下密钥:%
 
 \subsubsection{通知从附近}
 
-假设有一个提要，其所有者没有显示其覆盖(目标目标)或拒绝处理通知。提要是使用简单的顺序索引偶尔更新的，因此在查找最新更新时轮询是不可行的，特别是在使用者随时可能离线的情况下。
+假设有一个提要，其所有者没有显示其Overlay(目标目标)或拒绝处理通知。提要是使用简单的顺序索引偶尔更新的，因此在查找最新更新时轮询是不可行的，特别是在使用者随时可能离线的情况下。
 消费者是否还能获得通知?
 
 我们介绍了另一个结构，\gloss{neighbourhood notification}，它在不需要通知发布者知道潜在招贴者身份的情况下工作。但是，它预先假定内容或至少内容的散列是已知的，以便发布者自己可以对其签名。
@@ -2216,7 +2223,7 @@ X3DH使用如下密钥:%
 \end{figure}
 
 如果通知只需要包含提要更新地址作为其有效负载，则颁发者可以自行签署将其与标识符关联。这个签名和标识符应该被认为是信封的必要组成部分，并且必须作为通知请求的一部分发送。
-与出版商直接使用的\emph{开放}信封不同，邻里通知可以被视为\emph{关闭}信封，其内容事先得到发行人的批准。
+与直接与出版商使用的\emph{open}信封不同，邻里通知可以被视为\emph{closed}信封，其内容事先得到发行人的批准。 
 
 现在，发布者而不是发布者成为数据块的所有者，并且当发布者创建和发布通知时，签名已经对其可用。因此，海报不需要公开密钥或帐户地址信息。事实上，海报的身份不需要固定，任何同行都可以作为候选海报。发布者因此可以将通知请求发送到提要更新块的邻近区域。最近的邻居将按照所附邮票的指示保持请求块，直到他们收到指示收到通知的适当feed更新块。请参见图\ref{fig:neighbourhood-notification-events}，了解使用邻居通知时的事件时间轴。
 
@@ -2281,7 +2288,7 @@ X3DH使用如下密钥:%
 
 在本章中，我们关注的是数据持久性，即确保内容在Swarm上保持可用性的方法。
 我们引入了错误编码方案，它可以以存储开销为代价，提供一种确保可用性的方法。
-特别是\glossplural{erasure code} (\ref{sec:repair})和\glossplural{entanglement code} %(\ref{sec:缠结})
+特别是\glossplural{erasure code} (\ref{sec:repair})和\glossplural{entanglement code} %(\ref{sec:entanglements}) 
 为具有不同访问模式的文档提供优化的冗余。
 % First we discuss how popular content stays alive due to opportunistic caching (\ref{sec:caching}).  
 在\ref{sec:reupload}中引入了本地固定的概念，即在你的Swarm本地存储中将内容标记为粘性的能力之后，我们将介绍一些有助于实现整个网络的全局持久性的方法。我们定义了一个\gloss{missing chunk notification protocol}，它允许内容维护者在一些块被垃圾收集的事件中确保他们发布的内容被恢复，通过通过选择\glossplural{pinner}的内容进行代理检索。
@@ -2309,7 +2316,7 @@ X3DH使用如下密钥:%
 \subsection{通过擦除码实现冗余\statusgreen}\label{sec:erasure}
 
 
-\gloss{Cauchy-Reed-Solomon erasure code}(今后\gloss{CRS} \cite{lubyetal1995CRS} \cite{plank2006optimizing})是一个\emph{系统性} \gloss{erasure code},当应用到一个blob $m$固定大小的数据块,产生额外$k$相同大小的块(所以称为\emph{奇偶校验块})这样的$m$ $n=m+k$ fix-sized块足以重建原来的团。因此存储开销是由decfa .%给出的
+\gloss{Cauchy-Reed-Solomon erasure code}(今后\gloss{CRS} \cite{lubyetal1995CRS} \cite{plank2006optimizing})是一个\emph{systemic} \gloss{erasure code},当应用到一个blob $m$固定大小的数据块,产生额外$k$相同大小的块(所以称为\emph{parity chunks})这样的$m$ $n=m+k$ fix-sized块足以重建原来的团。因此存储开销是由decfa .%给出的
 %
 \footnote{%
 有几个开源库实现了Reed-Solomon或Cauchy-Reed-Solomon编码。详细的比较请参阅\cite{plank2009performance}。}
@@ -2343,15 +2350,15 @@ Swarm使用分层Merkle树\cite{merkle1980protocols}将数据重新组织成固�
 \begin{figure}[htbp]
    \centering
    \input{fig/Swarm-hash-split.tex}
-   \caption[群集哈希分裂\statusgreen]{蜂群树是一种数据结构，编码文档如何分割成块。}
+   \caption[Swarm哈希分裂\statusgreen]{Swarm树是一种数据结构，编码文档如何分割成块。}
    \label{fig:Swarm-hash-split}
 \end{figure}
 
 虽然现成的擦除编码可以用于上传至Swarm的文档，但这种解决方案存在直接的问题。除了编码的二次复杂度外，\gloss{chunking} crs编码的数据团与BMT块将导致某些块更容易受到攻击，因为它们的检索依赖于对块树中编码它们所有祖先节点的块的检索。
 
-这促使我们尝试将群块的概念与CRS方案中使用的块对齐，这导致我们将冗余直接编码到群树中。这是通过将\emph{CRS方案}应用到Swarm树中节点的每一组子块来实现的。
+这促使我们尝试将群块的概念与CRS方案中使用的块对齐，这导致我们将冗余直接编码到群树中。这是通过将\emph{CRS scheme}应用到Swarm树中一个节点的子节点的每一组块来实现的。
 
-采用CRS编码的\emph{块}算法在拆分文档时的工作方式如下:
+包含CRS编码的\emph{chunker}算法在拆分文档时的工作方式如下:
 
 \begin{enumerate}
 \item 将输入设置为数据团。
@@ -2398,7 +2405,7 @@ A typical piece of our tree would look like this (see figure \ref{fig:Swarm-hash
 
 当下载带有擦除编码的文件时，包含在中间块下的数据可以从$m+k$的子块中恢复出任何$m$。下载器可以发起对所有$m+k$的请求，只需要等待第一个$m$的交付，以便继续进行。
 这种技术可以有效地屏蔽由于网络争用、连接缺口和节点流失等偶然故障而导致的块不可用;价格过高的社区，甚至针对某些地区的恶意攻击。给定一个特定的故障模型的流失和吞吐量，擦除码可以被校准
-\emph{保证检索延迟的上限}，一个强有力的服务质量主张。
+\emph{guarantee an upper limit on retrieval latencies}，一个强大的服务质量主张。
 
 
 
@@ -2454,20 +2461,20 @@ A typical piece of our tree would look like this (see figure \ref{fig:Swarm-hash
 通常，这个缩略词的解析捕获协议的属性:
 
 \begin{itemize}
-\item \emph{删除后恢复协议} -请求者和piner之间的协议，在垃圾收集后协调块恢复。如果下载程序检索块失败，则会触发该进程。
-\item 恢复主机持续侦听来自下载程序的潜在恢复请求。
-\item \emph{提供DISC维修} -
+\item \emph{protocol for recovery on deletion} -请求者和piner之间的协议，在垃圾收集后协调块恢复。如果下载程序检索块失败，则会触发该进程。
+\item \emph{process request of downloader} -恢复主机持续侦听来自下载程序的潜在恢复请求。
+\item \emph{provide repair of DISC} - 
 在数据丢失的情况下，Prod提供修复群集磁盘的服务。
-\item \emph{Pin和重新上传数据} -
+\item \emph{pin and re-upload of data} -     
 主机将数据钉住，并在提示恢复请求时将其重新上传到指定区域。 
-\item \emph{按需迅速响应}—如果请求者要求一个提示的直接响应，主机将使用恢复响应信封和附带的邮票发送丢失的块。
+\item \emph{prompt response on demand} -如果请求者要求立即直接响应，主机将使用恢复响应信封和附带的邮票将丢失的块发送。
 \end{itemize}
 
 \subsubsection{恢复主机}
 
 \glossupperplural{recovery host}是愿意在恢复上下文中提供固定块的固定块。这些pinners应该表示他们将把这个任务交给发行商，并下载了所有相关的块，并将它们全部固定在本地实例中。 
 
-希望将其出版物发布为全局固定或可修复的发布者将收集这些自愿恢复主机的覆盖地址。事实上，只收集长度大于Swarm深度的覆盖层前缀就足够了。我们将这些部分地址称为\gloss{recovery targets}。
+希望将其出版物发布为全局固定或可修复的发布者将收集这些自愿恢复主机的Overlay地址。事实上，只收集长度大于Swarm深度的Overlay层前缀就足够了。我们将这些部分地址称为\gloss{recovery targets}。
 
 发布者将通过名为\gloss{recovery feed}的提要向其数据的消费者发布其内容的恢复目标。发布者数据的使用者可以根据使用简单顺序索引方案构造主题的约定跟踪该提要(请参阅\ref{spec:format:recovery})。 
 
@@ -2479,7 +2486,7 @@ A typical piece of our tree would look like this (see figure \ref{fig:Swarm-hash
 
 \subsubsection{恢复请求}
 
-一旦恢复主机覆盖目标被揭示给下载节点，当遇到丢失的块时，它们应该通过发送一个名为\gloss{recovery request}的通知来“刺激”其中一个恢复主机。此目标块交付实例(参见\ref{sec:notification-requests})是一个公共的未加密木马消息，至少包含丢失的块地址，参见图\ref{fig:recovery-request}。
+一旦恢复主机Overlay目标被揭示给下载节点，当遇到丢失的块时，它们应该通过发送一个名为\gloss{recovery request}的通知来“刺激”其中一个恢复主机。此目标块交付实例(参见\ref{sec:notification-requests})是一个公共的未加密木马消息，至少包含丢失的块地址，参见图\ref{fig:recovery-request}。
 
 \begin{figure}[htbp]
   \centering
@@ -2574,14 +2581,14 @@ Figure \ref{fig:flowchart-retrieval-litigation}给出了事件的完整时间轴
 \subsection{上传标签和进度条\statusgreen}\label{sec:tags}
 当上传一个文件或集合时，对于用户来说，知道上传什么时候完成是很有用的，因为所有新创建的块都被同步到网络并到达可以检索它们的邻居。此时，上传者可以“消失”，也就是可以退出他们的客户端。发布者可以传播根哈希，并确保文件或集合可以从Swarm上的每个节点检索。
 
-由于推送同步协议提供了单个区块的托管收据声明我们只需要收集并统计一次上传。跟踪发送的数据块和返回的收据的比例将数据提供给\emph{进度条}。\gloss{upload tag}是一个表示上传并通过计算有多少块达到特定状态来跟踪进度的对象。美国是: 
+由于推送同步协议提供了单个区块的托管收据声明我们只需要收集并统计一次上传。跟踪发送块和返回收据的比率将数据提供给\emph{progress bar}。\gloss{upload tag}是一个表示上传并通过计算有多少块达到特定状态来跟踪进度的对象。美国是: 
 
 \begin{itemize}
-\item \emph{分裂}——分割的块数;数块实例。
-\item \emph{存储}——本地存储的块数量;数块实例。
-\item \emph{见过}——先前存储的块的计数(重复)。
-\item \emph{发送}——使用推同步发送的不同块的数量。
-\item \emph{同步}——托管声明到达的不同块的数量。
+\item \emph{split}——分割的块数;数块实例。
+\item \emph{stored}——本地存储的块数量;数块实例。
+\item \emph{seen}——先前存储的块的计数(重复)。
+\item \emph{sent}——使用推同步发送的不同块的数量。
+\item \emph{synced}——托管声明到达的不同块的数量。
 \end{itemize}
 
 在这些计数的帮助下，人们可以监控分块存储、推同步和收据的进程。
@@ -2618,10 +2625,10 @@ http服务器的\lstinline{bzz} URL方案为标记API提供了\lstinline{tags}�
 用户为一定数量的时间和存储创建一个订阅(例如100兆字节1个月)，并根据他们从客户端软件了解到的价格支付(这与区块链的交易费用是如何确定的类似)。价格的估计可以从邮资彩票合同中读到。订阅被命名，但这些名称仅在本地有意义。API将在对数尺度上为所选择的存储周期提供一些默认选项，例如: 
 
 \begin{itemize}
-\item \emph{最少(几个小时)}——用于即时传递pss消息或单个所有者块，临时性聊天或其他临时文件的一部分。
-\item \emph{临时的(周)}——文件或邮箱消息意味着不存储很长时间，而是由第三方异步提取。
-\item \emph{长期(一年)}——默认的长期存储。 
-\item \emph{永远(10年)}—不可丢失/遗忘的重要内容;即使上传者完全离线，也要在网络增长和后续批深度增加的情况下生存下来。
+\item \emph{minimal (a few hours)}——用于即时传递pss消息或单个所有者块的短暂聊天或其他临时文件的一部分。
+\item \emph{temporary (week)}——文件或邮箱消息不存储很长时间，而是由第三方异步提取。
+\item \emph{long term (year)}——默认长期存储。 
+\item \emph{forever (10 years)}——不可丢失/遗忘的重要内容;即使上传者完全离线，也要在网络增长和后续批深度增加的情况下生存下来。
 \end{itemize}
 
 当用户上传文件时，他们还可以指示要使用哪个订阅作为\lstinline{stamp}上传参数的值。如果没有给出，则使用最近的作为默认值。如果上传的大小是已知的，如果它大于邮资容量，用户可以被警告。 
@@ -2734,7 +2741,7 @@ http服务器提供实现集合存储API的\lstinline{bzz} URL方案(参见\ref{
 
 \lstinline{bzz} URL方案支持下载。这个URL方案假设URL的域部分引用一个清单作为入口点。
 
-虽然这一节的标题是下载，但是如果只检索部分文件，则执行相同的过程。如\ref{sec:files}和afaed所示，在最低级别上支持以任意偏移量随机访问文件。因此，指向文件的URL上的GET请求在报头中接受\gloss{range queries}。范围查询将触发对覆盖所需范围的所有文件块(除了那些块外)的检索。  
+虽然这一节的标题是下载，但是如果只检索部分文件，则执行相同的过程。如\ref{sec:files}和afaed所示，在最低级别上支持以任意偏移量随机访问文件。因此，指向文件的URL上的GET请求在报头中接受\gloss{range queries}。范围查询将触发对Overlay所需范围的所有文件块(除了那些块外)的检索。  
 
 \subsubsection{检索成本}
 
@@ -2768,8 +2775,8 @@ Diffie—Hellmann共享密钥使用一个常量进行哈希，以获得查找密
 如果给定了\lstinline{crs}属性，可以采用两种策略: 
 
 \begin{itemize}
-\item \emph{回退}——对于所有中间块，CRS奇偶校验块首先被忽略，只有在缺少非奇偶校验块时才会使用它们。这节省了一些带宽和相应的速度成本:如果一个块丢失，回退到CRS将被延迟。
-\item \emph{比赛}——对于所有中间块，CRS对等立即与其他子块一起检索。第一个$n$(假设$k$为\lstinline{crs}的值，即来自$n+k$编码方案的$n$)块将能够重建所有$n$真实的子块。这相当于说可以忽略$k$最慢的块检索。  
+\item \emph{fallback}——对于所有中间块，CRS奇偶校验块首先被忽略，只有在缺少非奇偶校验块时才会使用它们。这节省了一些带宽和相应的速度成本:如果一个块丢失，回退到CRS将被延迟。
+\item \emph{race}——对于所有中间块，CRS的奇偶值将立即与其他子块一起检索。第一个$n$(假设$k$为\lstinline{crs}的值，即来自$n+k$编码方案的$n$)块将能够重建所有$n$真实的子块。这相当于说可以忽略$k$最慢的块检索。  
 \end{itemize}
 
 默认的策略选择是\lstinline{race}，如果用户想在下载时保存，那么可以通过设置报头\lstinline{SWARM-CRS-STRATEGY=fallback}强制执行回退策略，或者通过设置becee完全禁用回退策略。擦除码批处理的校验数取自外围清单的\lstinline{crs}属性，但可以用报头\lstinline{SWARM-CRS-PARITIES}重写。
@@ -2782,15 +2789,15 @@ Diffie—Hellmann共享密钥使用一个常量进行哈希，以获得查找密
 
 \subsubsection{诉讼}
 
-如果丢失的块通知没有返回块，但是文件被保险了，作为最后的手段，客户端可以提起诉讼(请参阅\ref{sec:chunk-insurance})。为此需要收据。为了获得收据，我们首先确定哪个保险公司对问题部分负责(见\ref{sec:insurance})。使用它们的公钥，我们可以构造指向当前收据清单根的提要地址。将块地址附加到这个引用后，客户端就可以检索收据了。一旦获得收据，客户就可以通过提交对\emph{发誓}合同的挑战来开始诉讼。由于持有收据的数据结构是由保险人隐式投保的，如果需要获取收据的任何块丢失了，可以将挑战作为该块的引用提交。这个挑战将包含包含在更新中找到的根哈希中包含引用的段的包含证明，以及提要块中的标识符和签名，而不是签名的收据。 
+如果丢失的块通知没有返回块，但是文件被保险了，作为最后的手段，客户端可以提起诉讼(请参阅\ref{sec:chunk-insurance})。为此需要收据。为了获得收据，我们首先确定哪个保险公司对问题部分负责(见\ref{sec:insurance})。使用它们的公钥，我们可以构造指向当前收据清单根的提要地址。将块地址附加到这个引用后，客户端就可以检索收据了。一旦获得收据，客户就可以通过提出对\emph{swear}合同的质疑来开始诉讼。由于持有收据的数据结构是由保险人隐式投保的，如果需要获取收据的任何块丢失了，可以将挑战作为该块的引用提交。这个挑战将包含包含在更新中找到的根哈希中包含引用的段的包含证明，以及提要块中的标识符和签名，而不是签名的收据。 
 
 \section{沟通\statusred}\label{sec:messaging}
 
-\red{没有覆盖}
+\red{没有Overlay}
 
-令人惊讶的是，Swarm的网络层可以作为一个高效的通信平台，并且具有极强的隐私属性。本章试图定义一套完整的原语集合，这些原语作为基础层通信基础设施的构建块，覆盖了所有的通信方式，包括实时匿名聊天、从以前未连接的地方发送和接收消息、潜在的匿名发送者、用于异步传递、长期通知和发布/订阅接口的邮件装箱。
+令人惊讶的是，Swarm的网络层可以作为一个高效的通信平台，并且具有极强的隐私属性。本章试图定义一套完整的原语集合，这些原语作为基础层通信基础设施的构建块，Overlay了所有的通信方式，包括实时匿名聊天、从以前未连接的地方发送和接收消息、潜在的匿名发送者、用于异步传递、长期通知和发布/订阅接口的邮件装箱。
 
-蜂群核心提供了最低水平的入门点的功能相关的通信。
+Swarm核心提供了最低水平的入门点的功能相关的通信。
 
 \begin{itemize}
     \item pss提供了一个API来发送和接收木马块
@@ -2799,7 +2806,7 @@ Diffie—Hellmann共享密钥使用一个常量进行哈希，以获得查找密
 
 
 
-从用户体验的角度来看，这些pss和feed的原始界面太低级了。然而，重要的是，任何更高层次的解决方案都可以安全地构建在蜂群核心基础设施之上，理想情况下是作为养蜂场中的软件包。
+从用户体验的角度来看，这些pss和feed的原始界面太低级了。然而，重要的是，任何更高层次的解决方案都可以安全地构建在Swarm核心基础设施之上，理想情况下是作为养蜂场中的软件包。
 
 \subsection{提要\statusorange}\label{sec:feeds-ux}
 
