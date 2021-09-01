@@ -1,7 +1,7 @@
 
 \green{}
 
-Swarm项目旨在为未来自主的数字社会建立无须许可的存储和通信基础设施。从开发者的角度来看，Swarm是一个公共基础设施，为\gloss{Web 2.0}时代的实时交互式web应用程序提供动力。它为原语提供了一个低级的API，原语作为复杂应用程序的构建块，以及基于swarm的\gloss{Web 3.0}开发堆栈的工具和库的基础。API和工具的设计初衷是允许从任何传统浏览器访问Swarm网络，因此Swarm可以立即提供一个私有和去中心化的方案替代今天的\gloss{World Wide Web} (\gloss{WWW})。
+Swarm项目旨在为未来自主的数字社会建立无须许可的存储和通信基础设施。从开发者的角度来看，Swarm是一个公共基础设施，赋能\gloss{Web 2.0}时代的实时交互式web应用程序。它为原语提供低级的API，原语是复杂应用程序的基本要素，也是基于Swarm的\gloss{Web 3.0}开发栈的工具和库的基础。API和工具的设计初衷是允许从任何传统浏览器访问Swarm网络，因此Swarm可以立即提供一个私有和去中心化的方案替代今天的\gloss{World Wide Web} (\gloss{WWW})。
 
 \begin{figure}[htbp]
   \centering
@@ -13,48 +13,48 @@ Swarm项目旨在为未来自主的数字社会建立无须许可的存储和通
 本部分详细介绍了系统的设计和体系结构。按照\ref{sec:design-principles}中提出的原则，我们强调模块化设计，并将Swarm设想为具有清晰可分离的层，每个层都依赖于前一个层(见图\ref{fig:Swarm-layered-design}):
 
 \begin{itemize}
-\item (1) \emph{作为底层传输的点对点网络协议，}
-\item (2) \emph{Overlay网络层，它的协议支持\glossplural{chunk}(固定大小的数据块)的分布式不可变存储，}
-\item (3) \emph{提供高级数据访问和为基础层特性定义api的组件}
+\item (1) \emph{underlay传输层以点对点网络协议传输数据，}
+\item (2) \emph{overlay网络层及它的协议支持以分布式不可变方式存储\glossplural{chunk}(固定大小的数据块)，}
+\item (3) \emph{提供高级数据访问组件，为基础层特性定义api，}
 \item (4) \emph{应用层定义标准，为更精细的用例概述最佳实践。}
 \end{itemize}
 
 我们将(2)和(3)作为Swarm的核心。由于网络层依赖于它，我们也将制定(1)的要求，但我们考虑(1)和(4)的详细处理超出了本书的范围。
 
 
-以设计为中心，在\ref{sec:network}章节讨论了Swarm overlay network(图\ref{fig:Swarm-layered-design}中的第二层)的架构，并在\ref{sec:incentivisation}章节进行了补充，描述了使Swarm能够自我维持的经济激励系统。\ref{sec:high-level-functionality}章,我们介绍了允许Swarm将数据概念映射到chunk层的算法和约定，以实现存储和通信的高级功能，特别是数据结构，如文件系统和数据库、访问控制\gloss{access control}、索引种子\gloss{feeds}和直接消息传递，这些构成了Swarm的第三层。
-在\ref{sec:persistence}章节中，我们提出了防止垃圾收集块从网络中消失的方法，包括:\glossplural{erasure code}、\gloss{pinning}和保险，并提供了使用丢失块通知和保险挑战来监控、恢复和重新上传它们的方法。
-最后，在\ref{sec:ux}章节中，我们将从用户体验的角度来研究功能。
+以设计为中心，在第\ref{sec:network}章节讨论了overlay网络(图\ref{fig:Swarm-layered-design}中的第二层)的架构，并在第\ref{sec:incentivisation}章节进行了补充，描述了使Swarm能够自我维持的经济激励系统。第\ref{sec:high-level-functionality}章,介绍了允许Swarm将数据概念映射到chunk层的算法和约定，以实现存储和通信的高级功能，特别是数据结构如文件系统和数据库、访问控制（\gloss{access control}）、索引种子（\gloss{feeds}）和直接消息传递，这些构成了Swarm的第三层。
+在第\ref{sec:persistence}章节中，提出了防止垃圾收集块从网络中消失的方法，包括：纠删码（\glossplural{erasure code}）、钉住（\gloss{pinning}）和保险，并提供了使用丢失块通知和保险挑战来监控、恢复和重新上传它们的方法。
+最后，在第\ref{sec:ux}章节中，将从用户体验的角度来研究功能。
 
 \chapter{网络}\label{sec:network}
 
-本章讲述了Swarm Overlay网络如何建立在\gloss{peer-to-peer}网络协议之上，形成允许在节点之间路由消息的拓扑结构(\ref{sec:topology-routing})。在\ref{sec:kademlia-storage}中，我们描述了这样一个网络如何作为数据块(\ref{sec:chunks})的可扩展\gloss{distributed storage}解决方案，并给出了支持检索/下载和同步/上传协议(\ref{sec:push-and-pull})的逻辑。
+本章讲述了Swarm中的overlay网络如何建立在\gloss{peer-to-peer}网络协议之上，并形成允许在节点之间路由消息的拓扑结构(\ref{sec:topology-routing})。在\ref{sec:kademlia-storage}中，描述了该网络是如何解决\ref{sec:chunks}的可扩展分布式存储（\gloss{distributed storage}），并给出了支持检索/下载和同步/上传协议(\ref{sec:push-and-pull})的逻辑。
 
 \section{拓扑和路由\statusgreen}\label{sec:topology-routing}
 
-本节通过明确关于底层网络(第1层)的假设，为Swarm的\gloss{overlay network}(第2层)设置场景(\ref{sec:underlay-transport})。\ref{sec:overlay-addressing}介绍了\gloss{overlay address space}并解释了节点如何分配地址。在\ref{sec:kademlia-routing}中，我们提出了\gloss{Kademlia} \gloss{overlay topology}(连接模式)，并解释了它如何解决节点之间的路由。在\ref{sec:bootstrapping}中，我们展示了运行Swarm客户端的节点如何发现彼此，引导并维护Overlay拓扑。
+本节通过明确关于底层网络(\gloss{underlay network})(第1层)的假设，为\gloss{overlay network}(第2层)作好准备(\ref{sec:underlay-transport})。\ref{sec:overlay-addressing}介绍了\gloss{overlay address space}并解释了节点如何分配地址。在\ref{sec:kademlia-routing}中，我们提出了\gloss{Kademlia} \gloss{overlay topology}(连接模式)，并解释了它如何解决节点之间的路由。在\ref{sec:bootstrapping}中，我们展示了运行Swarm客户端的节点如何发现彼此，自举并维护overlay拓扑。
 
 \subsection{底层网络的要求\statusyellow}\label{sec:underlay-transport} 
 
 \yellow{}
 
-Swarm是一个由用户运营的网络。网络中的每个节点都应该运行一个符合协议规范的客户端。在最低层，网络中的节点使用点对点网络协议作为它们的传输层进行连接。这个叫做\gloss{underlay network}。
-在它的总体设计中，Swarm与所使用的特定底层传输方式无关，只要它满足以下要求，就可以使用特定的底层传输。
+Swarm是一个由用户运营的网络。网络中的每个节点都应该运行一个符合协议规范的客户端。在最低层，网络中的节点使用点对点网络协议作为它们的传输层进行连接。这一层叫做\gloss{underlay network}。
+在其的总体设计中，Swarm与所使用的特定底层传输方式无关，只要传输方式满足以下要求：
 
 \begin{enumerate}
     \item \emph{addressing}—节点通过其\gloss{underlay address}进行识别。
-    \item \emph{dialling}—节点可以发起一个直接连接到一个peer通过拨号他们的底层地址。
-    \item \emph{listening}——节点可以侦听其他节点拨号，并可以接受传入连接。不接受传入连接的节点称为\glossplural{light node}。
-    \item \emph{live connection}——节点连接建立一个通信通道，该通道在显式断开连接之前保持活动，因此连接的存在意味着远程对等端在线并接受消息。
+    \item \emph{dialling}—节点可以通过拨号peer的底层地址直接对等端。
+    \item \emph{listening}——节点可以侦听其他节点拨号，并可以接受传入连接。不接受传入连接的节点称为轻节点（\glossplural{light node}）。
+    \item \emph{live connection}——节点连接建立一个通信通道，该通道在显式断开连接之前保持活跃，因此连接的存在意味着远程对等端在线并接受消息。
     \item \emph{channel security}——
 该信道提供身份验证，实现加密认证传输，抵御中间人攻击。
     \item \emph{protocol multiplexing}——
-底层网络服务可以容纳在同一连接上运行的多个协议。对等体用它们实现的名称和版本通信协议，底层服务识别兼容协议，并在每个匹配的协议上启动对等体连接。 
+底层网络服务可以容纳在同一连接上运行多个协议。对等体以它们实现协议的的名称和版本通信，底层服务识别兼容协议，并在每个匹配的协议上启动对等体连接。 
     \item \emph{delivery guarantees}——
-协议消息具有\gloss{guaranteed delivery}，即由于网络问题导致的传递失败导致直接错误响应。
+协议消息具有投递保证（\gloss{guaranteed delivery}），例如由于网络问题导致的传递失败将导致直接错误响应。
 保证每个协议中消息的传递顺序。
 理想情况下，底层协议提供优先级。
-如果协议多路复用在同一个传输通道上，这很可能意味着成帧，这样长消息就不会阻塞高优先级消息。
+如果协议多路复用在同一个传输通道上，这很可能意味着分帧传输，这样长消息就不会阻塞高优先级消息。
     \item \emph{serialisation}——
 协议消息构造支持任意数据结构序列化约定。
     
@@ -62,27 +62,27 @@ Swarm是一个由用户运营的网络。网络中的每个节点都应该运行
 
 \gloss{libp2p}库可以提供所有需要的功能，并且是规范中给出的底层连接驱动程序，请参阅\ref{spec:protocol:intro}.%
 %
-\footnote{Swarm目前的golang实现使用以太坊的\gloss{devp2p}/rlpx，它满足上述标准，并使用TCP/IP和自定义加密技术来保证安全性。devp2p使用的底层网络地址使用\gloss{enode URL scheme}表示。Devp2p根据协议的消息ID进行消息调度。它使用了RLP序列化，该序列化是用更高级别的数据类型表示约定扩展的。为了提供对以太坊1的支持。我们可以提供一个瘦的devp2p节点，它将查询代理到一个基于libp2p的Swarm客户端，或者仅仅使用它的API。否则，我们希望devp2p网络支持停止。}
+\footnote{当前Swarm的golang实现使用以太坊的\gloss{devp2p}/rlpx，它满足上述标准，并使用TCP/IP和自定义加密技术来保证安全性。devp2p使用的底层网络地址使用\gloss{enode URL scheme}表示。Devp2p根据协议的消息ID进行消息调度。它使用了RLP序列化，该序列化是用更高级别的数据类型表示约定扩展的。为了提供对以太坊1的支持。我们可以提供一个瘦的devp2p节点来代理查询到一个基于libp2p的Swarm客户端或使用它的API。否则，我们希望停止对devp2p网络的支持。}
 
 \subsection{Overlay addressing\statusgreen}\label{sec:overlay-addressing} 
 \green{}
 
-当客户端使用\gloss{underlay address}来建立与对等点的连接时，每个运行Swarm的节点都被额外标识为\gloss{overlay address}。正是这个地址决定了节点将连接到哪些对等点，并指导消息的转发方式。Overlay地址被认为是稳定的，因为它定义了节点跨会话的身份，并最终影响哪些内容最值得存储在节点的本地存储中。
+当客户端使用\gloss{underlay address}来建立与对等点的连接时，每个运行Swarm的节点都被额外标识为\gloss{overlay address}。正是这个地址决定了节点将连接到哪些对等点，并指导消息的转发方式。overlay地址被认为是稳定的，因为它定义了节点跨会话的身份，并最终影响哪些内容最值得存储在节点的本地存储中。
 
-该节点的\gloss{overlay address}来自以太坊账户，通过使用256位kecak算法(参见\ref{spec:format:bzzaddress})，将相应的椭圆曲线公钥与\gloss{BZZ network ID}哈希。包含BZZ网络ID的原因是可能存在许多群网络(例如\ test net, main net, or private Swarms)。 包括BZZ网络ID使得不可能跨网络使用相同的地址。假设任何独立选择的基础账户样本，所产生的Overlay地址有望在256位整数的地址空间中具有均匀分布。这对从公钥推导出地址很重要，因为它允许节点使用可由第三方验证的加密签名，发布与Overlay位置相关的承诺。 
+该节点的\gloss{overlay address}源自以太坊账户，通过256位kecak算法(参见\ref{spec:format:bzzaddress})将相应的椭圆曲线公钥与\gloss{BZZ network ID}哈希而来。包含BZZ网络ID的原因是可能存在许多群网络(例如\ test net, main net, or private Swarms)。 包括BZZ网络ID使得不可能跨网络使用相同的地址。假设任何独立选择的基础账户样本，所产生的Overlay地址有望在256位整数的地址空间中均匀分布。该假设对从公钥推导出地址很重要，因为它允许节点使用可由第三方验证的加密签名来发布与overlay位置相关的承诺。
 
-使用\gloss{underlay network}的长效通信通道，Swarm节点通过\emph{quasi-permanent}对等连接形成网络)。由此产生的连通性图可以实现在地址空间上定义的特定拓扑。所选的\gloss{overlay topology}称为\gloss{Kademlia}:它提供了一种策略，仅使用底层对等连接来中继消息，从而实现群网络中任意两个任意节点之间的通信。\ref{spec:protocol:hive}中描述了节点如何彼此共享关于自己和其他对等体的信息，称为“Hive”。在\ref{sec:bootstrapping}中讨论了节点如何使用该协议bootstrap \gloss{overlay topology}。\gloss{Kademlia topology}的理论基础在\ref{sec:kademlia-connectivity}中得到了严格的形式化证明。
+使用\gloss{underlay network}的长效通信通道，Swarm节点通过\emph{quasi-permanent}对等连接形成网络。由此产生的连通性图可以实现在地址空间上定义的特定拓扑。所选的\gloss{overlay topology}称为\gloss{Kademlia}:通过提供了一种仅使用底层对等连接的信息中继策略，实现Swarm网络中任意两个节点之间的通信。\ref{spec:protocol:hive}中描述了节点如何彼此共享关于自己和其他对等体的信息，称为“Hive”。在\ref{sec:bootstrapping}自举\gloss{overlay topology}。\gloss{Kademlia topology}的理论基础在\ref{sec:kademlia-connectivity}中得到了严格的形式化证明。
 
 至关重要的是，Overlay地址空间都是256位整数。Swarm的核心是\gloss{proximity order} (\gloss{PO})的概念，它在离散尺度上量化两个地址的相关性。%
 %
-\footnote{接近顺序是离散对数尺度的接近，反过来，是标准化的异或距离的倒数。参见\ref{sec:proximity}的正式定义。}
+\footnote{\gloss{proximity order}是离散对数尺度的距离，反过来，它是归一化的异或距离的倒数。参见\ref{sec:proximity}的正式定义。} 
 %
-给定两个地址$x$和$y$, $\mathit{PO}(x,y)$计算它们二进制表示的匹配位，从最有效位开始，直到第一个不同的位。因此，最高的接近顺序为256，表示最大的相关性，即$x=y$。
+给定两个地址$x$和$y$, $\mathit{PO}(x,y)$计算它们二进制表示的匹配位，从最高有效位开始，直到第一个不同的位。因此，最高的邻近阶为256，表示最大的相关性，即$x=y$。
 
 \subsection{Kademlia路由\statusgreen}\label{sec:kademlia-routing}
 \yellow{与附录一起返工}
 
-\glossupper{Kademlia topology}可以使用Overlay寻址在网络中的节点之间路由消息。它有很好的可扩展性，因为它允许通用路由，这样(1)跳数和(2)对等连接数总是对网络大小的对数。
+\glossupper{Kademlia topology}可以使用overlay寻址在网络中的节点之间路由消息。它有很好的可扩展性，因为它允许通用路由，这样(1)跳数和(2)对等连接数总是对网络大小的对数。
 
 在接下来的内容中，我们将展示两种常见的路由方式:\emph{iterative/zooming}和\emph{recursive/forwarding}。Swarm的设计关键在于选择了后者，即forwarding。然而，这是不寻常的，而且，由于recursive风格在许多P2P文献中占主导地位，而且大多数其他实现都使用recursive路由(参见\cite{maymounkov2002kademlia,baumgart2007s,lua2005survey})，我们认为让读者了解这两种方法是很有用的，以便揭示它们的特性。
 
