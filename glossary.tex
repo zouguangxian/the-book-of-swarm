@@ -3,15 +3,15 @@
 \longnewglossaryentry{node}{name=node}{}
 
 \longnewglossaryentry{fingerpointing}{name=fingerpointing}{允许上游同行在推迟责任的情况下将责任转嫁给下游同行的诉讼方案。}
-\longnewglossaryentry{Kademlia topology}{name=Kademlia topology, text=Kademlia拓扑, first={Kademlia拓扑(Kademlia topology)}}{一种无伸缩的网络拓扑结构，在$O(log(n))$跳中任意两个节点之间具有保证路径。}
+\longnewglossaryentry{Kademlia topology}{name=Kademlia topology, text=Kademlia拓扑, first={Kademlia拓扑}}{一种无伸缩的网络拓扑结构，在$O(log(n))$跳中任意两个节点之间具有保证路径。}
 \longnewglossaryentry{Kademlia connectivity}{name=Kademlia connectivity, text=Kademlia联通性, first={Kademlia联通性(Kademlia connectivity)}}{转发Kademlia时节点$x$的连接模式，其中:(1)每个PO bins $0<\leq i<d$中至少有一个peer，(2)网络中没有peer $y$，使得$\mathit{PO}(x,y) \geq d$和$y$没有连接到$x$。 }
 % \longnewglossaryentry{mutable resource update}{name=mutable resource update}{}
 % \longnewglossaryentry{resource update chunk}{name=resource update chunk}{}
 \longnewglossaryentry{forwarding Kademlia}{name=forwarding Kademlia, text=转发型Kademlia, first={转发Kademlia(forwarding Kademlia)}}{递归式的Kademlia路由，包括消息中继。}
 \longnewglossaryentry{Kademlia table}{name=Kademlia table, text=Kademlia表, first={Kademlia表(Kademlia table)}}{基于对等体地址相对于本地Overlay地址的接近顺序的对等体索引。}
 \longnewglossaryentry{saturated Kademlia table}{name=saturated Kademlia table, text=饱和Kademlia表, first={饱和Kademlia表(saturated Kademlia table)}}{具有饱和的Kademlia表的节点实现了Kademlia连接。}
-\longnewglossaryentry{retrieve request}{name=retrieve request, text=检索请求, first=检索请求(retrieve request), plural=retrieve requests}{请求基于块地址的块传递的点对点协议消息。}
-\longnewglossaryentry{proximity order}{name=proximity order, text=邻近阶, first=邻近阶段(proximity order)}{在离散尺度上对两个地址的关系的量度。}
+\longnewglossaryentry{retrieve request}{name=retrieve request, text=检索请求, first=检索请求, plural=检索请求, firstplural=检索请求}{请求基于块地址的块传递的点对点协议消息。}
+\longnewglossaryentry{proximity order}{name=proximity order, text=邻近度, first=邻近度(proximity order)}{在离散尺度上对两个地址的关系的量度。}
 \longnewglossaryentry{neighbourhood}{name=neighbourhood, text=近邻, first=近邻(neighbourhood)}{一个地址周围一定距离的区域。}
 \longnewglossaryentry{retrievability}{name=retrievability, text=检索能力, first=检索能力(retrievability)}{在网络中检索数据块的能力。}
 \longnewglossaryentry{routability}{name=routability, text=路由能力, first=路由能力(routability)}{将数据块路由到目的地的能力。}
@@ -24,7 +24,7 @@
 % \longnewglossaryentry{session syncing}{name=session syncing}{TBD}
 % \longnewglossaryentry{sync lag}{name=sync lag}{TBD}
 % \longnewglossaryentry{maturity}{name=maturity}{TBD}
-\longnewglossaryentry{chunk}{name=chunk, text=数据块, first=数据块(chunk), plural=chunks}{块是固定大小的数据块，是Swarm的DISC中存储的基本单位，以其地址作为密钥。有内容处理块和单个所有者块。}
+\longnewglossaryentry{chunk}{name=chunk, text=数据块, first=数据块(chunk), plural=数据块}{块是固定大小的数据块，是Swarm的DISC中存储的基本单位，以其地址作为密钥。有内容处理块和单个所有者块。}
 \longnewglossaryentry{proximity}{name=proximity, text=接近度, first=接近度(proximity)}{接近度度量Overlay地址空间中两个地址的相关性。它是归一化对数异或距离度量的倒数。}
 \longnewglossaryentry{saturation depth}{name=saturation depth, text=饱和深度, first=饱和深度(saturation depth)}{邻域深度在饱和(最小基数)约束的环境下，在最近的邻域之外的邻近箱子。}
 \longnewglossaryentry{area of responsibility}{name=area of responsibility}{在节点的邻近区域中Overlay地址空间的面积。存储节点负责属于该区域的块。}
@@ -39,25 +39,26 @@
 \longnewglossaryentry{plausible deniability}{name=plausible deniability, text=合理推诿, first=合理推诿(plausible deniability)}{否认他人犯下的任何罪行的能力。}
 \longnewglossaryentry{feeds}{name=feeds, text=流, first=流(feeds)}{一种基于单个所有者块的数据结构，适用于表示各种顺序数据，例如可变资源的版本更新或实时数据交换的索引消息，提供持久的拉消息传递系统。}
 \longnewglossaryentry{dapps}{name=dapps, text=去中心化应用, first=去中心化应用(dapps)}{应用程序受益于分散的基础设施。}
-\longnewglossaryentry{underlay network}{name=underlay network, text=底层网络, first=底层网络(underlay network)}{节点使用点对点网络协议作为其传输层进行连接的最低层基本网络。}
+\longnewglossaryentry{underlay network}{name=underlay network, text=underlay网络, first=underlay网络}{节点使用点对点网络协议作为其传输层进行连接的最低层基本网络。}
 \longnewglossaryentry{enode}{name=enode}{一种标识节点公钥、ip和主机端口的寻址方案。}
 \longnewglossaryentry{network ID}{name=network ID, text=网络标识符, first=网络标识符(network ID)}{用于区分Swarm网络(如主网、测试网等)的ID。}
-\longnewglossaryentry{overlay topology}{name=overlay topology, text=覆盖拓扑, first=覆盖拓扑(overlay topology)}{在底层网络上实现特定拓扑的连通性图。}
-\longnewglossaryentry{proximity order bin}{name=proximity order bin, text=邻近阶箱, first=邻近阶箱(proximity order bin), plural={proximity order bins}}{关于对等体的接近顺序的等价类。}
-\longnewglossaryentry{churn}{name=network churn, text=搅动, first=搅动(churn)}{网络中节点的积累和磨损的循环。}
+\longnewglossaryentry{overlay topology}{name=overlay topology, text=overlay拓扑, first=overlay拓扑}{在底层网络上实现特定拓扑的连通性图。}
+\longnewglossaryentry{proximity order bin}{name=proximity order bin, text=邻近度仓, first=邻近度仓(proximity order bin), firstplural=邻近度仓(proximity order bins), plural=邻近度仓}{关于对等体的接近顺序的等价类。}
+\longnewglossaryentry{bin}{name=bin, text=仓, first=仓(bin)}{\gloss{proximity order bin}}
+\longnewglossaryentry{churn}{name=network churn, text=抖动, first=抖动(churn)}{网络中节点的积累和磨损的循环。}
 \longnewglossaryentry{hive protocol}{name=hive protocol, text=蜂巢协议, first=蜂巢协议(hive protocol)}{加入网络的协议节点用来发现它们的对等体。}
 \longnewglossaryentry{address book}{name=address book, text=地址簿, first=地址簿(address book)}{一个同侪的已知地址的Kademlia表。}
 \longnewglossaryentry{immutable}{name=immutable chunk store, text=不变块存储, first=不变块存储(immutable)}{块上没有可用的替换/更新操作。}
 \longnewglossaryentry{reference}{name=chunk reference, text=块引用, first=块引用(reference)}{检索和读取块所需的信息;它是带有可选解密密钥的地址，用于加密块。}
-\longnewglossaryentry{content addressed chunk}{name=content addressed chunk, text=内容索引块, first=内容索引块(content addressed chunk), plural=content addressed chunks}{如果块内容决定了块地址，那么块就是内容寻址。地址通常表示使用某种哈希函数的数据的指纹或摘要。Swarm中的默认内容寻址块使用带有kecak256基哈希的二进制Merkle树哈希算法来确定其地址。}
-\longnewglossaryentry{single owner chunk}{name=single owner chunk, text=独主块, first=独主块(single owner chunk), plural=single owner chunks}{Swarm中的一种特殊类型的块，其完整性由其有效载荷与由其所有者签名证明的标识符相关联而得到。标识符和所有者的帐户确定块地址。}
+\longnewglossaryentry{content addressed chunk}{name=content addressed chunk, text=内容索引块, first=内容索引块(content addressed chunk), plural=内容索引块, firstplural=内容索引块(content addressed chunks)}{如果块内容决定了块地址，那么块就是内容寻址。地址通常表示使用某种哈希函数的数据的指纹或摘要。Swarm中的默认内容寻址块使用带有kecak256基哈希的二进制Merkle树哈希算法来确定其地址。}
+\longnewglossaryentry{single owner chunk}{name=single owner chunk, text=独主块, first=独主块(single owner chunk), plural=独主块, firstplural=独主块(single owner chunks)}{Swarm中的一种特殊类型的块，其完整性由其有效载荷与由其所有者签名证明的标识符相关联而得到。标识符和所有者的帐户确定块地址。}
 \longnewglossaryentry{garbage collection}{name=garbage collection, text=垃圾回收, first=垃圾回收(garbage collection)}{有选择地从节点的本地存储中清除块的过程。}
 \longnewglossaryentry{garbage collection strategy}{name=garbage collection strategy, text=垃圾回收策略, first=垃圾回收策略(garbage collection strategy)}{指定选择哪些块进行垃圾收集的过程。}
 \longnewglossaryentry{direct delivery}{name=direct delivery, text=直投, first=直投(direct delivery)}{块的传递通过较低层次的网络协议一步完成。}
 \longnewglossaryentry{backwarding}{name=backwarding, text=后向, first=后向(backwarding)}{将响应传递到转发请求的一种方法，响应只是按照请求路由返回到发起者。}
 \longnewglossaryentry{routed delivery}{name=routed delivery, text=路由投送, first=路由投送(routed delivery)}{使用独立于初始请求的Kademlia路由实现块交付的假设方法。}
 \longnewglossaryentry{opportunistic caching}{name=opportunistic caching, text=伺机缓存, first=伺机缓存(opportunistic caching)}{当转发节点接收到一个块时，该块将被保存，以防再次请求。}
-\longnewglossaryentry{light node}{name=light node, text=轻节点, first=轻节点(light node), plural={light nodes}}{轻节点的概念是指在低带宽环境下需要的一种特殊的操作方式，例如低吞吐量网络上的移动设备或只允许瞬态或小容量存储的设备。这样的节点不接受传入的连接。}
+\longnewglossaryentry{light node}{name=light node, text=轻节点, first=轻节点(light node), firstplural=轻节点(light node), plural={轻节点(light node)}}{轻节点的概念是指在低带宽环境下需要的一种特殊的操作方式，例如低吞吐量网络上的移动设备或只允许瞬态或小容量存储的设备。这样的节点不接受传入的连接。}
 \longnewglossaryentry{chequebook contract}{name=chequebook contract, text=支票簿合约, first=支票簿合约(chequebook contract)}{允许受益人选择何时处理付款的智能合约。}
 \longnewglossaryentry{global balance}{name=global balance, text=全局余额, first=全局余额(global balance)}{存入支票本作为支票抵押品的金额。}
 \longnewglossaryentry{newcomer}{name=newcomer, text=新人, first=新人(newcomer)}{进入蜂Swarm系统的一方没有流动资金。}
@@ -84,11 +85,11 @@
 \longnewglossaryentry{RLP}{name=RLP}{一种编码方案，用于对任意嵌套的二进制数据数组进行编码。}
 
 \longnewglossaryentry{distributed immutable store for chunks}{name=distributed immutable store for chunks, text=数据块的去中心化不可变存储, first=数据块的去中心化不可变存储(distributed immutable store for chunk)}{Swarm版本的用于存储文件的分布式哈希表。Swarm并没有保存一个文件列表，而是直接将文件片段存储在节点上。}
-\longnewglossaryentry{distributed hash table}{name=distributed hash table, text=分布式哈希表, first=分布式哈希表(distributed hash table), plural=distributed hash tables}{提供查找服务的分布式系统，任何参与节点都可以使用该服务有效地检索与给定键相关联的值。 }
-\longnewglossaryentry{binary Merkle tree}{name={binary Merkle tree}, text=二分梅克尔树, first=二分梅克尔树(binary Merkle tree)}{一种二叉树，其中每个叶节点都用数据块的加密哈希标记，而每个非叶节点都用其子节点的标签哈希标记。}
-\longnewglossaryentry{binary Merkle tree chunk}{name=binary Merkle tree chunk, text=二分梅克尔树块, first=二分梅克尔树块(binary Merkle tree chunk)}{在Swarm中处理块的规范内容。}
-\longnewglossaryentry{binary Merkle tree hash}{name=binary Merkle tree hash, text=二分梅克尔树哈希, first=二分梅克尔树哈希(binary Merkle tree hash)}{用于计算二进制Merkle树块地址的方法。}
-\longnewglossaryentry{bzz account}{name=bzz account, text=bzz账号, first=bzz账号(bzz account)}{Swarm中的一个账号，也可以参见\gloss{Swarm base account}。}
+\longnewglossaryentry{distributed hash table}{name=distributed hash table, text=分布式哈希表, first=分布式哈希表, plural=分布式哈希表}{提供查找服务的分布式系统，任何参与节点都可以使用该服务有效地检索与给定键相关联的值。 }
+\longnewglossaryentry{binary Merkle tree}{name={binary Merkle tree}, text=二叉梅克尔树, first=二叉梅克尔树(binary Merkle tree)}{一种二叉树，其中每个叶节点都用数据块的加密哈希标记，而每个非叶节点都用其子节点的标签哈希标记。}
+\longnewglossaryentry{binary Merkle tree chunk}{name=binary Merkle tree chunk, text=二叉梅克尔树块, first=二叉梅克尔树块(binary Merkle tree chunk)}{在Swarm中处理块的规范内容。}
+\longnewglossaryentry{binary Merkle tree hash}{name=binary Merkle tree hash, text=二叉梅克尔树哈希, first=二叉梅克尔树哈希(binary Merkle tree hash)}{用于计算二进制Merkle树块地址的方法。}
+\longnewglossaryentry{bzz account}{name=bzz account, text=bzz账号, first=bzz账号}{Swarm中的一个账号，也可以参见\gloss{Swarm base account}。}
 \longnewglossaryentry{enode URL scheme}{name=enode URL scheme, text=enode网址方案, first=enode网址方案(enode URL scheme)}{描述以太坊节点的URL方案。}
 \longnewglossaryentry{mining chunks}{name=mining chunks, text=缺失块, first=缺失块(mining chunks)}{块挖掘的一个例子是生成块内容的加密变体，使生成的块地址满足某些约束，例如\ is closer to or farther away from a particular address.}
 \longnewglossaryentry{chunk value}{name=chunk value, text=块值, first=块值(chunk value)}{大块价值是由印章的邮资批次的价格决定的。当节点进行垃圾收集时，它用于确定块的顺序。}
@@ -104,7 +105,7 @@
 \longnewglossaryentry{upload tag}{name=upload tag, text=上传标签, first=上传标签(upload tag)}{一个对象，表示上传并通过计算有多少块达到特定状态来跟踪进度。}
 \longnewglossaryentry{singleton manifest}{name=singleton manifest, text=单例清单, first=单例清单(singleton manifest)}{包含文件的单个条目的清单。}
 \longnewglossaryentry{range queries}{name=range queries, text=范围查询, first=范围查询(range queries)}{范围查询将触发对Overlay所需范围的所有文件块的检索，但只检索那些块。}
-\longnewglossaryentry{BZZ network ID}{name=bzz network ID, text=bzz网络标识符号, first=bzz网络标识符(bzz network ID)}{Swarm网络ID。}
+\longnewglossaryentry{BZZ network ID}{name=bzz network ID, text=bzz网络标识符号, first=bzz网络标识符}{Swarm网络ID。}
 \longnewglossaryentry{Kademlia}{name=Kademlia}{一种基于位前缀长度的网络连接或路由方案，用于分布式哈希表。}
 \longnewglossaryentry{reference count}{name=reference count, text=引用次数, first=引用次数(reference count)}{块的一种属性，用于防止它被垃圾回收。当块被钉住和未钉住时，它分别增加和减少。}
 \longnewglossaryentry{cheque}{name=cheque, text=支票, first=支票(cheque), plural=cheques}{一种链下支付方式，发行方在支票上签字，注明受益人、日期和金额，并将支票交给收款人，作为在以后日期支付的承诺标记。}
@@ -117,9 +118,9 @@
 \longnewglossaryentry{aligned incentives}{name=aligned incentives, text=对齐激励, first=对齐激励(aligned incentives)}{奖励/惩罚的方式，使行动者倾向于期望的行为。}
 \longnewglossaryentry{forwarding lag}{name=forwarding lag, text=转发延迟, first=转发延迟(forwarding lag)}{健康节点可以转发消息的时间。}
 \longnewglossaryentry{sender anonymity}{name=sender anonymity, text=发送者匿名性, first=发送者匿名性(sender anonymity)}{由于请求是从点对点转发的，请求级联中更低的部分永远不可能知道请求的发起者是谁。}
-\longnewglossaryentry{decentralised network}{name=decentralised network, text=去中心化网络, first=去中心化网络(decentralised network)}{一种没有其他节点依赖的中心节点的网络。}
-\longnewglossaryentry{load balancing}{name=load balancing, text=负载均衡, first=负载均衡(load balancing)}{将一组任务分配到一组节点上以提高效率的过程。}
-\longnewglossaryentry{redundancy}{name=redundancy, text=冗余, first=冗余(redundancy)}{在分布式块存储的上下文中，冗余是由冗余副本或所谓的奇偶提供的，它们有助于块存储在面对篡改和垃圾收集时的恢复能力。}
+\longnewglossaryentry{decentralised network}{name=decentralised network, text=去中心化网络, first=去中心化网络}{一种没有其他节点依赖的中心节点的网络。}
+\longnewglossaryentry{load balancing}{name=load balancing, text=负载均衡, first=负载均衡}{将一组任务分配到一组节点上以提高效率的过程。}
+\longnewglossaryentry{redundancy}{name=redundancy, text=冗余, first=冗余}{在分布式块存储的上下文中，冗余是由冗余副本或所谓的奇偶提供的，它们有助于块存储在面对篡改和垃圾收集时的恢复能力。}
 \longnewglossaryentry{inclusion proofs}{name=inclusion proofs, text=包含证明, first=包含证明(inclusion proofs)}{一个字符串是另一个字符串的子字符串的证明，例如一个字符串包含在一个块中。}
 \longnewglossaryentry{span value}{name=span value, text=跨度值, first=跨度值(span value)}{包含在中间块下的数据跨度长度的一种8字节编码。}
 \longnewglossaryentry{neighbourhood size}{name=neighbourhood size, text=近邻规模, first=近邻规模(neighbourhood size)}{节点的最近邻居数。 }
@@ -161,16 +162,16 @@ resource updates, text=可变资源更新, first=可变资源更新(mutable reso
 \longnewglossaryentry{statement of custody receipt}{name=statement of custody receipt, text=保管收据声明, first=保管收据声明(statement of custody receipt) }{块\gloss{push syncing}成功后，存储节点向上传器发送的收据。}
 \longnewglossaryentry{anonymous uploads}{name=anonymous uploads, text=匿名上传, first=匿名上传(anonymous uploads)}{上传利用转发Kademlia路由，同时保持上传者的身份隐藏。}
 \longnewglossaryentry{pull syncing}{name=pull syncing, text=拉式同步, first=拉式同步(pull syncing)}{一种网络协议，通过某个节点拉块来实现最终的一致性和最大的资源利用率。}
-\longnewglossaryentry{upstream peer}{name=upstream peer, text=上游对端, first=上游对端(upstream peer)}{在转发链中位于其他对等体之前的对等体。}
-\longnewglossaryentry{forwarding node}{name={forwarding node}, text=转发节点, first=转发节点(forwarding node), plural={forwarding nodes},parent={node}}{参与转发消息的节点。}
+\longnewglossaryentry{upstream peer}{name=upstream peer, text=上游对等节点, first=上游对等节点(upstream peer)}{在转发链中位于其他对等体之前的对等体。}
+\longnewglossaryentry{forwarding node}{name={forwarding node}, text=转发节点, first=转发节点(forwarding node), firstplural={转发节点(forwarding nodes)}, plural={转发节点},parent={node}}{参与转发消息的节点。}
 \longnewglossaryentry{net user}{name=net user, text=净赚用户, first=净赚用户(net user), plural=net users}{一个节点在Swarm网络中使用的资源多于它提供的资源。}
 \longnewglossaryentry{net provider}{name=net provider, text=净赚供应者, first=净赚供应者(net provider), plural=net providers}{Swarm网络提供的资源比使用的资源多的节点。}
 \longnewglossaryentry{honey token}{name=honey token, text=蜜币, first=蜜币(honey token)}{TBD}
 \longnewglossaryentry{spurious hop}{name=spurious hop, text=假跳, first=假跳(spurious hop)}{在不增加与目标地址的距离的情况下，将流量转发到一个节点。}
 \longnewglossaryentry{payment threshold}{name=payment threshold, text=支付阀值, first=支付阀值(payment threshold)}{签发支票的债务的价值。}
 \longnewglossaryentry{effective settlement threshold}{name=effective settlement threshold, text=有效偿付阀值, first=有效偿付阀值(effective settlement threshold)}{TBD}
-\longnewglossaryentry{peer}{name=peer, text=对端, first=对端(peer), plural=peers}{与特定节点$x$相关的节点称为$x$的节点。}
-\longnewglossaryentry{downstream peer}{name=downstream peer, text=下游对端, first=下游对端(downstream peer), parent={peer}}{在转发链中成功转发其他对等体的对等体。}
+\longnewglossaryentry{peer}{name=peer, text=对等节点, first=对等节点(peer), firstplural=对等节点群(peers), plural=对等节点群}{与特定节点$x$相关的节点称为$x$的节点。}
+\longnewglossaryentry{downstream peer}{name=downstream peer, text=下游对等节点, first=下游对等节点(downstream peer), parent={peer}}{在转发链中成功转发其他对等体的对等体。}
 \longnewglossaryentry{disconnect threshold}{name=disconnect threshold, text=断开阀值, first=断开阀值(disconnect threshold)}{对等点之间的债务阈值，确定断开债务中的对等点的债务值。}
 \longnewglossaryentry{uniformity requirement}{name=uniformity requirement, text=一致性要求, first=一致性要求(uniformity requirement)}{使用相同批标识符签名的邮资批的约束不能具有大于深度的公共前缀。}
 \longnewglossaryentry{prefix collision}{name=prefix collision, text=前缀碰撞, first=前缀碰撞(prefix collision)}{在邮票上下文中，批处理的所有者将一个邮票附加到两个具有比批处理深度更长的共享前缀的块。}
@@ -198,7 +199,7 @@ resource updates, text=可变资源更新, first=可变资源更新(mutable reso
 \longnewglossaryentry{World Wide Web}{name=World Wide Web}{因特网的一部分，文件和其他网络资源由统一资源定位器识别，并通过超文本相互连接。}
 \longnewglossaryentry{Web 1.0}{name=Web 1.0, parent={World Wide Web}}{在这些网站上，人们只能被动地浏览内容。}
 \longnewglossaryentry{Web 2.0}{name=Web 2.0, parent={World Wide Web}}{描述为最终用户强调用户生成内容、易用性、参与性文化和复杂用户界面的网站。}
-\longnewglossaryentry{peer-to-peer}{name=peer-to-peer}{一种将任务或工作量分配给同等特权参与者的网络。}
+\longnewglossaryentry{peer-to-peer}{name=peer-to-peer, text=P2P, first=P2P(peer-to-peer)}{一种将任务或工作量分配给同等特权参与者的网络。}
 \longnewglossaryentry{Web 3.0}{name=Web 3.0, parent={World Wide Web}}{一种去中心化、抵制审查的分享方式，甚至集体创造互动内容，同时保留对其的完全控制。}
 \longnewglossaryentry{BitTorrent}{name=BitTorrent}{一种用于点对点文件共享的通信协议，用于在因特网上分发数据和电子文件。}
 \longnewglossaryentry{seeder}{name=seeder, text=做种人, first=做种人(seeder)}{用户托管的内容在BitTorrent点对点文件交换协议。}
@@ -211,25 +212,25 @@ resource updates, text=可变资源更新, first=可变资源更新(mutable reso
 \longnewglossaryentry{data slavery}{name=data slavery, text=数据奴隶, first=数据奴隶(data slavery)}{个人被公司用于商业目的的个人资料，陷入无法控制或无法获得足够报酬的情况下。}
 \longnewglossaryentry{collective information}{name=collective information, text=集体信息, first=集体信息(collective information)}{由集体努力产生的数据，如公共论坛、评论、投票、民意调查、维基百科上的数据。}
 \longnewglossaryentry{data silo}{name=data silo, text=数据孤岛, first=数据孤岛(data silo), plural={data silos}}{组织中与组织的其他部分隔离且不能访问的信息的集合。更笼统地说，大型数据集往往是企业自己保留的。}
-\longnewglossaryentry{distributed storage}{name=distributed storage, text=分布式存储, first=分布式存储(distributed storage)}{一种存储网络，其中信息存储在一个以上的节点上，可能采用复制的方式。}
-\longnewglossaryentry{overlay network}{name=overlay network, text=底层网络, first=底层网络(overlay network)}{Swarm次级概念网络的连通性模式，一种Overlay在\gloss{underlay network}基础上的第二网络方案。}
-\longnewglossaryentry{overlay address space}{name=overlay address space, text=底层网络地址空间, first=底层网络地址空间(overlay address space)}{OverlaySwarm网络的地址空间由256位整数组成。}
-\longnewglossaryentry{underlay address}{name=underlay address, text=底层地址, first=底层地址(underlay address)}{底层网络中Swarm节点的地址。它可能不会在两次会议之间保持稳定。}
+\longnewglossaryentry{distributed storage}{name=distributed storage, text=分布式存储, first=分布式存储}{一种存储网络，其中信息存储在一个以上的节点上，可能采用复制的方式。}
+\longnewglossaryentry{overlay network}{name=overlay network, text=overlay网络, first=overlay网络}{Swarm次级概念网络的连通性模式，一种Overlay在\gloss{underlay network}基础上的第二网络方案。}
+\longnewglossaryentry{overlay address space}{name=overlay address space, text=overlay网络地址空间, first=overlay网络地址空间}{OverlaySwarm网络的地址空间由256位整数组成。}
+\longnewglossaryentry{underlay address}{name=underlay address, text=underlay地址, first=underlay地址}{底层网络中Swarm节点的地址。它可能不会在两次会议之间保持稳定。}
 \longnewglossaryentry{protocol multiplexing}{name=protocol multiplexing, text=协议多路复用, first=协议多路复用(protocol multiplexing)}{底层网络服务可以容纳在同一连接上运行的多个独立协议。}
 \longnewglossaryentry{devp2p}{name=devp2p}{一组网络协议，形成以太坊点对点网络。作为一组具有相同名称的编程库实现。}
 \longnewglossaryentry{libp2p}{name=libp2p}{用于构建对等网络应用程序的框架和协议套件。 }
-\longnewglossaryentry{overlay address}{name=overlay address, text=覆盖地址, first=覆盖地址(overlay address)}{确定了运行Swarm的每个节点的地址。它是通信的基础，即使底层地址发生变化，它也能在会话之间保持稳定。}
+\longnewglossaryentry{overlay address}{name=overlay address, text=overlay地址, first=overlay地址}{确定了运行Swarm的每个节点的地址。它是通信的基础，即使底层地址发生变化，它也能在会话之间保持稳定。}
 \longnewglossaryentry{nearest neighbours}{name=nearest neighbours, text=最近邻, first=最近邻(nearest neighbours)}{一般是指离节点最近的节点。特别是那些居住在相邻区域内的人。}
 \longnewglossaryentry{PO bin}{name=PO bin, text=PO箱, first=PO箱(PO bin), parent={proximity order bin}}{一种容器，其中包含与起源节点具有相同的相对邻近顺序的节点。}
 \longnewglossaryentry{routing}{name=routing, text=路由, first=路由(routing)}{通过更接近目的地的对等点链来中继消息。}
 \longnewglossaryentry{balanced binary tree}{name=balanced binary tree, text=平衡二叉树, first=平衡二叉树(balanced binary tree)}{一种二叉树，其中每个节点的子树高度不超过1。}
-\longnewglossaryentry{proximity order boundary}{name=proximity order boundary, text=邻近阶边界, first=邻近阶边界(proximity order boundary)}{职责区域的这样一个边界为节点定义了一个\gloss{radius of responsibility}。}
+\longnewglossaryentry{proximity order boundary}{name=proximity order boundary, text=邻近度边界, first=邻近度边界(proximity order boundary)}{职责区域的这样一个边界为节点定义了一个\gloss{radius of responsibility}。}
 \longnewglossaryentry{empty bin}{name=empty bin, text=空箱, first=空箱(empty bin)}{通讯录接近指令箱没有对等。}
 \longnewglossaryentry{bottom-up  depth-first strategy}{name={bottom-up, depth-first strategy}, text=自底向上深度优先策略, first={自底向上深度优先策略(bottom-up, depth-first strategy)}, parent={Kademlia}}{发现对等点的方法，其中用一个对等点填充一个空容器比向一个非空容器添加一个新对等点更重要。}
 \longnewglossaryentry{identifier}{name=identifier, text=身份, first=身份(identifier), parent={single owner chunk}}{32字节的密钥 
 在单个所有者块中使用:有效负载由所有者对其签名，并与所有者的帐户散列在一起得到地址。}
 \longnewglossaryentry{owner}{name=owner, text=属主, text=属主(owner), parent={single owner chunk}}{单个所有者块的所有者的帐户。}
-\longnewglossaryentry{payload}{name=payload, text=载荷, first=载荷(single owner chunk), parent={single owner chunk}}{单个所有者块的一部分，最大大小为常规块数据的4096字节。}
+\longnewglossaryentry{payload}{name=payload, text=载荷, first=载荷, parent={single owner chunk}}{单个所有者块的一部分，最大大小为常规块数据的4096字节。}
 \longnewglossaryentry{topic}{name=topic, text=主题, first=主题(topic)}{由创建节点选择的任意标识符，用于区分数据结构。}
 \longnewglossaryentry{redundant Kademlia connectivity}{name=redundant Kademlia connectivity, text=冗余Kademlia联通性, first=冗余Kademlia联通性(redundant Kademlia connectivity)}{卡德米利亚连通性，一些同行可能会搅乱，但卡德米利亚连通性仍然存在。}
 \longnewglossaryentry{stable node}{name=stable node, text=稳定节点, first=稳定节点(stable node), plural={stable nodes}, parent={node}}{稳定在线的节点。}
