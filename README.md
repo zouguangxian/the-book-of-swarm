@@ -37,3 +37,9 @@ texliveonfly -c xelatex main
 latexmk -C -xelatex main
 latexmk -pdf -xelatex main
 ````
+
+# Build with Pandoc
+[pandoc-latex-cjk](https://github.com/zouguangxian/pandoc-latex-cjk)
+````
+docker run -it --rm -v $PWD:/work -w /work --entrypoint /bin/sh pandoc/alpine-latex-cjk:2.14.0.3
+````
