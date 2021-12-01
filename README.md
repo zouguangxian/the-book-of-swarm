@@ -34,8 +34,8 @@ tlmgr install tex-gyre tex-gyre-math palatino
 # Compile
 ````
 texliveonfly -c xelatex main
-latexmk -C -xelatex main
-latexmk -pdf -xelatex main
+latexmk -pdflatex=xelatex -xelatex -outdir=build/ -C main
+latexmk -pdflatex=xelatex -xelatex -outdir=build/ -pdf main
 ````
 
 # Build with Pandoc
